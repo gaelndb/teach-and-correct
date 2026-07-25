@@ -1,0 +1,4 @@
+.DS_Store
+
+# Local files not versioned by Git
+tmp/
