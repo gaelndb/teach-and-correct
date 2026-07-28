@@ -1,4 +1,4 @@
-import type { Student } from '@/features/dashboard/types/student'
+import type { Student } from '@/types/student'
 
 type StudentTableProps = {
   students: Student[]

@@ -2,13 +2,13 @@ import { ArrowLeft, Search } from 'lucide-react'
 import { useMemo, useState } from 'react'
 
 import { Button } from '@/components/ui/button'
-import { students } from '@/features/dashboard/mocks/students'
-import { DashboardStats } from '@/features/dashboard/components/dashboard-stats'
-import { ScanButton } from '@/features/dashboard/components/scan-button'
-import { StudentCopiesModal } from '@/features/dashboard/components/student-copies-modal'
-import { StudentDetailsPanel } from '@/features/dashboard/components/student-details-panel'
-import { StudentTable } from '@/features/dashboard/components/student-table'
-import type { Student } from '@/features/dashboard/types/student'
+import { students } from '@/mocks/dashboard/students'
+import { DashboardStats } from '@/components/dashboard/dashboard-stats'
+import { ScanButton } from '@/components/dashboard/scan-button'
+import { StudentCopiesModal } from '@/components/dashboard/student-copies-modal'
+import { StudentDetailsPanel } from '@/components/dashboard/student-details-panel'
+import { StudentTable } from '@/components/dashboard/student-table'
+import type { Student } from '@/types/student'
 
 type DashboardPageProps = {
   onBackToLanding: () => void

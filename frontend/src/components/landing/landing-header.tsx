@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button'
-import { BrandLogo } from '@/features/landing/components/brand-logo'
+import { BrandLogo } from '@/components/landing/brand-logo'
 
 const navigationItems = [
   { label: 'Fonctionnement', href: '#fonctionnement' },

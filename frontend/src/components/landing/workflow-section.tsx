@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { workflowSteps } from '@/features/landing/mocks/workflow'
+import { workflowSteps } from '@/mocks/landing/workflow'
 
 const workflowCardStyles = [
   {
