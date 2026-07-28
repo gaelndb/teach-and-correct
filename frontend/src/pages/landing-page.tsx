@@ -1,6 +1,6 @@
-import { HeroSection } from '@/features/landing/components/hero-section'
-import { LandingHeader } from '@/features/landing/components/landing-header'
-import { WorkflowSection } from '@/features/landing/components/workflow-section'
+import { HeroSection } from '@/components/landing/hero-section'
+import { LandingHeader } from '@/components/landing/landing-header'
+import { WorkflowSection } from '@/components/landing/workflow-section'
 
 type LandingPageProps = {
   onOpenDashboard: () => void

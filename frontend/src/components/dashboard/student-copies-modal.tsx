@@ -1,7 +1,7 @@
 import { X } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
-import type { Student } from '@/features/dashboard/types/student'
+import type { Student } from '@/types/student'
 
 type StudentCopiesModalProps = {
   student: Student

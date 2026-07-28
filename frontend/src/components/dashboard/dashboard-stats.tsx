@@ -1,7 +1,7 @@
 import { CheckCircle2, FileText, GraduationCap, Users } from 'lucide-react'
 
 import { Card } from '@/components/ui/card'
-import type { Student } from '@/features/dashboard/types/student'
+import type { Student } from '@/types/student'
 
 type DashboardStatsProps = {
   students: Student[]

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
-import { DashboardPage } from '@/features/dashboard/dashboard-page'
-import { LandingPage } from '@/features/landing/landing-page'
+import { DashboardPage } from '@/pages/dashboard-page'
+import { LandingPage } from '@/pages/landing-page'
 
 type CurrentPage = 'landing' | 'dashboard'
 
