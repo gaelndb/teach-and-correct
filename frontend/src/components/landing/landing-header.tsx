@@ -25,9 +25,14 @@ export function LandingHeader({ onOpenDashboard }: LandingHeaderProps) {
           ))}
         </nav>
 
-        <Button size="sm" onClick={onOpenDashboard}>
-          Connexion
-        </Button>
+        <div className="flex items-center gap-3">
+          <Button size="sm" onClick={onOpenDashboard}>
+            Connexion
+          </Button>
+          <Button size="sm" variant="secondary">
+            Inscription
+          </Button>
+        </div>
       </div>
     </header>
   )
