@@ -2,14 +2,7 @@ import { X, UserPlus } from 'lucide-react'
 import { FormEvent, useMemo, useState } from 'react'
 
 import { Button } from '@/components/ui/button'
-
-export type SignupFormValues = {
-  firstName: string
-  lastName: string
-  email: string
-  password: string
-  confirmPassword: string
-}
+import type { SignupFormValues } from '@/types/auth'
 
 type SignupModalProps = {
   isOpen: boolean
