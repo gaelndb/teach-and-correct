@@ -11,10 +11,14 @@ import { StudentTable } from '@/components/dashboard/student-table'
 import type { Student } from '@/types/student'
 
 type DashboardPageProps = {
+  teacher: {
+    firstName: string
+    lastName: string
+  } | null
   onBackToLanding: () => void
 }
 
-export function DashboardPage({ onBackToLanding }: DashboardPageProps) {
+export function DashboardPage({ teacher, onBackToLanding }: DashboardPageProps) {
   const [selectedStudent, setSelectedStudent] = useState<Student>(students[0])
   const [isCopiesModalOpen, setIsCopiesModalOpen] = useState(false)
   const [search, setSearch] = useState('')
@@ -46,7 +50,9 @@ export function DashboardPage({ onBackToLanding }: DashboardPageProps) {
             </Button>
             <div>
               <p className="text-sm font-black uppercase tracking-[0.24em] text-violet">Dashboard professeur</p>
-              <h1 className="mt-1 text-3xl font-black text-foreground">Bonjour, professeur 👋</h1>
+              <h1 className="mt-1 text-3xl font-black text-foreground">
+                Bonjour, {teacher ? `${teacher.firstName} ${teacher.lastName}` : 'professeur'} 👋
+              </h1>
             </div>
           </div>
 
