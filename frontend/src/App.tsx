@@ -2,17 +2,42 @@ import { useState } from 'react'
 
 import { DashboardPage } from '@/pages/dashboard-page'
 import { LandingPage } from '@/pages/landing-page'
+import type { SignupFormValues } from '@/components/landing/signup-modal'
 
 type CurrentPage = 'landing' | 'dashboard'
 
+type RegisteredTeacher = {
+  firstName: string
+  lastName: string
+}
+
 function App() {
   const [currentPage, setCurrentPage] = useState<CurrentPage>('landing')
+  const [registeredTeacher, setRegisteredTeacher] = useState<RegisteredTeacher | null>(null)
 
-  if (currentPage === 'dashboard') {
-    return <DashboardPage onBackToLanding={() => setCurrentPage('landing')} />
+  function handleSignup(values: SignupFormValues) {
+    setRegisteredTeacher({
+      firstName: values.firstName.trim(),
+      lastName: values.lastName.trim(),
+    })
+    setCurrentPage('dashboard')
   }
 
-  return <LandingPage onOpenDashboard={() => setCurrentPage('dashboard')} />
+  if (currentPage === 'dashboard') {
+    return (
+      <DashboardPage
+        teacher={registeredTeacher}
+        onBackToLanding={() => setCurrentPage('landing')}
+      />
+    )
+  }
+
+  return (
+    <LandingPage
+      onOpenDashboard={() => setCurrentPage('dashboard')}
+      onSignup={handleSignup}
+    />
+  )
 }
 
 export default App
