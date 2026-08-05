@@ -9,9 +9,10 @@ const navigationItems = [
 
 type LandingHeaderProps = {
   onOpenDashboard: () => void
+  onOpenSignup: () => void
 }
 
-export function LandingHeader({ onOpenDashboard }: LandingHeaderProps) {
+export function LandingHeader({ onOpenDashboard, onOpenSignup }: LandingHeaderProps) {
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-white/50 bg-background/85 backdrop-blur-xl">
       <div className="container flex h-20 items-center justify-between">
@@ -29,7 +30,7 @@ export function LandingHeader({ onOpenDashboard }: LandingHeaderProps) {
           <Button size="sm" onClick={onOpenDashboard}>
             Connexion
           </Button>
-          <Button size="sm" variant="secondary">
+          <Button size="sm" variant="secondary" onClick={onOpenSignup}>
             Inscription
           </Button>
         </div>
