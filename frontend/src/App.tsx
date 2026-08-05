@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import { DashboardPage } from '@/pages/dashboard-page'
 import { LandingPage } from '@/pages/landing-page'
-import type { SignupFormValues } from '@/components/landing/signup-modal'
+import type { SignupFormValues } from '@/types/auth'
 
 type CurrentPage = 'landing' | 'dashboard'
 

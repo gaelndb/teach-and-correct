@@ -2,7 +2,8 @@ import { useState } from 'react'
 
 import { HeroSection } from '@/components/landing/hero-section'
 import { LandingHeader } from '@/components/landing/landing-header'
-import { SignupModal, type SignupFormValues } from '@/components/landing/signup-modal'
+import { SignupModal } from '@/components/landing/signup-modal'
+import type { SignupFormValues } from '@/types/auth'
 import { WorkflowSection } from '@/components/landing/workflow-section'
 
 type LandingPageProps = {
