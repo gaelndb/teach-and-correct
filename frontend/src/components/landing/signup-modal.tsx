@@ -2,6 +2,7 @@ import { X, UserPlus } from 'lucide-react'
 import { FormEvent, useMemo, useState } from 'react'
 
 import { Button } from '@/components/ui/button'
+import { validateSignupForm } from '@/lib/authFormValidationUtils'
 import type { SignupFormValues } from '@/types/auth'
 
 type SignupModalProps = {
@@ -10,44 +11,12 @@ type SignupModalProps = {
   onSubmit: (values: SignupFormValues) => void
 }
 
-type SignupFormErrors = Partial<Record<keyof SignupFormValues, string>>
-
 const initialFormValues: SignupFormValues = {
   firstName: '',
   lastName: '',
   email: '',
   password: '',
   confirmPassword: '',
-}
-
-function validateSignupForm(values: SignupFormValues): SignupFormErrors {
-  const errors: SignupFormErrors = {}
-
-  if (!values.firstName.trim()) {
-    errors.firstName = 'Le prénom est obligatoire.'
-  }
-
-  if (!values.lastName.trim()) {
-    errors.lastName = 'Le nom est obligatoire.'
-  }
-
-  if (!values.email.trim()) {
-    errors.email = 'L’adresse email est obligatoire.'
-  } else if (!values.email.includes('@')) {
-    errors.email = 'L’adresse email doit contenir un @.'
-  }
-
-  if (!values.password) {
-    errors.password = 'Le mot de passe est obligatoire.'
-  }
-
-  if (!values.confirmPassword) {
-    errors.confirmPassword = 'La confirmation du mot de passe est obligatoire.'
-  } else if (values.password !== values.confirmPassword) {
-    errors.confirmPassword = 'Les mots de passe doivent être identiques.'
-  }
-
-  return errors
 }
 
 export function SignupModal({ isOpen, onClose, onSubmit }: SignupModalProps) {
