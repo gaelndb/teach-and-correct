@@ -2,26 +2,33 @@ import { useState } from 'react'
 
 import { HeroSection } from '@/components/landing/hero-section'
 import { LandingHeader } from '@/components/landing/landing-header'
+import { LoginModal } from '@/components/landing/login-modal'
 import { SignupModal } from '@/components/landing/signup-modal'
-import type { SignupFormValues } from '@/types/auth'
 import { WorkflowSection } from '@/components/landing/workflow-section'
+import type { LoginFormValues, SignupFormValues } from '@/types/auth'
 
 type LandingPageProps = {
-  onOpenDashboard: () => void
+  onLogin: (values: LoginFormValues) => void
   onSignup: (values: SignupFormValues) => void
 }
 
-export function LandingPage({ onOpenDashboard, onSignup }: LandingPageProps) {
+export function LandingPage({ onLogin, onSignup }: LandingPageProps) {
   const [isSignupModalOpen, setIsSignupModalOpen] = useState(false)
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
 
   return (
     <main className="min-h-screen bg-background">
       <LandingHeader
-        onOpenDashboard={onOpenDashboard}
         onOpenSignup={() => setIsSignupModalOpen(true)}
+        onOpenLogin={() => setIsLoginModalOpen(true)}
       />
       <HeroSection />
       <WorkflowSection />
+      <LoginModal
+        isOpen={isLoginModalOpen}
+        onClose={() => setIsLoginModalOpen(false)}
+        onSubmit={onLogin}
+      />
       <SignupModal
         isOpen={isSignupModalOpen}
         onClose={() => setIsSignupModalOpen(false)}
