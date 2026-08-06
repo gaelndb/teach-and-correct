@@ -2,6 +2,7 @@ import { FormEvent, useMemo, useState } from 'react'
 import { LogIn, X } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
+import { validateLoginForm } from '@/lib/authFormValidationUtils'
 import type { LoginFormValues } from '@/types/auth'
 
 type LoginModalProps = {
@@ -10,27 +11,9 @@ type LoginModalProps = {
   onSubmit: (values: LoginFormValues) => void
 }
 
-type LoginFormErrors = Partial<Record<keyof LoginFormValues, string>>
-
 const initialFormValues: LoginFormValues = {
   email: '',
   password: '',
-}
-
-function validateLoginForm(values: LoginFormValues): LoginFormErrors {
-  const errors: LoginFormErrors = {}
-
-  if (!values.email.trim()) {
-    errors.email = 'L’adresse email est obligatoire.'
-  } else if (!values.email.includes('@')) {
-    errors.email = 'L’adresse email doit contenir un @.'
-  }
-
-  if (!values.password) {
-    errors.password = 'Le mot de passe est obligatoire.'
-  }
-
-  return errors
 }
 
 export function LoginModal({ isOpen, onClose, onSubmit }: LoginModalProps) {
