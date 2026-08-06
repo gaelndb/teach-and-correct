@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import { DashboardPage } from '@/pages/dashboard-page'
 import { LandingPage } from '@/pages/landing-page'
-import type { SignupFormValues } from '@/types/auth'
+import type { LoginFormValues, SignupFormValues } from '@/types/auth'
 
 type CurrentPage = 'landing' | 'dashboard'
 
@@ -23,6 +23,10 @@ function App() {
     setCurrentPage('dashboard')
   }
 
+  function handleLogin(_values: LoginFormValues) {
+    setCurrentPage('dashboard')
+  }
+
   if (currentPage === 'dashboard') {
     return (
       <DashboardPage
@@ -34,7 +38,7 @@ function App() {
 
   return (
     <LandingPage
-      onOpenDashboard={() => setCurrentPage('dashboard')}
+      onLogin={handleLogin}
       onSignup={handleSignup}
     />
   )
