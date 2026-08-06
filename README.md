@@ -7,10 +7,6 @@ L’objectif est de permettre à un professeur de transmettre une copie d’él�
 d’obtenir une proposition de correction et de note, puis de vérifier et valider
 le résultat avant de le restituer à l’élève.
 
-> Le projet est actuellement en cours de développement.  
-> Les écrans du dashboard, les élèves, les notes et les corrections utilisent
-> pour le moment des données de démonstration.
-
 ## État actuel du projet
 
 La première version de l’interface frontend est en place.
