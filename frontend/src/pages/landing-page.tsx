@@ -8,28 +8,51 @@ import { WorkflowSection } from '@/components/landing/workflow-section'
 import type { LoginFormValues, SignupFormValues } from '@/types/auth'
 
 type LandingPageProps = {
+  authError: string | null
+  isAuthLoading: boolean
+  onClearAuthError: () => void
   onLogin: (values: LoginFormValues) => void
   onSignup: (values: SignupFormValues) => void
 }
 
-export function LandingPage({ onLogin, onSignup }: LandingPageProps) {
+export function LandingPage({
+  authError,
+  isAuthLoading,
+  onClearAuthError,
+  onLogin,
+  onSignup,
+}: LandingPageProps) {
   const [isSignupModalOpen, setIsSignupModalOpen] = useState(false)
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
+
+  function openLoginModal() {
+    onClearAuthError()
+    setIsLoginModalOpen(true)
+  }
+
+  function openSignupModal() {
+    onClearAuthError()
+    setIsSignupModalOpen(true)
+  }
 
   return (
     <main className="min-h-screen bg-background">
       <LandingHeader
-        onOpenSignup={() => setIsSignupModalOpen(true)}
-        onOpenLogin={() => setIsLoginModalOpen(true)}
+        onOpenSignup={openSignupModal}
+        onOpenLogin={openLoginModal}
       />
       <HeroSection />
       <WorkflowSection />
       <LoginModal
+        errorMessage={authError}
+        isLoading={isAuthLoading}
         isOpen={isLoginModalOpen}
         onClose={() => setIsLoginModalOpen(false)}
         onSubmit={onLogin}
       />
       <SignupModal
+        errorMessage={authError}
+        isLoading={isAuthLoading}
         isOpen={isSignupModalOpen}
         onClose={() => setIsSignupModalOpen(false)}
         onSubmit={onSignup}
