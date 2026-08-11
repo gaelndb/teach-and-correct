@@ -1,8 +1,8 @@
-import { X, UserPlus } from 'lucide-react'
+import { CheckCircle2, Circle, X, UserPlus } from 'lucide-react'
 import { FormEvent, useMemo, useState } from 'react'
 
 import { Button } from '@/components/ui/button'
-import { validateSignupForm } from '@/lib/authFormValidationUtils'
+import { strongPasswordRules, validateSignupForm } from '@/lib/authFormValidationUtils'
 import type { SignupFormValues } from '@/types/auth'
 
 type SignupModalProps = {
@@ -138,6 +138,26 @@ export function SignupModal({ errorMessage, isLoading, isOpen, onClose, onSubmit
                 type="password"
                 className="h-12 w-full rounded-2xl border border-border bg-muted/50 px-4 text-sm font-semibold text-foreground outline-none transition focus:border-primary focus:bg-white focus:ring-2 focus:ring-primary/20"
               />
+              <div className="space-y-1 rounded-2xl bg-muted/40 p-3">
+                <p className="text-xs font-black uppercase tracking-[0.16em] text-muted-foreground">Le mot de passe doit contenir</p>
+                <ul className="space-y-1">
+                  {strongPasswordRules.map((rule) => {
+                    const isRuleValid = rule.isValid(formValues.password)
+
+                    return (
+                      <li
+                        key={rule.label}
+                        className={`flex items-center gap-2 text-xs font-bold transition ${
+                          isRuleValid ? 'text-emerald-600' : 'text-muted-foreground'
+                        }`}
+                      >
+                        {isRuleValid ? <CheckCircle2 className="h-4 w-4" /> : <Circle className="h-4 w-4" />}
+                        {rule.label}
+                      </li>
+                    )
+                  })}
+                </ul>
+              </div>
               {getErrorMessage('password') && <p className="text-sm font-bold text-red-600">{getErrorMessage('password')}</p>}
             </label>
 

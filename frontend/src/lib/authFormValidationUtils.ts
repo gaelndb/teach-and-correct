@@ -2,28 +2,34 @@ import type { LoginFormValues, SignupFormValues } from '@/types/auth'
 
 type FormErrors<TFormValues> = Partial<Record<keyof TFormValues, string>>
 
-const strongPasswordRules = [
+export const strongPasswordRules = [
   {
+    label: 'Mot de passe obligatoire',
     isValid: (password: string) => Boolean(password),
     message: 'Le mot de passe est obligatoire.',
   },
   {
+    label: 'Au moins 8 caractères',
     isValid: (password: string) => password.length >= 8,
     message: 'Le mot de passe doit contenir au moins 8 caractères.',
   },
   {
+    label: 'Au moins une majuscule',
     isValid: (password: string) => /[A-Z]/.test(password),
     message: 'Le mot de passe doit contenir au moins une majuscule.',
   },
   {
+    label: 'Au moins une minuscule',
     isValid: (password: string) => /[a-z]/.test(password),
     message: 'Le mot de passe doit contenir au moins une minuscule.',
   },
   {
+    label: 'Au moins un chiffre',
     isValid: (password: string) => /[0-9]/.test(password),
     message: 'Le mot de passe doit contenir au moins un chiffre.',
   },
   {
+    label: 'Au moins un caractère spécial',
     isValid: (password: string) => /[^A-Za-z0-9]/.test(password),
     message: 'Le mot de passe doit contenir au moins un caractère spécial.',
   },
