@@ -2,6 +2,33 @@ import type { LoginFormValues, SignupFormValues } from '@/types/auth'
 
 type FormErrors<TFormValues> = Partial<Record<keyof TFormValues, string>>
 
+const strongPasswordRules = [
+  {
+    isValid: (password: string) => Boolean(password),
+    message: 'Le mot de passe est obligatoire.',
+  },
+  {
+    isValid: (password: string) => password.length >= 8,
+    message: 'Le mot de passe doit contenir au moins 8 caractères.',
+  },
+  {
+    isValid: (password: string) => /[A-Z]/.test(password),
+    message: 'Le mot de passe doit contenir au moins une majuscule.',
+  },
+  {
+    isValid: (password: string) => /[a-z]/.test(password),
+    message: 'Le mot de passe doit contenir au moins une minuscule.',
+  },
+  {
+    isValid: (password: string) => /[0-9]/.test(password),
+    message: 'Le mot de passe doit contenir au moins un chiffre.',
+  },
+  {
+    isValid: (password: string) => /[^A-Za-z0-9]/.test(password),
+    message: 'Le mot de passe doit contenir au moins un caractère spécial.',
+  },
+]
+
 function validateRequiredField(value: string, message: string) {
   if (!value.trim()) {
     return message
@@ -22,12 +49,10 @@ function validateEmail(email: string) {
   return undefined
 }
 
-function validatePassword(password: string) {
-  if (!password) {
-    return 'Le mot de passe est obligatoire.'
-  }
+function validateStrongPassword(password: string) {
+  const failedRule = strongPasswordRules.find((rule) => !rule.isValid(password))
 
-  return undefined
+  return failedRule?.message
 }
 
 export function validateLoginForm(values: LoginFormValues): FormErrors<LoginFormValues> {
@@ -38,9 +63,8 @@ export function validateLoginForm(values: LoginFormValues): FormErrors<LoginForm
     errors.email = emailError
   }
 
-  const passwordError = validatePassword(values.password)
-  if (passwordError) {
-    errors.password = passwordError
+  if (!values.password) {
+    errors.password = 'Le mot de passe est obligatoire.'
   }
 
   return errors
@@ -64,7 +88,7 @@ export function validateSignupForm(values: SignupFormValues): FormErrors<SignupF
     errors.email = emailError
   }
 
-  const passwordError = validatePassword(values.password)
+  const passwordError = validateStrongPassword(values.password)
   if (passwordError) {
     errors.password = passwordError
   }
