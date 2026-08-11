@@ -48,10 +48,10 @@ public class AuthService {
         String normalizedEmail = normalizeEmail(request.email());
 
         User user = userRepository.findByEmail(normalizedEmail)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Identifiants invalides."));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Les identifiants sont invalides."));
 
         if (!passwordEncoder.matches(request.password(), user.getPasswordHash())) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Identifiants invalides.");
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Les identifiants sont invalides.");
         }
 
         return toAuthResponse(user);
