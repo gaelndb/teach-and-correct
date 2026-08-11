@@ -6,6 +6,8 @@ import { validateSignupForm } from '@/lib/authFormValidationUtils'
 import type { SignupFormValues } from '@/types/auth'
 
 type SignupModalProps = {
+  errorMessage: string | null
+  isLoading: boolean
   isOpen: boolean
   onClose: () => void
   onSubmit: (values: SignupFormValues) => void
@@ -19,7 +21,7 @@ const initialFormValues: SignupFormValues = {
   confirmPassword: '',
 }
 
-export function SignupModal({ isOpen, onClose, onSubmit }: SignupModalProps) {
+export function SignupModal({ errorMessage, isLoading, isOpen, onClose, onSubmit }: SignupModalProps) {
   const [formValues, setFormValues] = useState<SignupFormValues>(initialFormValues)
   const [touchedFields, setTouchedFields] = useState<Partial<Record<keyof SignupFormValues, boolean>>>({})
 
@@ -153,9 +155,15 @@ export function SignupModal({ isOpen, onClose, onSubmit }: SignupModalProps) {
             </label>
           </div>
 
-          <Button type="submit" disabled={!isFormValid} className="w-full">
+          {errorMessage && (
+            <p className="rounded-2xl bg-red-50 px-4 py-3 text-sm font-bold text-red-600">
+              {errorMessage}
+            </p>
+          )}
+
+          <Button type="submit" disabled={!isFormValid || isLoading} className="w-full">
             <UserPlus className="h-5 w-5" />
-            Créer mon compte
+            {isLoading ? 'Création du compte...' : 'Créer mon compte'}
           </Button>
         </form>
       </div>

@@ -6,6 +6,8 @@ import { validateLoginForm } from '@/lib/authFormValidationUtils'
 import type { LoginFormValues } from '@/types/auth'
 
 type LoginModalProps = {
+  errorMessage: string | null
+  isLoading: boolean
   isOpen: boolean
   onClose: () => void
   onSubmit: (values: LoginFormValues) => void
@@ -16,7 +18,7 @@ const initialFormValues: LoginFormValues = {
   password: '',
 }
 
-export function LoginModal({ isOpen, onClose, onSubmit }: LoginModalProps) {
+export function LoginModal({ errorMessage, isLoading, isOpen, onClose, onSubmit }: LoginModalProps) {
   const [formValues, setFormValues] = useState<LoginFormValues>(initialFormValues)
   const [touchedFields, setTouchedFields] = useState<Partial<Record<keyof LoginFormValues, boolean>>>({})
 
@@ -106,9 +108,15 @@ export function LoginModal({ isOpen, onClose, onSubmit }: LoginModalProps) {
             {getErrorMessage('password') && <p className="text-sm font-bold text-red-600">{getErrorMessage('password')}</p>}
           </label>
 
-          <Button type="submit" disabled={!isFormValid} className="w-full">
+          {errorMessage && (
+            <p className="rounded-2xl bg-red-50 px-4 py-3 text-sm font-bold text-red-600">
+              {errorMessage}
+            </p>
+          )}
+
+          <Button type="submit" disabled={!isFormValid || isLoading} className="w-full">
             <LogIn className="h-5 w-5" />
-            Me connecter
+            {isLoading ? 'Connexion...' : 'Me connecter'}
           </Button>
         </form>
       </div>
