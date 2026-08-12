@@ -54,6 +54,16 @@ export function SignupModal({ errorMessage, isLoading, isOpen, onClose, onSubmit
     return errors[field]
   }
 
+  function getLengthErrorMessage(field: keyof SignupFormValues) {
+    const errorMessage = errors[field]
+
+    if (!errorMessage?.includes('trop long')) {
+      return null
+    }
+
+    return errorMessage
+  }
+
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
@@ -98,7 +108,9 @@ export function SignupModal({ errorMessage, isLoading, isOpen, onClose, onSubmit
                 placeholder="Marie"
                 className="h-12 w-full rounded-2xl border border-border bg-muted/50 px-4 text-sm font-semibold text-foreground outline-none transition focus:border-primary focus:bg-white focus:ring-2 focus:ring-primary/20"
               />
-              {getErrorMessage('firstName') && <p className="text-sm font-bold text-red-600">{getErrorMessage('firstName')}</p>}
+              {(getLengthErrorMessage('firstName') ?? getErrorMessage('firstName')) && (
+                <p className="text-sm font-bold text-red-600">{getLengthErrorMessage('firstName') ?? getErrorMessage('firstName')}</p>
+              )}
             </label>
 
             <label className="space-y-2">
@@ -110,7 +122,9 @@ export function SignupModal({ errorMessage, isLoading, isOpen, onClose, onSubmit
                 placeholder="Dupont"
                 className="h-12 w-full rounded-2xl border border-border bg-muted/50 px-4 text-sm font-semibold text-foreground outline-none transition focus:border-primary focus:bg-white focus:ring-2 focus:ring-primary/20"
               />
-              {getErrorMessage('lastName') && <p className="text-sm font-bold text-red-600">{getErrorMessage('lastName')}</p>}
+              {(getLengthErrorMessage('lastName') ?? getErrorMessage('lastName')) && (
+                <p className="text-sm font-bold text-red-600">{getLengthErrorMessage('lastName') ?? getErrorMessage('lastName')}</p>
+              )}
             </label>
           </div>
 
@@ -124,7 +138,9 @@ export function SignupModal({ errorMessage, isLoading, isOpen, onClose, onSubmit
               type="email"
               className="h-12 w-full rounded-2xl border border-border bg-muted/50 px-4 text-sm font-semibold text-foreground outline-none transition focus:border-primary focus:bg-white focus:ring-2 focus:ring-primary/20"
             />
-            {getErrorMessage('email') && <p className="text-sm font-bold text-red-600">{getErrorMessage('email')}</p>}
+            {(getLengthErrorMessage('email') ?? getErrorMessage('email')) && (
+              <p className="text-sm font-bold text-red-600">{getLengthErrorMessage('email') ?? getErrorMessage('email')}</p>
+            )}
           </label>
 
           <div className="grid gap-4 sm:grid-cols-2">
@@ -141,7 +157,7 @@ export function SignupModal({ errorMessage, isLoading, isOpen, onClose, onSubmit
               <div className="space-y-1 rounded-2xl bg-muted/40 p-3">
                 <p className="text-xs font-black uppercase tracking-[0.16em] text-muted-foreground">Le mot de passe doit contenir</p>
                 <ul className="space-y-1">
-                  {strongPasswordRules.map((rule) => {
+                  {strongPasswordRules.filter((rule) => rule.isVisibleRequirement).map((rule) => {
                     const isRuleValid = rule.isValid(formValues.password)
 
                     return (
@@ -158,7 +174,9 @@ export function SignupModal({ errorMessage, isLoading, isOpen, onClose, onSubmit
                   })}
                 </ul>
               </div>
-              {getErrorMessage('password') && <p className="text-sm font-bold text-red-600">{getErrorMessage('password')}</p>}
+              {(getLengthErrorMessage('password') ?? getErrorMessage('password')) && (
+                <p className="text-sm font-bold text-red-600">{getLengthErrorMessage('password') ?? getErrorMessage('password')}</p>
+              )}
             </label>
 
             <label className="space-y-2">
