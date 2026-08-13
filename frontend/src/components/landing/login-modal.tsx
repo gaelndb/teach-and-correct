@@ -1,5 +1,5 @@
 import { FormEvent, useMemo, useState } from 'react'
-import { LogIn, X } from 'lucide-react'
+import { Eye, EyeOff, LogIn, X } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 import { validateLoginForm } from '@/lib/authFormValidationUtils'
@@ -21,6 +21,7 @@ const initialFormValues: LoginFormValues = {
 export function LoginModal({ errorMessage, isLoading, isOpen, onClose, onSubmit }: LoginModalProps) {
   const [formValues, setFormValues] = useState<LoginFormValues>(initialFormValues)
   const [touchedFields, setTouchedFields] = useState<Partial<Record<keyof LoginFormValues, boolean>>>({})
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false)
 
   const errors = useMemo(() => validateLoginForm(formValues), [formValues])
   const isFormValid = Object.keys(errors).length === 0
@@ -100,14 +101,24 @@ export function LoginModal({ errorMessage, isLoading, isOpen, onClose, onSubmit 
 
           <label className="block space-y-2">
             <span className="text-sm font-black text-foreground">Mot de passe</span>
-            <input
-              value={formValues.password}
-              onBlur={() => markFieldAsTouched('password')}
-              onChange={(event) => updateField('password', event.target.value)}
-              placeholder="••••••••"
-              type="password"
-              className="h-12 w-full rounded-2xl border border-border bg-muted/50 px-4 text-sm font-semibold text-foreground outline-none transition focus:border-primary focus:bg-white focus:ring-2 focus:ring-primary/20"
-            />
+            <div className="relative">
+              <input
+                value={formValues.password}
+                onBlur={() => markFieldAsTouched('password')}
+                onChange={(event) => updateField('password', event.target.value)}
+                placeholder="••••••••"
+                type={isPasswordVisible ? 'text' : 'password'}
+                className="h-12 w-full rounded-2xl border border-border bg-muted/50 px-4 pr-12 text-sm font-semibold text-foreground outline-none transition focus:border-primary focus:bg-white focus:ring-2 focus:ring-primary/20"
+              />
+              <button
+                type="button"
+                onClick={() => setIsPasswordVisible((currentValue) => !currentValue)}
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground transition hover:text-foreground"
+                aria-label={isPasswordVisible ? 'Masquer le mot de passe' : 'Afficher le mot de passe'}
+              >
+                {isPasswordVisible ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+              </button>
+            </div>
             {getErrorMessage('password') && <p className="text-sm font-bold text-red-600">{getErrorMessage('password')}</p>}
           </label>
 
