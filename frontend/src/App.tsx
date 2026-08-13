@@ -36,8 +36,12 @@ function App() {
         lastName: user.lastName,
       })
       setCurrentPage('dashboard')
+
+      return true
     } catch (error) {
       setAuthError(getAuthErrorMessage(error))
+
+      return false
     } finally {
       setIsAuthLoading(false)
     }
@@ -55,8 +59,12 @@ function App() {
         lastName: user.lastName,
       })
       setCurrentPage('dashboard')
+
+      return true
     } catch (error) {
       setAuthError(getAuthErrorMessage(error))
+
+      return false
     } finally {
       setIsAuthLoading(false)
     }
