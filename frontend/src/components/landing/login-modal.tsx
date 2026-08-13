@@ -10,7 +10,7 @@ type LoginModalProps = {
   isLoading: boolean
   isOpen: boolean
   onClose: () => void
-  onSubmit: (values: LoginFormValues) => void
+  onSubmit: (values: LoginFormValues) => Promise<boolean>
 }
 
 const initialFormValues: LoginFormValues = {
@@ -51,7 +51,7 @@ export function LoginModal({ errorMessage, isLoading, isOpen, onClose, onSubmit 
     return errors[field]
   }
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
     setTouchedFields({
@@ -63,9 +63,12 @@ export function LoginModal({ errorMessage, isLoading, isOpen, onClose, onSubmit 
       return
     }
 
-    onSubmit(formValues)
-    setFormValues(initialFormValues)
-    setTouchedFields({})
+    const isSubmitSuccessful = await onSubmit(formValues)
+
+    if (isSubmitSuccessful) {
+      setFormValues(initialFormValues)
+      setTouchedFields({})
+    }
   }
 
   return (

@@ -10,7 +10,7 @@ type SignupModalProps = {
   isLoading: boolean
   isOpen: boolean
   onClose: () => void
-  onSubmit: (values: SignupFormValues) => void
+  onSubmit: (values: SignupFormValues) => Promise<boolean>
 }
 
 const initialFormValues: SignupFormValues = {
@@ -64,7 +64,7 @@ export function SignupModal({ errorMessage, isLoading, isOpen, onClose, onSubmit
     return errorMessage
   }
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
     setTouchedFields({
@@ -79,9 +79,12 @@ export function SignupModal({ errorMessage, isLoading, isOpen, onClose, onSubmit
       return
     }
 
-    onSubmit(formValues)
-    setFormValues(initialFormValues)
-    setTouchedFields({})
+    const isSubmitSuccessful = await onSubmit(formValues)
+
+    if (isSubmitSuccessful) {
+      setFormValues(initialFormValues)
+      setTouchedFields({})
+    }
   }
 
   return (

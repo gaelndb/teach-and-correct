@@ -11,8 +11,8 @@ type LandingPageProps = {
   authError: string | null
   isAuthLoading: boolean
   onClearAuthError: () => void
-  onLogin: (values: LoginFormValues) => void
-  onSignup: (values: SignupFormValues) => void
+  onLogin: (values: LoginFormValues) => Promise<boolean>
+  onSignup: (values: SignupFormValues) => Promise<boolean>
 }
 
 export function LandingPage({
