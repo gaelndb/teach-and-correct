@@ -1,4 +1,4 @@
-import { CheckCircle2, Circle, X, UserPlus } from 'lucide-react'
+import { CheckCircle2, Circle, Eye, EyeOff, X, UserPlus } from 'lucide-react'
 import { FormEvent, useMemo, useState } from 'react'
 
 import { Button } from '@/components/ui/button'
@@ -24,6 +24,8 @@ const initialFormValues: SignupFormValues = {
 export function SignupModal({ errorMessage, isLoading, isOpen, onClose, onSubmit }: SignupModalProps) {
   const [formValues, setFormValues] = useState<SignupFormValues>(initialFormValues)
   const [touchedFields, setTouchedFields] = useState<Partial<Record<keyof SignupFormValues, boolean>>>({})
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false)
+  const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false)
 
   const errors = useMemo(() => validateSignupForm(formValues), [formValues])
   const isFormValid = Object.keys(errors).length === 0
@@ -149,14 +151,24 @@ export function SignupModal({ errorMessage, isLoading, isOpen, onClose, onSubmit
           <div className="grid gap-4 sm:grid-cols-2">
             <label className="space-y-2">
               <span className="text-sm font-black text-foreground">Mot de passe</span>
-              <input
-                value={formValues.password}
-                onBlur={() => markFieldAsTouched('password')}
-                onChange={(event) => updateField('password', event.target.value)}
-                placeholder="••••••••"
-                type="password"
-                className="h-12 w-full rounded-2xl border border-border bg-muted/50 px-4 text-sm font-semibold text-foreground outline-none transition focus:border-primary focus:bg-white focus:ring-2 focus:ring-primary/20"
-              />
+              <div className="relative">
+                <input
+                  value={formValues.password}
+                  onBlur={() => markFieldAsTouched('password')}
+                  onChange={(event) => updateField('password', event.target.value)}
+                  placeholder="••••••••"
+                  type={isPasswordVisible ? 'text' : 'password'}
+                  className="h-12 w-full rounded-2xl border border-border bg-muted/50 px-4 pr-12 text-sm font-semibold text-foreground outline-none transition focus:border-primary focus:bg-white focus:ring-2 focus:ring-primary/20"
+                />
+                <button
+                  type="button"
+                  onClick={() => setIsPasswordVisible((currentValue) => !currentValue)}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground transition hover:text-foreground"
+                  aria-label={isPasswordVisible ? 'Masquer le mot de passe' : 'Afficher le mot de passe'}
+                >
+                  {isPasswordVisible ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                </button>
+              </div>
               <div className="space-y-1 rounded-2xl bg-muted/40 p-3">
                 <p className="text-xs font-black uppercase tracking-[0.16em] text-muted-foreground">Le mot de passe doit contenir</p>
                 <ul className="space-y-1">
@@ -184,14 +196,24 @@ export function SignupModal({ errorMessage, isLoading, isOpen, onClose, onSubmit
 
             <label className="space-y-2">
               <span className="text-sm font-black text-foreground">Confirmation</span>
-              <input
-                value={formValues.confirmPassword}
-                onBlur={() => markFieldAsTouched('confirmPassword')}
-                onChange={(event) => updateField('confirmPassword', event.target.value)}
-                placeholder="••••••••"
-                type="password"
-                className="h-12 w-full rounded-2xl border border-border bg-muted/50 px-4 text-sm font-semibold text-foreground outline-none transition focus:border-primary focus:bg-white focus:ring-2 focus:ring-primary/20"
-              />
+              <div className="relative">
+                <input
+                  value={formValues.confirmPassword}
+                  onBlur={() => markFieldAsTouched('confirmPassword')}
+                  onChange={(event) => updateField('confirmPassword', event.target.value)}
+                  placeholder="••••••••"
+                  type={isConfirmPasswordVisible ? 'text' : 'password'}
+                  className="h-12 w-full rounded-2xl border border-border bg-muted/50 px-4 pr-12 text-sm font-semibold text-foreground outline-none transition focus:border-primary focus:bg-white focus:ring-2 focus:ring-primary/20"
+                />
+                <button
+                  type="button"
+                  onClick={() => setIsConfirmPasswordVisible((currentValue) => !currentValue)}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground transition hover:text-foreground"
+                  aria-label={isConfirmPasswordVisible ? 'Masquer la confirmation du mot de passe' : 'Afficher la confirmation du mot de passe'}
+                >
+                  {isConfirmPasswordVisible ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                </button>
+              </div>
               {getErrorMessage('confirmPassword') && <p className="text-sm font-bold text-red-600">{getErrorMessage('confirmPassword')}</p>}
             </label>
           </div>
