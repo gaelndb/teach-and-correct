@@ -1,8 +1,12 @@
 package com.teachandcorrect.backend.exception;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -13,6 +17,9 @@ import com.teachandcorrect.backend.dto.error.ApiErrorResponse;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+    private static final String POSTGRES_UNIQUE_VIOLATION_SQL_STATE = "23505";
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ApiErrorResponse> handleValidationException(MethodArgumentNotValidException exception) {
@@ -39,10 +46,58 @@ public class GlobalExceptionHandler {
                 .body(new ApiErrorResponse(message));
     }
 
-    @ExceptionHandler(DataAccessException.class)
-    public ResponseEntity<ApiErrorResponse> handleDataAccessException() {
+    @ExceptionHandler(CannotGetJdbcConnectionException.class)
+    public ResponseEntity<ApiErrorResponse> handleCannotGetJdbcConnectionException(CannotGetJdbcConnectionException exception) {
+        LOGGER.error("Database connection unavailable", exception);
+
         return ResponseEntity
                 .status(HttpStatus.SERVICE_UNAVAILABLE)
-                .body(new ApiErrorResponse("La base de données n'est pas démarrée."));
+                .body(new ApiErrorResponse("La base de données est inaccessible."));
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<ApiErrorResponse> handleDataIntegrityViolationException(DataIntegrityViolationException exception) {
+        LOGGER.warn("Database integrity violation", exception);
+
+        if (isUniqueConstraintViolation(exception)) {
+            return ResponseEntity
+                    .status(HttpStatus.CONFLICT)
+                    .body(new ApiErrorResponse("Cette adresse email est déjà utilisée."));
+        }
+
+        return ResponseEntity
+                .badRequest()
+                .body(new ApiErrorResponse("Les données envoyées ne respectent pas les contraintes attendues."));
+    }
+
+    @ExceptionHandler(DataAccessException.class)
+    public ResponseEntity<ApiErrorResponse> handleDataAccessException(DataAccessException exception) {
+        LOGGER.error("Unexpected database error", exception);
+
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(new ApiErrorResponse("Une erreur est survenue lors de l'accès aux données."));
+    }
+
+    private boolean isUniqueConstraintViolation(Throwable exception) {
+        Throwable currentException = exception;
+
+        while (currentException != null) {
+            if (POSTGRES_UNIQUE_VIOLATION_SQL_STATE.equals(getSqlState(currentException))) {
+                return true;
+            }
+
+            currentException = currentException.getCause();
+        }
+
+        return false;
+    }
+
+    private String getSqlState(Throwable exception) {
+        if (exception instanceof java.sql.SQLException sqlException) {
+            return sqlException.getSQLState();
+        }
+
+        return null;
     }
 }
