@@ -1,4 +1,4 @@
-import { apiClient } from '@/api/apiClient'
+import { apiClient } from '@/api/api-client'
 import type { AuthResponse, LoginFormValues, SignupFormValues } from '@/types/auth'
 
 type RegisterPayload = Omit<SignupFormValues, 'confirmPassword'>

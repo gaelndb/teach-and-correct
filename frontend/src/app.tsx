@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { useState } from 'react'
 
-import { loginUser, registerUser } from '@/api/authApi'
+import { loginUser, registerUser } from '@/api/auth-api'
 import { DashboardPage } from '@/pages/dashboard-page'
 import { LandingPage } from '@/pages/landing-page'
 import type { AuthResponse, LoginFormValues, SignupFormValues } from '@/types/auth'

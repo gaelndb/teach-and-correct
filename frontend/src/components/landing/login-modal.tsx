@@ -2,7 +2,7 @@ import { FormEvent, useMemo, useState } from 'react'
 import { Eye, EyeOff, LogIn, X } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
-import { validateLoginForm } from '@/lib/authFormValidationUtils'
+import { validateLoginForm } from '@/lib/auth-form-validation-utils'
 import type { LoginFormValues } from '@/types/auth'
 
 type LoginModalProps = {
