@@ -106,7 +106,6 @@ export function LoginModal({ errorMessage, isLoading, isOpen, onClose, onSubmit 
                 value={formValues.password}
                 onBlur={() => markFieldAsTouched('password')}
                 onChange={(event) => updateField('password', event.target.value)}
-                placeholder="••••••••"
                 type={isPasswordVisible ? 'text' : 'password'}
                 className="h-12 w-full rounded-2xl border border-border bg-muted/50 px-4 pr-12 text-sm font-semibold text-foreground outline-none transition focus:border-primary focus:bg-white focus:ring-2 focus:ring-primary/20"
               />
