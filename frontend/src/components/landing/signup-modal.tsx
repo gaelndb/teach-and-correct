@@ -2,7 +2,7 @@ import { CheckCircle2, Circle, Eye, EyeOff, X, UserPlus } from 'lucide-react'
 import { FormEvent, useMemo, useState } from 'react'
 
 import { Button } from '@/components/ui/button'
-import { strongPasswordRules, validateSignupForm } from '@/lib/authFormValidationUtils'
+import { strongPasswordRules, validateSignupForm } from '@/lib/auth-form-validation-utils'
 import type { SignupFormValues } from '@/types/auth'
 
 type SignupModalProps = {
