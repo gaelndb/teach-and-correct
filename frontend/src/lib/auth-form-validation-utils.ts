@@ -9,6 +9,8 @@ import type { LoginFormValues, SignupFormValues } from '@/types/auth'
 
 const MAX_NAME_LENGTH = 100
 const MAX_EMAIL_LENGTH = 253
+
+// BCrypt accepts passwords up to 72 UTF-8 bytes, not 72 visible characters.
 const MAX_PASSWORD_UTF8_BYTES = 72
 
 export const strongPasswordRules = [
