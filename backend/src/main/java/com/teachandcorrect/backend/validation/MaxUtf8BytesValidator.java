@@ -5,6 +5,10 @@ import jakarta.validation.ConstraintValidatorContext;
 
 import java.nio.charset.StandardCharsets;
 
+/**
+ * Counts the UTF-8 bytes of a string instead of Java characters.
+ * Multi-byte characters such as accents or emojis can exceed byte-based limits faster.
+ */
 public class MaxUtf8BytesValidator implements ConstraintValidator<MaxUtf8Bytes, String> {
 
     private int maxBytes;
