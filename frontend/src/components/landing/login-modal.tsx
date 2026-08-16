@@ -92,7 +92,7 @@ export function LoginModal({ errorMessage, isLoading, isOpen, onClose, onSubmit 
               value={formValues.email}
               onBlur={() => markFieldAsTouched('email')}
               onChange={(event) => updateField('email', event.target.value)}
-              placeholder="marie.dupont@email.com"
+              placeholder="Ex : marie.dupont@email.com"
               type="email"
               className="h-12 w-full rounded-2xl border border-border bg-muted/50 px-4 text-sm font-semibold text-foreground outline-none transition focus:border-primary focus:bg-white focus:ring-2 focus:ring-primary/20"
             />

@@ -110,7 +110,7 @@ export function SignupModal({ errorMessage, isLoading, isOpen, onClose, onSubmit
                 value={formValues.firstName}
                 onBlur={() => markFieldAsTouched('firstName')}
                 onChange={(event) => updateField('firstName', event.target.value)}
-                placeholder="Marie"
+                placeholder="Ex : Marie"
                 className="h-12 w-full rounded-2xl border border-border bg-muted/50 px-4 text-sm font-semibold text-foreground outline-none transition focus:border-primary focus:bg-white focus:ring-2 focus:ring-primary/20"
               />
               {(getLengthErrorMessage('firstName') ?? getErrorMessage('firstName')) && (
@@ -124,7 +124,7 @@ export function SignupModal({ errorMessage, isLoading, isOpen, onClose, onSubmit
                 value={formValues.lastName}
                 onBlur={() => markFieldAsTouched('lastName')}
                 onChange={(event) => updateField('lastName', event.target.value)}
-                placeholder="Dupont"
+                placeholder="Ex : Dupont"
                 className="h-12 w-full rounded-2xl border border-border bg-muted/50 px-4 text-sm font-semibold text-foreground outline-none transition focus:border-primary focus:bg-white focus:ring-2 focus:ring-primary/20"
               />
               {(getLengthErrorMessage('lastName') ?? getErrorMessage('lastName')) && (
@@ -139,7 +139,7 @@ export function SignupModal({ errorMessage, isLoading, isOpen, onClose, onSubmit
               value={formValues.email}
               onBlur={() => markFieldAsTouched('email')}
               onChange={(event) => updateField('email', event.target.value)}
-              placeholder="marie.dupont@email.com"
+              placeholder="Ex : marie.dupont@email.com"
               type="email"
               className="h-12 w-full rounded-2xl border border-border bg-muted/50 px-4 text-sm font-semibold text-foreground outline-none transition focus:border-primary focus:bg-white focus:ring-2 focus:ring-primary/20"
             />
