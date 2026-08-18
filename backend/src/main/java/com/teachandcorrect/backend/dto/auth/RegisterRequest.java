@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
-import com.teachandcorrect.backend.validation.MaxUtf8Bytes;
+import com.teachandcorrect.backend.validation.BCryptCompatiblePassword;
 
 public record RegisterRequest(
         @NotBlank(message = "Le prénom est obligatoire.")
@@ -27,7 +27,7 @@ public record RegisterRequest(
                 regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^A-Za-z0-9]).+$",
                 message = "Le mot de passe doit contenir 1 majuscule, 1 minuscule, 1 chiffre et 1 caractère spécial."
         )
-        @MaxUtf8Bytes(value = 72, message = "Le mot de passe est trop long.")
+        @BCryptCompatiblePassword
         String password
 ) {
 }
