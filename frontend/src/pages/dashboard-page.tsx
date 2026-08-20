@@ -2,6 +2,7 @@ import { ArrowLeft, Search } from 'lucide-react'
 import { useMemo, useState } from 'react'
 
 import { Button } from '@/components/ui/button'
+import { CopyScanModal } from '@/components/copy-scan/copy-scan-modal'
 import { students } from '@/mocks/dashboard/students'
 import { DashboardStats } from '@/components/dashboard/dashboard-stats'
 import { ScanButton } from '@/components/dashboard/scan-button'
@@ -21,6 +22,7 @@ type DashboardPageProps = {
 export function DashboardPage({ teacher, onBackToLanding }: DashboardPageProps) {
   const [selectedStudent, setSelectedStudent] = useState<Student>(students[0])
   const [isCopiesModalOpen, setIsCopiesModalOpen] = useState(false)
+  const [isCopyScanModalOpen, setIsCopyScanModalOpen] = useState(false)
   const [search, setSearch] = useState('')
 
   const filteredStudents = useMemo(() => {
@@ -56,7 +58,7 @@ export function DashboardPage({ teacher, onBackToLanding }: DashboardPageProps) 
             </div>
           </div>
 
-          <ScanButton />
+          <ScanButton onClick={() => setIsCopyScanModalOpen(true)} />
         </div>
       </header>
 
@@ -101,6 +103,10 @@ export function DashboardPage({ teacher, onBackToLanding }: DashboardPageProps) 
         student={selectedStudent}
         isOpen={isCopiesModalOpen}
         onClose={() => setIsCopiesModalOpen(false)}
+      />
+      <CopyScanModal
+        isOpen={isCopyScanModalOpen}
+        onClose={() => setIsCopyScanModalOpen(false)}
       />
     </main>
   )

@@ -2,7 +2,11 @@ import { Camera, Sparkles } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 
-export function HeroSection() {
+type HeroSectionProps = {
+  onOpenCopyScan: () => void
+}
+
+export function HeroSection({ onOpenCopyScan }: HeroSectionProps) {
   return (
     <section id="accueil" className="relative isolate overflow-hidden pb-24 pt-36 sm:pt-44 lg:pb-32">
       <div className="absolute left-1/2 top-24 -z-10 h-80 w-80 -translate-x-1/2 rounded-full bg-violet/20 blur-3xl animate-glow" />
@@ -31,7 +35,7 @@ export function HeroSection() {
           <div className="mt-10 flex justify-center">
             <div className="relative w-full sm:w-auto">
               <span className="absolute inset-0 rounded-full bg-accent/20 blur-md animate-pulse" />
-              <Button size="lg" className="relative w-full bg-gradient-to-r from-accent to-violet hover:from-orange-600 hover:to-violet sm:w-auto">
+              <Button size="lg" onClick={onOpenCopyScan} className="relative w-full bg-gradient-to-r from-accent to-violet hover:from-orange-600 hover:to-violet sm:w-auto">
                 <Camera className="h-5 w-5" />
                 Scanner une copie
                 <Sparkles className="h-4 w-4" />

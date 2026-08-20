@@ -1,5 +1,6 @@
 import { useState } from 'react'
 
+import { CopyScanModal } from '@/components/copy-scan/copy-scan-modal'
 import { HeroSection } from '@/components/landing/hero-section'
 import { LandingHeader } from '@/components/landing/landing-header'
 import { LoginModal } from '@/components/landing/login-modal'
@@ -24,6 +25,7 @@ export function LandingPage({
 }: LandingPageProps) {
   const [isSignupModalOpen, setIsSignupModalOpen] = useState(false)
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
+  const [isCopyScanModalOpen, setIsCopyScanModalOpen] = useState(false)
 
   function openLoginModal() {
     onClearAuthError()
@@ -41,8 +43,12 @@ export function LandingPage({
         onOpenSignup={openSignupModal}
         onOpenLogin={openLoginModal}
       />
-      <HeroSection />
+      <HeroSection onOpenCopyScan={() => setIsCopyScanModalOpen(true)} />
       <WorkflowSection />
+      <CopyScanModal
+        isOpen={isCopyScanModalOpen}
+        onClose={() => setIsCopyScanModalOpen(false)}
+      />
       <LoginModal
         errorMessage={authError}
         isLoading={isAuthLoading}
