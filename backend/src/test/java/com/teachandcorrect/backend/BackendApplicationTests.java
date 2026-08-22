@@ -14,9 +14,7 @@ class BackendApplicationTests {
 
     @Container
     static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:16")
-            .withDatabaseName("teachandcorrect_test")
-            .withUsername("test_user")
-            .withPassword("test_password");
+            .withDatabaseName("teachandcorrect_test");
 
     @DynamicPropertySource
     static void configureDatasource(DynamicPropertyRegistry registry) {
