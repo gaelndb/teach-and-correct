@@ -6,10 +6,6 @@ L’objectif est de permettre à un professeur de transmettre une copie d’él�
 
 ## Aperçu
 
-### Landing page
-
-![Landing page](docs/screenshots/landing_page.png)
-
 ## Structure du projet
 
 ```text
