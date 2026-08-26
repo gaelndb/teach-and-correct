@@ -4,7 +4,7 @@ TeachAndCorrect est une application web de correction assistée par intelligence
 
 L’objectif est de permettre à un professeur de transmettre une copie d’élève, d’obtenir une proposition de correction et de note, puis de vérifier et valider le résultat avant de le restituer à l’élève.
 
-## Aperçu
+<!-- ## Aperçu -->
 
 ## Structure du projet
 
@@ -43,13 +43,6 @@ TeachAndCorrect/
 - Docker
 - Docker Compose
 
-### Technologies prévues pour le MVP
-
-- Spring Security pour l'authentification et les autorisations
-- Une solution d'OCR ou un modèle multimodal pour analyser les copies
-- Une API de modèle de langage pour générer une proposition de correction
-
-> Les choix techniques pourront évoluer au cours du développement en fonction des besoins du MVP.
 
 ## Installation
 
@@ -68,8 +61,8 @@ Avant de lancer le projet, vérifiez que les outils suivants sont installés :
 ### Cloner le dépôt
 
 ```bash
-git clone https://github.com/gaelndb/TeachAndCorrect.git
-cd TeachAndCorrect
+git clone https://github.com/gaelndb/teachandcorrect.git
+cd teachandcorrect
 ```
 
 ## Lancer la base de données
@@ -77,6 +70,7 @@ cd TeachAndCorrect
 Depuis la racine du projet :
 
 ```bash
+cp .env.example .env
 docker compose up -d
 ```
 
@@ -92,22 +86,6 @@ Pour arrêter les services :
 
 ```bash
 docker compose down
-```
-
-## Lancer le frontend
-
-Depuis la racine du projet :
-
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-L'application frontend est ensuite accessible à l'adresse indiquée par Vite, généralement :
-
-```text
-http://localhost:5173
 ```
 
 ## Lancer le backend
@@ -132,21 +110,29 @@ Le backend est ensuite accessible à l'adresse :
 http://localhost:8080
 ```
 
-## API
+## Lancer le frontend
 
-### Créer un compte enseignant
+Depuis la racine du projet :
 
-```http
-POST /api/auth/register
+```bash
+cd frontend
+npm install
+npm run dev
 ```
 
-Endpoint local :
+L'application frontend est ensuite accessible à l'adresse indiquée par Vite, généralement :
 
 ```text
-http://localhost:8080/api/auth/register
+http://localhost:5173
 ```
 
-Cet endpoint permet actuellement de créer un compte enseignant.
+## Documentation de l'API
+
+La documentation interactive de l'API est disponible via OpenAPI / Swagger UI lorsque le backend est lancé.
+
+```text
+http://localhost:8080/swagger-ui/index.html
+```
 
 ## Lancer les tests backend
 
@@ -182,10 +168,11 @@ Le projet vise également à permettre aux enseignants de centraliser leurs clas
 
 La documentation complémentaire du projet est disponible dans le dossier [`docs/`](docs/).
 
-Elle pourra notamment contenir :
+Elle regroupe progressivement :
 
 - la documentation fonctionnelle ;
 - la documentation technique ;
+- la documentation de l'API avec OpenAPI / Swagger UI ;
 - les règles métier ;
 - les diagrammes d'architecture ;
 - le modèle de données ;
