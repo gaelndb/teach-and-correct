@@ -61,7 +61,7 @@ Avant de lancer le projet, vérifiez que les outils suivants sont installés :
 ### Cloner le dépôt
 
 ```bash
-git clone https://github.com/gaelndb/teachandcorrect.git
+git clone https://github.com/gaelndb/teach-and-correct.git
 cd teachandcorrect
 ```
 
