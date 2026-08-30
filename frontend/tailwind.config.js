@@ -48,7 +48,7 @@ export default {
         ring: '#7C3AED',
       },
       fontFamily: {
-        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        sans: ['DM Sans', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
       boxShadow: {
         soft: '0 24px 70px rgba(37, 99, 235, 0.14)',

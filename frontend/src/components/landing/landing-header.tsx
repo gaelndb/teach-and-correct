@@ -3,8 +3,8 @@ import { BrandLogo } from '@/components/landing/brand-logo'
 
 const navigationItems = [
   { label: 'Fonctionnement', href: '#fonctionnement' },
-  { label: 'Tarifs', href: '#tarifs' },
   { label: 'FAQ', href: '#faq' },
+  { label: 'Contact', href: '#contact' },
 ]
 
 type LandingHeaderProps = {
@@ -14,24 +14,32 @@ type LandingHeaderProps = {
 
 export function LandingHeader({ onOpenSignup, onOpenLogin }: LandingHeaderProps) {
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-white/50 bg-background/85 backdrop-blur-xl">
-      <div className="container flex h-20 items-center justify-between">
+    <header className="fixed inset-x-0 top-0 z-50 bg-[#385f49]">
+      <div className="mx-auto flex h-24 w-full max-w-7xl items-center justify-between px-6 lg:px-8">
         <BrandLogo />
 
-        <nav className="hidden items-center gap-8 text-sm font-semibold text-primary/75 md:flex">
+        <nav className="hidden items-center gap-12 text-lg font-semibold text-white/65 md:flex">
           {navigationItems.map((item) => (
-            <a key={item.href} href={item.href} className="transition-colors hover:text-primary">
+            <a key={item.href} href={item.href} className="transition-colors hover:text-white">
               {item.label}
             </a>
           ))}
         </nav>
 
-        <div className="flex items-center gap-3">
-          <Button size="sm" onClick={onOpenLogin}>
+        <div className="hidden items-center gap-3 sm:flex">
+          <Button
+            size="sm"
+            onClick={onOpenLogin}
+            className="h-12 rounded-lg bg-[#5f9674] px-7 text-base text-white shadow-none hover:bg-[#6aa680]"
+          >
             Connexion
           </Button>
-          <Button size="sm" variant="secondary" onClick={onOpenSignup}>
-            Inscription
+          <Button
+            size="sm"
+            onClick={onOpenSignup}
+            className="h-12 rounded-lg bg-[#d3634d] px-7 text-base text-white shadow-none hover:bg-[#c95540]"
+          >
+            Essayer gratuitement
           </Button>
         </div>
       </div>
