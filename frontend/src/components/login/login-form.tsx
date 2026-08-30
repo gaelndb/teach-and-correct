@@ -69,12 +69,12 @@ export function LoginForm({ errorMessage, isLoading, onBack, onOpenSignup, onSub
   }
 
   return (
-    <section className="flex min-h-screen items-start bg-[#fbfaf6] px-6 py-8 sm:py-10 lg:h-screen lg:overflow-y-auto lg:px-14 lg:py-12">
+    <section className="relative flex min-h-screen items-start bg-[#fbfaf6] px-6 py-8 sm:py-10 lg:h-screen lg:items-center lg:overflow-y-auto lg:px-10 lg:py-[clamp(0.75rem,1.4vh,2rem)] xl:px-14 [@media_(min-width:1024px)_and_(min-height:900px)]:overflow-hidden">
       <div className="mx-auto w-full max-w-5xl">
         <button
           type="button"
           onClick={onBack}
-          className="mb-12 inline-flex items-center gap-2 text-sm font-semibold text-[#5f9674] transition hover:text-[#385f49] lg:mb-[clamp(6rem,22vh,18rem)]"
+          className="mb-8 inline-flex items-center gap-2 text-sm font-semibold text-[#5f9674] transition hover:text-[#385f49] lg:absolute lg:left-10 lg:top-[clamp(1.5rem,4vh,3rem)] lg:mb-0 xl:left-14"
         >
           <ArrowLeft className="h-4 w-4" />
           Retour

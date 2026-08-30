@@ -264,7 +264,7 @@ export function SignupForm({ errorMessage, isLoading, onBack, onOpenLogin, onSub
           </Button>
         </form>
 
-        <p className="mt-5 text-center text-sm font-medium text-[#7d987f] lg:mt-[clamp(0.75rem,2vh,1.75rem)] lg:text-base">
+        <p className="mt-5 pb-8 text-center text-sm font-medium text-[#7d987f] lg:mt-[clamp(0.75rem,2vh,1.75rem)] lg:pb-10 lg:text-base">
           Vous avez déjà un compte ?{' '}
           <button type="button" onClick={onOpenLogin} className="font-black text-[#385f49] transition hover:text-[#d3634d]">
             Me connecter
