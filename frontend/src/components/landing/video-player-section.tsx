@@ -1,4 +1,4 @@
-import { Expand, Pause, Play, Sparkles, Volume2 } from 'lucide-react'
+import { Expand, Pause, Play, Volume2 } from 'lucide-react'
 
 export function VideoPlayerSection() {
   return (
@@ -7,10 +7,7 @@ export function VideoPlayerSection() {
         <div className="relative flex h-[360px] items-center justify-center overflow-hidden bg-[#263b2f] sm:h-[440px] lg:h-[520px]">
           <img src="/copie.jpg" alt="Aperçu vidéo de démonstration" className="h-full w-full object-cover opacity-55" />
           <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/20 to-[#203b2d]/35" />
-          <div className="absolute right-5 top-5 inline-flex items-center gap-2 rounded-full bg-black/55 px-4 py-2 text-sm font-black text-white backdrop-blur">
-            <Sparkles className="h-4 w-4" />
-            Premium
-          </div>
+
           <button
             type="button"
             aria-label="Lancer la vidéo de démonstration"
