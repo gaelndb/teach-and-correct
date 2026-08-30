@@ -90,12 +90,12 @@ export function SignupForm({ errorMessage, isLoading, onBack, onOpenLogin, onSub
   }
 
   return (
-    <section className="flex min-h-screen items-start bg-[#fbfaf6] px-6 py-8 sm:py-10 lg:h-screen lg:overflow-y-auto lg:px-14 lg:py-12">
+    <section className="relative flex min-h-screen items-start bg-[#fbfaf6] px-6 py-8 sm:py-10 lg:h-screen lg:overflow-y-auto lg:px-10 lg:py-[clamp(0.75rem,1.4vh,2rem)] xl:px-14 [@media_(min-width:1024px)_and_(min-height:900px)]:items-center [@media_(min-width:1024px)_and_(min-height:900px)]:overflow-hidden">
       <div className="mx-auto w-full max-w-5xl">
         <button
           type="button"
           onClick={onBack}
-          className="mb-12 inline-flex items-center gap-2 text-sm font-semibold text-[#5f9674] transition hover:text-[#385f49] lg:mb-[clamp(3rem,10vh,9rem)]"
+          className="mb-8 inline-flex items-center gap-2 text-sm font-semibold text-[#5f9674] transition hover:text-[#385f49] lg:mb-6 [@media_(min-width:1024px)_and_(min-height:900px)]:absolute [@media_(min-width:1024px)_and_(min-height:900px)]:left-10 [@media_(min-width:1024px)_and_(min-height:900px)]:top-[clamp(1.5rem,4vh,3rem)] [@media_(min-width:1024px)_and_(min-height:900px)]:mb-0 xl:[@media_(min-width:1024px)_and_(min-height:900px)]:left-14"
         >
           <ArrowLeft className="h-4 w-4" />
           Retour
@@ -105,34 +105,34 @@ export function SignupForm({ errorMessage, isLoading, onBack, onOpenLogin, onSub
           <div className="inline-flex rounded-full border border-[#c7ded4] bg-[#edf5f1] px-4 py-2 text-xs font-black tracking-[0.12em] text-[#5f9674]">
             Inscription gratuite · Sans carte bancaire
           </div>
-          <h1 className="mt-6 text-4xl font-black tracking-[-0.045em] text-[#385f49]">Créez votre compte</h1>
-          <p className="mt-4 text-lg text-[#7d987f]">Rejoignez les enseignants qui récupèrent du temps chaque semaine.</p>
+          <h1 className="mt-8 text-3xl font-black tracking-[-0.045em] text-[#385f49] lg:text-[clamp(1.75rem,4vh,2.25rem)]">Créez votre compte</h1>
+          <p className="mt-3 text-base text-[#7d987f] lg:text-[clamp(0.95rem,2vh,1.125rem)]">Rejoignez les enseignants qui récupèrent du temps chaque semaine.</p>
         </div>
 
-        <form className="mt-8 space-y-5 lg:mt-10 lg:space-y-6" onSubmit={handleSubmit} noValidate>
-          <div className="grid gap-5 sm:grid-cols-2">
-            <label className="space-y-3">
+        <form className="mt-6 space-y-4 lg:mt-[clamp(1rem,3vh,2.5rem)] lg:space-y-[clamp(0.65rem,1.3vh,1.5rem)]" onSubmit={handleSubmit} noValidate>
+          <div className="grid gap-4 sm:grid-cols-2 lg:gap-[clamp(0.75rem,1.4vh,1.25rem)]">
+            <label className="space-y-2 lg:space-y-[clamp(0.35rem,0.8vh,0.75rem)]">
               <span className="text-sm font-black text-[#385f49]">Nom</span>
               <input
                 value={formValues.lastName}
                 onBlur={() => markFieldAsTouched('lastName')}
                 onChange={(event) => updateField('lastName', event.target.value)}
                 placeholder="Dupont"
-                className="h-14 w-full rounded-lg border border-[#c7ded4] bg-[#eef6f2] px-4 text-base font-semibold text-[#385f49] outline-none transition placeholder:text-[#9aae9e] focus:border-[#5f9674] focus:bg-white focus:ring-2 focus:ring-[#5f9674]/15"
+                className="h-12 w-full rounded-lg border border-[#c7ded4] bg-[#eef6f2] px-4 text-sm font-semibold text-[#385f49] outline-none transition placeholder:text-[#9aae9e] focus:border-[#5f9674] focus:bg-white focus:ring-2 focus:ring-[#5f9674]/15 lg:h-[clamp(2.5rem,5vh,3.5rem)] lg:text-base"
               />
               {(getLengthErrorMessage('lastName') ?? getErrorMessage('lastName')) && (
                 <p className="text-sm font-bold text-red-600">{getLengthErrorMessage('lastName') ?? getErrorMessage('lastName')}</p>
               )}
             </label>
 
-            <label className="space-y-3">
+            <label className="space-y-2 lg:space-y-[clamp(0.35rem,0.8vh,0.75rem)]">
               <span className="text-sm font-black text-[#385f49]">Prénom</span>
               <input
                 value={formValues.firstName}
                 onBlur={() => markFieldAsTouched('firstName')}
                 onChange={(event) => updateField('firstName', event.target.value)}
                 placeholder="Gaëlle"
-                className="h-14 w-full rounded-lg border border-[#c7ded4] bg-[#eef6f2] px-4 text-base font-semibold text-[#385f49] outline-none transition placeholder:text-[#9aae9e] focus:border-[#5f9674] focus:bg-white focus:ring-2 focus:ring-[#5f9674]/15"
+                className="h-12 w-full rounded-lg border border-[#c7ded4] bg-[#eef6f2] px-4 text-sm font-semibold text-[#385f49] outline-none transition placeholder:text-[#9aae9e] focus:border-[#5f9674] focus:bg-white focus:ring-2 focus:ring-[#5f9674]/15 lg:h-[clamp(2.5rem,5vh,3.5rem)] lg:text-base"
               />
               {(getLengthErrorMessage('firstName') ?? getErrorMessage('firstName')) && (
                 <p className="text-sm font-bold text-red-600">{getLengthErrorMessage('firstName') ?? getErrorMessage('firstName')}</p>
@@ -140,7 +140,7 @@ export function SignupForm({ errorMessage, isLoading, onBack, onOpenLogin, onSub
             </label>
           </div>
 
-          <label className="block space-y-3">
+          <label className="block space-y-2 lg:space-y-[clamp(0.35rem,0.8vh,0.75rem)]">
             <span className="text-sm font-black text-[#385f49]">Adresse e-mail</span>
             <input
               value={formValues.email}
@@ -148,15 +148,15 @@ export function SignupForm({ errorMessage, isLoading, onBack, onOpenLogin, onSub
               onChange={(event) => updateField('email', event.target.value)}
               placeholder="gaelle.dupont@etablissement.fr"
               type="email"
-              className="h-14 w-full rounded-lg border border-[#c7ded4] bg-[#eef6f2] px-4 text-base font-semibold text-[#385f49] outline-none transition placeholder:text-[#9aae9e] focus:border-[#5f9674] focus:bg-white focus:ring-2 focus:ring-[#5f9674]/15"
+              className="h-12 w-full rounded-lg border border-[#c7ded4] bg-[#eef6f2] px-4 text-sm font-semibold text-[#385f49] outline-none transition placeholder:text-[#9aae9e] focus:border-[#5f9674] focus:bg-white focus:ring-2 focus:ring-[#5f9674]/15 lg:h-[clamp(2.5rem,5vh,3.5rem)] lg:text-base"
             />
             {(getLengthErrorMessage('email') ?? getErrorMessage('email')) && (
               <p className="text-sm font-bold text-red-600">{getLengthErrorMessage('email') ?? getErrorMessage('email')}</p>
             )}
           </label>
 
-          <div className="grid gap-5 sm:grid-cols-2">
-            <label className="space-y-3">
+          <div className="grid gap-4 sm:grid-cols-2 lg:gap-[clamp(0.75rem,1.4vh,1.25rem)]">
+            <label className="space-y-2 lg:space-y-[clamp(0.35rem,0.8vh,0.75rem)]">
               <span className="text-sm font-black text-[#385f49]">Mot de passe</span>
               <div className="relative">
                 <input
@@ -165,7 +165,7 @@ export function SignupForm({ errorMessage, isLoading, onBack, onOpenLogin, onSub
                   onChange={(event) => updateField('password', event.target.value)}
                   placeholder="8 caractères min."
                   type={isPasswordVisible ? 'text' : 'password'}
-                  className="h-14 w-full rounded-lg border border-[#c7ded4] bg-[#eef6f2] px-4 pr-12 text-base font-semibold text-[#385f49] outline-none transition placeholder:text-[#9aae9e] focus:border-[#5f9674] focus:bg-white focus:ring-2 focus:ring-[#5f9674]/15"
+                  className="h-12 w-full rounded-lg border border-[#c7ded4] bg-[#eef6f2] px-4 pr-12 text-sm font-semibold text-[#385f49] outline-none transition placeholder:text-[#9aae9e] focus:border-[#5f9674] focus:bg-white focus:ring-2 focus:ring-[#5f9674]/15 lg:h-[clamp(2.5rem,5vh,3.5rem)] lg:text-base"
                 />
                 <button
                   type="button"
@@ -176,20 +176,20 @@ export function SignupForm({ errorMessage, isLoading, onBack, onOpenLogin, onSub
                   {isPasswordVisible ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                 </button>
               </div>
-              <div className="space-y-1 rounded-xl bg-[#edf5f1] p-3">
-                <p className="text-xs font-black uppercase tracking-[0.16em] text-[#7d987f]">Le mot de passe doit contenir</p>
-                <ul className="space-y-1">
+              <div className="space-y-1 rounded-xl bg-[#edf5f1] p-2 lg:p-[clamp(0.45rem,1vh,0.75rem)]">
+                <p className="text-[0.65rem] font-black uppercase tracking-[0.16em] text-[#7d987f] lg:text-xs">Le mot de passe doit contenir</p>
+                <ul className="space-y-0.5 lg:space-y-[clamp(0rem,0.3vh,0.25rem)]">
                   {strongPasswordRules.filter((rule) => rule.isVisibleRequirement).map((rule) => {
                     const isRuleValid = rule.isValid(formValues.password)
 
                     return (
                       <li
                         key={rule.label}
-                        className={`flex items-center gap-2 text-xs font-bold transition ${
+                        className={`flex items-center gap-2 text-[0.68rem] font-bold transition lg:text-xs ${
                           isRuleValid ? 'text-emerald-600' : 'text-[#7d987f]'
                         }`}
                       >
-                        {isRuleValid ? <CheckCircle2 className="h-4 w-4" /> : <Circle className="h-4 w-4" />}
+                        {isRuleValid ? <CheckCircle2 className="h-3.5 w-3.5 lg:h-4 lg:w-4" /> : <Circle className="h-3.5 w-3.5 lg:h-4 lg:w-4" />}
                         {rule.label}
                       </li>
                     )
@@ -201,7 +201,7 @@ export function SignupForm({ errorMessage, isLoading, onBack, onOpenLogin, onSub
               )}
             </label>
 
-            <label className="space-y-3">
+            <label className="space-y-2 lg:space-y-[clamp(0.35rem,0.8vh,0.75rem)]">
               <span className="text-sm font-black text-[#385f49]">Confirmation</span>
               <div className="relative">
                 <input
@@ -210,7 +210,7 @@ export function SignupForm({ errorMessage, isLoading, onBack, onOpenLogin, onSub
                   onChange={(event) => updateField('confirmPassword', event.target.value)}
                   placeholder="Répétez le mot de passe"
                   type={isConfirmPasswordVisible ? 'text' : 'password'}
-                  className="h-14 w-full rounded-lg border border-[#c7ded4] bg-[#eef6f2] px-4 pr-12 text-base font-semibold text-[#385f49] outline-none transition placeholder:text-[#9aae9e] focus:border-[#5f9674] focus:bg-white focus:ring-2 focus:ring-[#5f9674]/15"
+                  className="h-12 w-full rounded-lg border border-[#c7ded4] bg-[#eef6f2] px-4 pr-12 text-sm font-semibold text-[#385f49] outline-none transition placeholder:text-[#9aae9e] focus:border-[#5f9674] focus:bg-white focus:ring-2 focus:ring-[#5f9674]/15 lg:h-[clamp(2.5rem,5vh,3.5rem)] lg:text-base"
                 />
                 <button
                   type="button"
@@ -225,7 +225,7 @@ export function SignupForm({ errorMessage, isLoading, onBack, onOpenLogin, onSub
             </label>
           </div>
 
-          <div className="space-y-4 text-sm font-semibold text-[#58725d]">
+          <div className="space-y-3 text-sm font-semibold text-[#58725d] lg:space-y-[clamp(0.45rem,1vh,1rem)]">
             <label className="flex items-start gap-3">
               <input
                 checked={hasAcceptedTerms}
@@ -258,13 +258,13 @@ export function SignupForm({ errorMessage, isLoading, onBack, onOpenLogin, onSub
           <Button
             type="submit"
             disabled={!isFormValid || !hasAcceptedTerms || isLoading}
-            className="h-16 w-full rounded-lg bg-[#d3634d] text-base text-white shadow-none hover:bg-[#c95540]"
+            className="h-14 w-full rounded-lg bg-[#d3634d] text-base text-white shadow-none hover:bg-[#c95540] lg:h-[clamp(2.75rem,6vh,4rem)]"
           >
             {isLoading ? 'Création du compte...' : "M'inscrire gratuitement"}
           </Button>
         </form>
 
-        <p className="mt-7 text-center text-base font-medium text-[#7d987f]">
+        <p className="mt-5 text-center text-sm font-medium text-[#7d987f] lg:mt-[clamp(0.75rem,2vh,1.75rem)] lg:text-base">
           Vous avez déjà un compte ?{' '}
           <button type="button" onClick={onOpenLogin} className="font-black text-[#385f49] transition hover:text-[#d3634d]">
             Me connecter
