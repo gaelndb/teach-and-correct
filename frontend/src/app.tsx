@@ -4,9 +4,10 @@ import { useState } from 'react'
 import { loginUser, registerUser } from '@/api/auth-api'
 import { DashboardPage } from '@/pages/dashboard-page'
 import { LandingPage } from '@/pages/landing-page'
+import { SignupPage } from '@/pages/signup-page'
 import type { AuthResponse, LoginFormValues, SignupFormValues } from '@/types/auth'
 
-type CurrentPage = 'landing' | 'dashboard'
+type CurrentPage = 'landing' | 'signup' | 'dashboard'
 
 type RegisteredTeacher = Pick<AuthResponse, 'firstName' | 'lastName'>
 
@@ -79,13 +80,31 @@ function App() {
     )
   }
 
+  if (currentPage === 'signup') {
+    return (
+      <SignupPage
+        authError={authError}
+        isAuthLoading={isAuthLoading}
+        onBackToLanding={() => {
+          setAuthError(null)
+          setCurrentPage('landing')
+        }}
+        onOpenLogin={() => {
+          setAuthError(null)
+          setCurrentPage('landing')
+        }}
+        onSignup={handleSignup}
+      />
+    )
+  }
+
   return (
     <LandingPage
       authError={authError}
       isAuthLoading={isAuthLoading}
       onClearAuthError={() => setAuthError(null)}
       onLogin={handleLogin}
-      onSignup={handleSignup}
+      onOpenSignupPage={() => setCurrentPage('signup')}
     />
   )
 }

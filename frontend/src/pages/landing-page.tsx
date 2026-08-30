@@ -9,17 +9,16 @@ import { LandingFooter } from '@/components/landing/landing-footer'
 import { LandingHeader } from '@/components/landing/landing-header'
 import { LoginModal } from '@/components/landing/login-modal'
 import { ProcessSection } from '@/components/landing/process-section'
-import { SignupModal } from '@/components/landing/signup-modal'
 import { StudentTrackingSection } from '@/components/landing/student-tracking-section'
 import { VideoPlayerSection } from '@/components/landing/video-player-section'
-import type { LoginFormValues, SignupFormValues } from '@/types/auth'
+import type { LoginFormValues } from '@/types/auth'
 
 type LandingPageProps = {
   authError: string | null
   isAuthLoading: boolean
   onClearAuthError: () => void
   onLogin: (values: LoginFormValues) => Promise<boolean>
-  onSignup: (values: SignupFormValues) => Promise<boolean>
+  onOpenSignupPage: () => void
 }
 
 export function LandingPage({
@@ -27,9 +26,8 @@ export function LandingPage({
   isAuthLoading,
   onClearAuthError,
   onLogin,
-  onSignup,
+  onOpenSignupPage,
 }: LandingPageProps) {
-  const [isSignupModalOpen, setIsSignupModalOpen] = useState(false)
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
 
   function openLoginModal() {
@@ -37,25 +35,25 @@ export function LandingPage({
     setIsLoginModalOpen(true)
   }
 
-  function openSignupModal() {
+  function openSignupPage() {
     onClearAuthError()
-    setIsSignupModalOpen(true)
+    onOpenSignupPage()
   }
 
   return (
     <main className="min-h-screen bg-[#fbfaf6]">
       <LandingHeader
-        onOpenSignup={openSignupModal}
+        onOpenSignup={openSignupPage}
         onOpenLogin={openLoginModal}
       />
-      <HeroSection onOpenSignup={openSignupModal} />
+      <HeroSection onOpenSignup={openSignupPage} />
       <FeaturesSection />
       <ProcessSection />
       <BenefitsSection />
       <StudentTrackingSection />
       <VideoPlayerSection />
       <FaqSection />
-      <FinalCtaSection onOpenSignup={openSignupModal} />
+      <FinalCtaSection onOpenSignup={openSignupPage} />
       <LandingFooter />
       <LoginModal
         errorMessage={authError}
@@ -63,13 +61,6 @@ export function LandingPage({
         isOpen={isLoginModalOpen}
         onClose={() => setIsLoginModalOpen(false)}
         onSubmit={onLogin}
-      />
-      <SignupModal
-        errorMessage={authError}
-        isLoading={isAuthLoading}
-        isOpen={isSignupModalOpen}
-        onClose={() => setIsSignupModalOpen(false)}
-        onSubmit={onSignup}
       />
     </main>
   )
