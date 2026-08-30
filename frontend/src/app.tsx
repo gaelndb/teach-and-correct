@@ -4,10 +4,11 @@ import { useState } from 'react'
 import { loginUser, registerUser } from '@/api/auth-api'
 import { DashboardPage } from '@/pages/dashboard-page'
 import { LandingPage } from '@/pages/landing-page'
+import { LoginPage } from '@/pages/login-page'
 import { SignupPage } from '@/pages/signup-page'
 import type { AuthResponse, LoginFormValues, SignupFormValues } from '@/types/auth'
 
-type CurrentPage = 'landing' | 'signup' | 'dashboard'
+type CurrentPage = 'landing' | 'login' | 'signup' | 'dashboard'
 
 type RegisteredTeacher = Pick<AuthResponse, 'firstName' | 'lastName'>
 
@@ -80,6 +81,24 @@ function App() {
     )
   }
 
+  if (currentPage === 'login') {
+    return (
+      <LoginPage
+        authError={authError}
+        isAuthLoading={isAuthLoading}
+        onBackToLanding={() => {
+          setAuthError(null)
+          setCurrentPage('landing')
+        }}
+        onOpenSignup={() => {
+          setAuthError(null)
+          setCurrentPage('signup')
+        }}
+        onLogin={handleLogin}
+      />
+    )
+  }
+
   if (currentPage === 'signup') {
     return (
       <SignupPage
@@ -91,7 +110,7 @@ function App() {
         }}
         onOpenLogin={() => {
           setAuthError(null)
-          setCurrentPage('landing')
+          setCurrentPage('login')
         }}
         onSignup={handleSignup}
       />
@@ -100,10 +119,8 @@ function App() {
 
   return (
     <LandingPage
-      authError={authError}
-      isAuthLoading={isAuthLoading}
       onClearAuthError={() => setAuthError(null)}
-      onLogin={handleLogin}
+      onOpenLoginPage={() => setCurrentPage('login')}
       onOpenSignupPage={() => setCurrentPage('signup')}
     />
   )

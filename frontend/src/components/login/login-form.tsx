@@ -1,15 +1,15 @@
+import { ArrowLeft, Eye, EyeOff } from 'lucide-react'
 import { FormEvent, useMemo, useState } from 'react'
-import { Eye, EyeOff, LogIn, X } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 import { validateLoginForm } from '@/lib/auth-form-validation-utils'
 import type { LoginFormValues } from '@/types/auth'
 
-type LoginModalProps = {
+type LoginFormProps = {
   errorMessage: string | null
   isLoading: boolean
-  isOpen: boolean
-  onClose: () => void
+  onBack: () => void
+  onOpenSignup: () => void
   onSubmit: (values: LoginFormValues) => Promise<boolean>
 }
 
@@ -18,17 +18,13 @@ const initialFormValues: LoginFormValues = {
   password: '',
 }
 
-export function LoginModal({ errorMessage, isLoading, isOpen, onClose, onSubmit }: LoginModalProps) {
+export function LoginForm({ errorMessage, isLoading, onBack, onOpenSignup, onSubmit }: LoginFormProps) {
   const [formValues, setFormValues] = useState<LoginFormValues>(initialFormValues)
   const [touchedFields, setTouchedFields] = useState<Partial<Record<keyof LoginFormValues, boolean>>>({})
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
 
   const errors = useMemo(() => validateLoginForm(formValues), [formValues])
   const isFormValid = Object.keys(errors).length === 0
-
-  if (!isOpen) {
-    return null
-  }
 
   function updateField(field: keyof LoginFormValues, value: string) {
     setFormValues((currentValues) => ({
@@ -73,46 +69,59 @@ export function LoginModal({ errorMessage, isLoading, isOpen, onClose, onSubmit 
   }
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-950/55 p-4 backdrop-blur-sm">
-      <div className="w-full max-w-xl overflow-hidden rounded-[2rem] bg-white shadow-soft">
-        <div className="flex items-center justify-between gap-4 border-b border-border p-5">
-          <div>
-            <p className="text-sm font-black uppercase tracking-[0.24em] text-violet">Connexion</p>
-            <h2 className="mt-1 text-2xl font-black text-foreground">Se connecter à son compte</h2>
+    <section className="flex min-h-screen items-start bg-[#fbfaf6] px-6 py-8 sm:py-10 lg:h-screen lg:overflow-y-auto lg:px-14 lg:py-12">
+      <div className="mx-auto w-full max-w-5xl">
+        <button
+          type="button"
+          onClick={onBack}
+          className="mb-12 inline-flex items-center gap-2 text-sm font-semibold text-[#5f9674] transition hover:text-[#385f49] lg:mb-[clamp(6rem,22vh,18rem)]"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          Retour
+        </button>
+
+        <div>
+          <div className="inline-flex rounded-full border border-[#c7ded4] bg-[#edf5f1] px-4 py-2 text-xs font-black tracking-[0.12em] text-[#5f9674]">
+            Connexion à votre espace
           </div>
-          <Button variant="ghost" size="sm" onClick={onClose} aria-label="Fermer la fenêtre de connexion">
-            <X className="h-5 w-5" />
-          </Button>
+          <h1 className="mt-6 text-4xl font-black tracking-[-0.045em] text-[#385f49]">Bienvenue !</h1>
+          <p className="mt-4 text-lg text-[#7d987f]">Connectez-vous pour accéder à vos copies et vos classes.</p>
         </div>
 
-        <form className="space-y-5 p-5" onSubmit={handleSubmit} noValidate>
-          <label className="block space-y-2">
-            <span className="text-sm font-black text-foreground">Adresse email</span>
+        <form className="mt-10 space-y-6" onSubmit={handleSubmit} noValidate>
+          <label className="block space-y-3">
+            <span className="text-sm font-black text-[#385f49]">Adresse e-mail</span>
             <input
               value={formValues.email}
               onBlur={() => markFieldAsTouched('email')}
               onChange={(event) => updateField('email', event.target.value)}
-              placeholder="Ex : marie.dupont@email.com"
+              placeholder="gaelle.dupont@etablissement.fr"
               type="email"
-              className="h-12 w-full rounded-2xl border border-border bg-muted/50 px-4 text-sm font-semibold text-foreground outline-none transition focus:border-primary focus:bg-white focus:ring-2 focus:ring-primary/20"
+              className="h-14 w-full rounded-lg border border-[#c7ded4] bg-[#eef6f2] px-4 text-base font-semibold text-[#385f49] outline-none transition placeholder:text-[#9aae9e] focus:border-[#5f9674] focus:bg-white focus:ring-2 focus:ring-[#5f9674]/15"
             />
             {getErrorMessage('email') && <p className="text-sm font-bold text-red-600">{getErrorMessage('email')}</p>}
           </label>
 
-          <label className="block space-y-2">
-            <span className="text-sm font-black text-foreground">Mot de passe</span>
+          <label className="block space-y-3">
+            <span className="flex items-center justify-between gap-4 text-sm font-black text-[#385f49]">
+              Mot de passe
+              <button type="button" className="font-semibold text-[#d3634d] transition hover:text-[#c95540]">
+                Mot de passe oublié ?
+              </button>
+            </span>
             <div className="relative">
               <input
                 value={formValues.password}
                 onBlur={() => markFieldAsTouched('password')}
                 onChange={(event) => updateField('password', event.target.value)}
+                placeholder="Votre mot de passe"
                 type={isPasswordVisible ? 'text' : 'password'}
-                className="h-12 w-full rounded-2xl border border-border bg-muted/50 px-4 pr-12 text-sm font-semibold text-foreground outline-none transition focus:border-primary focus:bg-white focus:ring-2 focus:ring-primary/20"
+                className="h-14 w-full rounded-lg border border-[#c7ded4] bg-[#eef6f2] px-4 pr-12 text-base font-semibold text-[#385f49] outline-none transition placeholder:text-[#9aae9e] focus:border-[#5f9674] focus:bg-white focus:ring-2 focus:ring-[#5f9674]/15"
               />
               <button
                 type="button"
                 onClick={() => setIsPasswordVisible((currentValue) => !currentValue)}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground transition hover:text-foreground"
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-[#5f9674] transition hover:text-[#385f49]"
                 aria-label={isPasswordVisible ? 'Masquer le mot de passe' : 'Afficher le mot de passe'}
               >
                 {isPasswordVisible ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
@@ -122,17 +131,27 @@ export function LoginModal({ errorMessage, isLoading, isOpen, onClose, onSubmit 
           </label>
 
           {errorMessage && (
-            <p className="rounded-2xl bg-red-50 px-4 py-3 text-sm font-bold text-red-600">
+            <p className="rounded-xl bg-red-50 px-4 py-3 text-sm font-bold text-red-600">
               {errorMessage}
             </p>
           )}
 
-          <Button type="submit" disabled={!isFormValid || isLoading} className="w-full">
-            <LogIn className="h-5 w-5" />
+          <Button
+            type="submit"
+            disabled={!isFormValid || isLoading}
+            className="h-16 w-full rounded-lg bg-[#d3634d] text-base text-white shadow-none hover:bg-[#c95540]"
+          >
             {isLoading ? 'Connexion...' : 'Me connecter'}
           </Button>
         </form>
+
+        <p className="mt-7 text-center text-base font-medium text-[#7d987f]">
+          Vous n'avez pas encore de compte ?{' '}
+          <button type="button" onClick={onOpenSignup} className="font-black text-[#385f49] transition hover:text-[#d3634d]">
+            Créer mon compte gratuitement
+          </button>
+        </p>
       </div>
-    </div>
+    </section>
   )
 }
