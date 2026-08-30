@@ -1,10 +1,17 @@
 import { useState } from 'react'
 
+import { BenefitsSection } from '@/components/landing/benefits-section'
+import { FaqSection } from '@/components/landing/faq-section'
+import { FeaturesSection } from '@/components/landing/features-section'
+import { FinalCtaSection } from '@/components/landing/final-cta-section'
 import { HeroSection } from '@/components/landing/hero-section'
+import { LandingFooter } from '@/components/landing/landing-footer'
 import { LandingHeader } from '@/components/landing/landing-header'
 import { LoginModal } from '@/components/landing/login-modal'
+import { ProcessSection } from '@/components/landing/process-section'
 import { SignupModal } from '@/components/landing/signup-modal'
-import { WorkflowSection } from '@/components/landing/workflow-section'
+import { StudentTrackingSection } from '@/components/landing/student-tracking-section'
+import { VideoPlayerSection } from '@/components/landing/video-player-section'
 import type { LoginFormValues, SignupFormValues } from '@/types/auth'
 
 type LandingPageProps = {
@@ -36,13 +43,20 @@ export function LandingPage({
   }
 
   return (
-    <main className="min-h-screen bg-background">
+    <main className="min-h-screen bg-[#fbfaf6]">
       <LandingHeader
         onOpenSignup={openSignupModal}
         onOpenLogin={openLoginModal}
       />
-      <HeroSection />
-      <WorkflowSection />
+      <HeroSection onOpenSignup={openSignupModal} />
+      <FeaturesSection />
+      <ProcessSection />
+      <BenefitsSection />
+      <StudentTrackingSection />
+      <VideoPlayerSection />
+      <FaqSection />
+      <FinalCtaSection onOpenSignup={openSignupModal} />
+      <LandingFooter />
       <LoginModal
         errorMessage={authError}
         isLoading={isAuthLoading}
