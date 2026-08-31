@@ -1,16 +1,12 @@
-import { Camera, Sparkles } from 'lucide-react'
+import { Plus } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 
 export function ScanButton() {
   return (
-    <div className="relative">
-      <span className="absolute inset-0 rounded-full bg-accent/20 blur-md animate-pulse" />
-      <Button className="relative animate-gentleFloat bg-gradient-to-r from-accent to-violet hover:from-orange-600 hover:to-violet">
-        <Camera className="h-5 w-5" />
-        Scanner une copie
-        <Sparkles className="h-4 w-4" />
-      </Button>
-    </div>
+    <Button className="h-10 rounded-lg bg-[#d3634d] px-5 text-sm font-black text-white shadow-none hover:bg-[#c95540]">
+      <Plus className="h-4 w-4" />
+      Nouvelle copie
+    </Button>
   )
 }
