@@ -2,6 +2,7 @@ import { HelpCircle, LogOut, Search, Settings } from 'lucide-react'
 import { useMemo, useState } from 'react'
 
 import { DashboardStats } from '@/components/dashboard/dashboard-stats'
+import { ImportCopiesScreen } from '@/components/dashboard/import-copies-screen'
 import { ScanButton } from '@/components/dashboard/scan-button'
 import { StudentCopiesModal } from '@/components/dashboard/student-copies-modal'
 import { StudentDetailsPanel } from '@/components/dashboard/student-details-panel'
@@ -19,12 +20,14 @@ type DashboardPageProps = {
 }
 
 const classFilters = ['Toutes', '5e B', '4e A', '3e C', '2nde B', '1ère S']
+type DashboardScreen = 'students' | 'import'
 
 export function DashboardPage({ teacher, onLogout }: DashboardPageProps) {
   const [selectedStudent, setSelectedStudent] = useState<Student>(students[0])
   const [isCopiesModalOpen, setIsCopiesModalOpen] = useState(false)
   const [search, setSearch] = useState('')
   const [selectedClassFilter, setSelectedClassFilter] = useState('Toutes')
+  const [currentScreen, setCurrentScreen] = useState<DashboardScreen>('students')
 
   const filteredStudents = useMemo(() => {
     const normalizedSearch = search.trim().toLowerCase()
@@ -52,12 +55,12 @@ export function DashboardPage({ teacher, onLogout }: DashboardPageProps) {
 
           <nav className="hidden items-center gap-2 text-sm font-black text-white/55 md:flex">
             <a href="#classes" className="rounded-lg px-5 py-3 transition hover:bg-white/10 hover:text-white">Classes</a>
-            <a href="#eleves" className="rounded-lg bg-white/15 px-5 py-3 text-white">Élèves</a>
-            <a href="#copies" className="rounded-lg px-5 py-3 transition hover:bg-white/10 hover:text-white">Copies</a>
+            <button type="button" onClick={() => setCurrentScreen('students')} className={`rounded-lg px-5 py-3 transition hover:bg-white/10 hover:text-white ${currentScreen === 'students' ? 'bg-white/15 text-white' : ''}`}>Élèves</button>
+            <button type="button" className="rounded-lg px-5 py-3 transition hover:bg-white/10 hover:text-white">Copies</button>
           </nav>
 
           <div className="flex items-center gap-2">
-            <ScanButton />
+            <ScanButton onClick={() => setCurrentScreen('import')} />
             <Button className="hidden h-10 rounded-lg border border-white/15 bg-white/10 px-4 text-sm font-black text-white shadow-none hover:bg-white/15 lg:inline-flex">
               <HelpCircle className="h-4 w-4" />
               Aide
@@ -74,7 +77,10 @@ export function DashboardPage({ teacher, onLogout }: DashboardPageProps) {
         </div>
       </header>
 
-      <div className="px-6 py-7">
+      {currentScreen === 'import' ? (
+        <ImportCopiesScreen onStartImport={() => setCurrentScreen('import')} />
+      ) : (
+        <div className="px-6 py-7">
         <p className="text-sm font-semibold text-[#5f9674]">Élèves</p>
         <h1 id="eleves" className="mt-2 text-3xl font-black tracking-[-0.035em] text-[#385f49]">Mes élèves</h1>
 
@@ -137,7 +143,8 @@ export function DashboardPage({ teacher, onLogout }: DashboardPageProps) {
             onOpenCopies={() => setIsCopiesModalOpen(true)}
           />
         </section>
-      </div>
+        </div>
+      )}
 
       <StudentCopiesModal
         student={selectedStudent}
