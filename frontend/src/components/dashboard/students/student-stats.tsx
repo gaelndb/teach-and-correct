@@ -3,11 +3,11 @@ import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { studentsStatsCards } from '@/mocks/dashboard/cards'
 import type { Student } from '@/types/student'
 
-type DashboardStatsProps = {
+type StudentStatsProps = {
   students: Student[]
 }
 
-export function DashboardStats({ students }: DashboardStatsProps) {
+export function StudentStats({ students }: StudentStatsProps) {
   const classAverage = students.reduce((total, student) => total + student.average, 0) / students.length
   const classNames = Array.from(new Set(students.map((student) => student.className)))
 
