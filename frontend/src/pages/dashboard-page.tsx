@@ -1,6 +1,7 @@
 import { HelpCircle, LogOut, Search, Settings } from 'lucide-react'
 import { useMemo, useState } from 'react'
 
+import { CopiesScreen } from '@/components/dashboard/copies-screen'
 import { DashboardStats } from '@/components/dashboard/dashboard-stats'
 import { ImportCopiesScreen } from '@/components/dashboard/import-copies-screen'
 import { ScanButton } from '@/components/dashboard/scan-button'
@@ -20,7 +21,7 @@ type DashboardPageProps = {
 }
 
 const classFilters = ['Toutes', '5e B', '4e A', '3e C', '2nde B', '1ère S']
-type DashboardScreen = 'students' | 'import'
+type DashboardScreen = 'students' | 'copies' | 'import'
 
 export function DashboardPage({ teacher, onLogout }: DashboardPageProps) {
   const [selectedStudent, setSelectedStudent] = useState<Student>(students[0])
@@ -54,9 +55,9 @@ export function DashboardPage({ teacher, onLogout }: DashboardPageProps) {
           </div>
 
           <nav className="hidden items-center gap-2 text-sm font-black text-white/55 md:flex">
-            <a href="#classes" className="rounded-lg px-5 py-3 transition hover:bg-white/10 hover:text-white">Classes</a>
+            <a href="#accueil" className="rounded-lg px-5 py-3 transition hover:bg-white/10 hover:text-white">Accueil</a>
             <button type="button" onClick={() => setCurrentScreen('students')} className={`rounded-lg px-5 py-3 transition hover:bg-white/10 hover:text-white ${currentScreen === 'students' ? 'bg-white/15 text-white' : ''}`}>Élèves</button>
-            <button type="button" className="rounded-lg px-5 py-3 transition hover:bg-white/10 hover:text-white">Copies</button>
+            <button type="button" onClick={() => setCurrentScreen('copies')} className={`rounded-lg px-5 py-3 transition hover:bg-white/10 hover:text-white ${currentScreen === 'copies' || currentScreen === 'import' ? 'bg-white/15 text-white' : ''}`}>Copies</button>
           </nav>
 
           <div className="flex items-center gap-2">
@@ -79,6 +80,8 @@ export function DashboardPage({ teacher, onLogout }: DashboardPageProps) {
 
       {currentScreen === 'import' ? (
         <ImportCopiesScreen onStartImport={() => setCurrentScreen('import')} />
+      ) : currentScreen === 'copies' ? (
+        <CopiesScreen onOpenImport={() => setCurrentScreen('import')} />
       ) : (
         <div className="px-6 py-7">
         <p className="text-sm font-semibold text-[#5f9674]">Élèves</p>
