@@ -76,7 +76,11 @@ function App() {
     return (
       <DashboardPage
         teacher={registeredTeacher}
-        onBackToLanding={() => setCurrentPage('landing')}
+        onLogout={() => {
+          setRegisteredTeacher(null)
+          setAuthError(null)
+          setCurrentPage('login')
+        }}
       />
     )
   }

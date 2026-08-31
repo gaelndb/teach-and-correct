@@ -11,8 +11,9 @@ export type Student = {
   firstName: string
   lastName: string
   className: string
+  avatarColor: string
   average: number
   lastCorrection: string
-  status: 'À jour' | 'À vérifier' | 'En progression'
+  status: 'Copie corrigée' | 'Copie à corriger' | 'Copie corrigée en attente de validation'
   grades: Grade[]
 }
