@@ -1,22 +1,24 @@
 import { BenefitsSection } from '@/components/landing/benefits-section'
-import { FaqSection } from '@/components/landing/faq-section'
 import { FeaturesSection } from '@/components/landing/features-section'
-import { FinalCtaSection } from '@/components/landing/final-cta-section'
 import { HeroSection } from '@/components/landing/hero-section'
 import { LandingFooter } from '@/components/landing/landing-footer'
 import { LandingHeader } from '@/components/landing/landing-header'
 import { ProcessSection } from '@/components/landing/process-section'
 import { StudentTrackingSection } from '@/components/landing/student-tracking-section'
 import { VideoPlayerSection } from '@/components/landing/video-player-section'
+import { FaqSection } from '@/components/shared/faq-section'
+import { FinalCtaSection } from '@/components/shared/final-cta-section'
 
 type LandingPageProps = {
   onClearAuthError: () => void
+  onOpenContactPage: () => void
   onOpenLoginPage: () => void
   onOpenSignupPage: () => void
 }
 
 export function LandingPage({
   onClearAuthError,
+  onOpenContactPage,
   onOpenLoginPage,
   onOpenSignupPage,
 }: LandingPageProps) {
@@ -30,9 +32,15 @@ export function LandingPage({
     onOpenSignupPage()
   }
 
+  function openContactPage() {
+    onClearAuthError()
+    onOpenContactPage()
+  }
+
   return (
     <main className="min-h-screen bg-[#fbfaf6]">
       <LandingHeader
+        onOpenContact={openContactPage}
         onOpenSignup={openSignupPage}
         onOpenLogin={openLoginPage}
       />
@@ -44,7 +52,7 @@ export function LandingPage({
       <VideoPlayerSection />
       <FaqSection />
       <FinalCtaSection onOpenSignup={openSignupPage} />
-      <LandingFooter />
+      <LandingFooter onOpenContact={openContactPage} />
     </main>
   )
 }
