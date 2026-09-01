@@ -2,13 +2,14 @@ import axios from 'axios'
 import { useState } from 'react'
 
 import { loginUser, registerUser } from '@/api/auth-api'
+import { ContactPage } from '@/pages/contact-page'
 import { DashboardPage } from '@/pages/dashboard-page'
 import { LandingPage } from '@/pages/landing-page'
 import { LoginPage } from '@/pages/login-page'
 import { SignupPage } from '@/pages/signup-page'
 import type { AuthResponse, LoginFormValues, SignupFormValues } from '@/types/auth'
 
-type CurrentPage = 'landing' | 'login' | 'signup' | 'dashboard'
+type CurrentPage = 'landing' | 'login' | 'signup' | 'contact' | 'dashboard'
 
 type RegisteredTeacher = Pick<AuthResponse, 'firstName' | 'lastName'>
 
@@ -49,6 +50,15 @@ function App() {
     }
   }
 
+  function openContactPage() {
+    setAuthError(null)
+    setCurrentPage('contact')
+
+    requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    })
+  }
+
   async function handleLogin(values: LoginFormValues) {
     setAuthError(null)
     setIsAuthLoading(true)
@@ -80,6 +90,23 @@ function App() {
           setRegisteredTeacher(null)
           setAuthError(null)
           setCurrentPage('login')
+        }}
+      />
+    )
+  }
+
+  if (currentPage === 'contact') {
+    return (
+      <ContactPage
+        onOpenContact={openContactPage}
+        onOpenLanding={() => setCurrentPage('landing')}
+        onOpenLogin={() => {
+          setAuthError(null)
+          setCurrentPage('login')
+        }}
+        onOpenSignup={() => {
+          setAuthError(null)
+          setCurrentPage('signup')
         }}
       />
     )
@@ -124,6 +151,7 @@ function App() {
   return (
     <LandingPage
       onClearAuthError={() => setAuthError(null)}
+      onOpenContactPage={openContactPage}
       onOpenLoginPage={() => setCurrentPage('login')}
       onOpenSignupPage={() => setCurrentPage('signup')}
     />

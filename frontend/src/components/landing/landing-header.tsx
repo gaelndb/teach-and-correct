@@ -4,19 +4,22 @@ import { BrandLogo } from '@/components/landing/brand-logo'
 const navigationItems = [
   { label: 'Fonctionnement', href: '#fonctionnement' },
   { label: 'FAQ', href: '#faq' },
-  { label: 'Contact', href: '#contact' },
 ]
 
 type LandingHeaderProps = {
+  onOpenContact: () => void
+  onOpenLanding?: () => void
   onOpenSignup: () => void
   onOpenLogin: () => void
 }
 
-export function LandingHeader({ onOpenSignup, onOpenLogin }: LandingHeaderProps) {
+export function LandingHeader({ onOpenContact, onOpenLanding, onOpenSignup, onOpenLogin }: LandingHeaderProps) {
   return (
     <header className="fixed inset-x-0 top-0 z-50 bg-[#385f49]">
       <div className="mx-auto flex h-24 w-full max-w-7xl items-center justify-between px-6 lg:px-8">
-        <BrandLogo />
+        <button type="button" onClick={onOpenLanding} className="text-left">
+          <BrandLogo />
+        </button>
 
         <nav className="hidden items-center gap-12 text-lg font-semibold text-white/65 md:flex">
           {navigationItems.map((item) => (
@@ -24,6 +27,9 @@ export function LandingHeader({ onOpenSignup, onOpenLogin }: LandingHeaderProps)
               {item.label}
             </a>
           ))}
+          <button type="button" onClick={onOpenContact} className="transition-colors hover:text-white">
+            Contact
+          </button>
         </nav>
 
         <div className="hidden items-center gap-3 sm:flex">

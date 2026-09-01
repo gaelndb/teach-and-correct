@@ -1,23 +1,43 @@
 import { BrandLogo } from '@/components/landing/brand-logo'
 
-const footerColumns = [
+type FooterLink = {
+  label: string
+  href?: string
+  action?: 'contact'
+}
+
+const footerColumns: Array<{ title: string; links: FooterLink[] }> = [
   {
     title: 'Produit',
-    links: ['Fonctionnement', 'Fonctionnalités', 'FAQ'],
+    links: [
+      { label: 'Fonctionnement', href: '#fonctionnement' },
+      { label: 'Fonctionnalités', href: '#fonctionnalites' },
+      { label: 'FAQ', href: '#faq' },
+    ],
   },
   {
     title: 'À propos',
-    links: ['À propos du projet', 'Contact'],
+    links: [
+      { label: 'À propos du projet', href: '#accueil' },
+      { label: 'Contact', action: 'contact' },
+    ],
   },
   {
     title: 'Légal',
-    links: ['Mentions légales', 'Politique de confidentialité'],
+    links: [
+      { label: 'Mentions légales', href: '#accueil' },
+      { label: 'Politique de confidentialité', href: '#accueil' },
+    ],
   },
 ]
 
-export function LandingFooter() {
+type LandingFooterProps = {
+  onOpenContact: () => void
+}
+
+export function LandingFooter({ onOpenContact }: LandingFooterProps) {
   return (
-    <footer id="contact" className="bg-[#385f49] px-6 py-16 text-white">
+    <footer className="bg-[#385f49] px-6 py-16 text-white">
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-12 md:grid-cols-[1.5fr_repeat(3,1fr)]">
           <div>
@@ -32,8 +52,14 @@ export function LandingFooter() {
               <h3 className="text-xs font-black uppercase tracking-[0.28em] text-white/35">{column.title}</h3>
               <ul className="mt-6 space-y-4 text-white/45">
                 {column.links.map((link) => (
-                  <li key={link}>
-                    <a href="#accueil" className="transition hover:text-white">{link}</a>
+                  <li key={link.label}>
+                    {link.action === 'contact' ? (
+                      <button type="button" onClick={onOpenContact} className="transition hover:text-white">
+                        {link.label}
+                      </button>
+                    ) : (
+                      <a href={link.href} className="transition hover:text-white">{link.label}</a>
+                    )}
                   </li>
                 ))}
               </ul>
