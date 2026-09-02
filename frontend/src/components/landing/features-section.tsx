@@ -35,7 +35,7 @@ export function FeaturesSection() {
             icon={<Sparkles className="h-6 w-6" />}
             title="Correction assistée par l'IA"
             subtitle="L'IA annote directement sur la copie"
-            imageSrc="/tab.png"
+            imageSrc="/tab2.png"
             imageAlt="Aperçu d'une copie annotée par l'IA"
             benefits={correctionBenefits}
           />
@@ -43,7 +43,7 @@ export function FeaturesSection() {
             icon={<BarChart3 className="h-6 w-6" />}
             title="Suivi des élèves"
             subtitle="Historique, tendances, alertes"
-            imageSrc="/tab2.png"
+            imageSrc="/tab.png"
             imageAlt="Tableau de suivi des élèves"
             benefits={studentBenefits}
           />

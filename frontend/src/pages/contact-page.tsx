@@ -7,12 +7,13 @@ import { FinalCtaSection } from '@/components/shared/final-cta-section'
 
 type ContactPageProps = {
   onOpenContact: () => void
+  onOpenDemo: () => void
   onOpenLanding: () => void
   onOpenLogin: () => void
   onOpenSignup: () => void
 }
 
-export function ContactPage({ onOpenContact, onOpenLanding, onOpenLogin, onOpenSignup }: ContactPageProps) {
+export function ContactPage({ onOpenContact, onOpenDemo, onOpenLanding, onOpenLogin, onOpenSignup }: ContactPageProps) {
   return (
     <main className="min-h-screen bg-[#fbfaf6]">
       <LandingHeader
@@ -40,7 +41,7 @@ export function ContactPage({ onOpenContact, onOpenLanding, onOpenLogin, onOpenS
       </section>
 
       <FaqSection />
-      <FinalCtaSection onOpenSignup={onOpenSignup} />
+      <FinalCtaSection onOpenDemo={onOpenDemo} onOpenSignup={onOpenSignup} />
       <LandingFooter onOpenContact={onOpenContact} />
     </main>
   )

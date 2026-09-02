@@ -37,6 +37,10 @@ export function LandingPage({
     onOpenContactPage()
   }
 
+  function openDemoSection() {
+    document.querySelector('#demo')?.scrollIntoView({ behavior: 'smooth' })
+  }
+
   return (
     <main className="min-h-screen bg-[#fbfaf6]">
       <LandingHeader
@@ -51,7 +55,7 @@ export function LandingPage({
       <StudentTrackingSection />
       <VideoPlayerSection />
       <FaqSection />
-      <FinalCtaSection onOpenSignup={openSignupPage} />
+      <FinalCtaSection onOpenDemo={openDemoSection} onOpenSignup={openSignupPage} />
       <LandingFooter onOpenContact={openContactPage} />
     </main>
   )
