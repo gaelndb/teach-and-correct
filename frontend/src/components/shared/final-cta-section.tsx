@@ -27,10 +27,11 @@ const unlockedFeatures = [
 ]
 
 type FinalCtaSectionProps = {
+  onOpenDemo?: () => void
   onOpenSignup: () => void
 }
 
-export function FinalCtaSection({ onOpenSignup }: FinalCtaSectionProps) {
+export function FinalCtaSection({ onOpenDemo, onOpenSignup }: FinalCtaSectionProps) {
   return (
     <section className="bg-[#fbfaf6] px-6 pb-28">
       <div className="mx-auto grid max-w-7xl gap-12 rounded-3xl bg-[#edf5f1] p-8 sm:p-12 lg:grid-cols-[1.2fr_0.95fr] lg:p-16">
@@ -58,7 +59,7 @@ export function FinalCtaSection({ onOpenSignup }: FinalCtaSectionProps) {
             <Button onClick={onOpenSignup} className="h-14 rounded-xl bg-[#d3634d] px-8 text-base text-white shadow-none hover:bg-[#c95540]">
               Essayer gratuitement
             </Button>
-            <Button variant="outline" className="h-14 rounded-xl border-[#dfe7df] bg-white px-8 text-base text-[#385f49] shadow-none hover:bg-white">
+            <Button variant="outline" onClick={onOpenDemo} className="h-14 rounded-xl border-[#dfe7df] bg-white px-8 text-base text-[#385f49] shadow-none hover:bg-white">
               Voir une démo
             </Button>
           </div>

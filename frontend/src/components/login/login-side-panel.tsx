@@ -15,10 +15,16 @@ const highlights = [
   },
 ]
 
-export function LoginSidePanel() {
+type LoginSidePanelProps = {
+  onOpenLanding: () => void
+}
+
+export function LoginSidePanel({ onOpenLanding }: LoginSidePanelProps) {
   return (
     <aside className="hidden min-h-screen flex-col justify-between overflow-hidden bg-[#385f49] px-10 py-10 text-white lg:flex xl:px-12 xl:py-14">
-      <p className="text-2xl font-black tracking-[-0.03em]">TeachAndCorrect</p>
+      <button type="button" onClick={onOpenLanding} className="w-fit text-2xl font-black tracking-[-0.03em] transition hover:text-white/80">
+        TeachAndCorrect
+      </button>
 
       <div className="max-w-md">
         <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold text-white/85">

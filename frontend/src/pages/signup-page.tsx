@@ -13,7 +13,7 @@ type SignupPageProps = {
 export function SignupPage({ authError, isAuthLoading, onBackToLanding, onOpenLogin, onSignup }: SignupPageProps) {
   return (
     <main className="grid min-h-screen bg-[#fbfaf6] lg:grid-cols-[0.82fr_1fr]">
-      <SignupSidePanel />
+      <SignupSidePanel onOpenLanding={onBackToLanding} />
       <SignupForm
         errorMessage={authError}
         isLoading={isAuthLoading}

@@ -50,12 +50,23 @@ function App() {
     }
   }
 
+  function scrollToTop() {
+    requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    })
+  }
+
   function openContactPage() {
     setAuthError(null)
     setCurrentPage('contact')
+    scrollToTop()
+  }
+
+  function openLandingDemo() {
+    setCurrentPage('landing')
 
     requestAnimationFrame(() => {
-      window.scrollTo({ top: 0, behavior: 'smooth' })
+      document.querySelector('#demo')?.scrollIntoView({ behavior: 'smooth' })
     })
   }
 
@@ -99,6 +110,7 @@ function App() {
     return (
       <ContactPage
         onOpenContact={openContactPage}
+        onOpenDemo={openLandingDemo}
         onOpenLanding={() => setCurrentPage('landing')}
         onOpenLogin={() => {
           setAuthError(null)

@@ -24,12 +24,9 @@ export function DashboardPage({ teacher, onLogout }: DashboardPageProps) {
     <main className="min-h-screen bg-[#fbfaf6] text-[#385f49]">
       <header className="sticky top-0 z-40 border-b border-[#2f4e3d] bg-[#385f49] text-white shadow-sm">
         <div className="flex h-16 items-center justify-between px-6">
-          <div className="flex items-center gap-3 text-base font-black">
-            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#d3634d] text-white">
-              <Settings className="h-4 w-4" />
-            </span>
+          <button type="button" onClick={() => setCurrentScreen('students')} className="text-lg font-black transition hover:text-white/80">
             TeachAndCorrect
-          </div>
+          </button>
 
           <nav className="hidden items-center gap-2 text-sm font-black text-white/55 md:flex">
             <a href="#accueil" className="rounded-lg px-5 py-3 transition hover:bg-white/10 hover:text-white">Accueil</a>

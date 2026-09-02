@@ -13,7 +13,7 @@ type LoginPageProps = {
 export function LoginPage({ authError, isAuthLoading, onBackToLanding, onOpenSignup, onLogin }: LoginPageProps) {
   return (
     <main className="grid min-h-screen bg-[#fbfaf6] lg:grid-cols-[0.82fr_1fr]">
-      <LoginSidePanel />
+      <LoginSidePanel onOpenLanding={onBackToLanding} />
       <LoginForm
         errorMessage={authError}
         isLoading={isAuthLoading}

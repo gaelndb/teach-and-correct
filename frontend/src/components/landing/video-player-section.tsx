@@ -2,7 +2,7 @@ import { Expand, Pause, Play, Volume2 } from 'lucide-react'
 
 export function VideoPlayerSection() {
   return (
-    <section className="bg-[#fbfaf6] px-6 pb-28">
+    <section id="demo" className="bg-[#fbfaf6] px-6 pb-28">
       <div className="mx-auto max-w-7xl overflow-hidden rounded-3xl bg-[#385f49] shadow-[0_32px_90px_rgba(56,95,73,0.18)]">
         <div className="relative flex h-[360px] items-center justify-center overflow-hidden bg-[#263b2f] sm:h-[440px] lg:h-[520px]">
           <img src="/copie.jpg" alt="Aperçu vidéo de démonstration" className="h-full w-full object-cover opacity-55" />
