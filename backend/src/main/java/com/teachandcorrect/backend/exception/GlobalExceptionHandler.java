@@ -28,7 +28,7 @@ public class GlobalExceptionHandler {
                 .stream()
                 .findFirst()
                 .map(FieldError::getDefaultMessage)
-                .orElse("Le formulaire contient des erreurs.");
+                .orElse("The form contains errors.");
 
         return ResponseEntity
                 .badRequest()
@@ -39,7 +39,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<MessageResponse> handleResponseStatusException(ResponseStatusException exception) {
         String message = exception.getReason() != null
                 ? exception.getReason()
-                : "Une erreur est survenue.";
+                : "An error occurred.";
 
         return ResponseEntity
                 .status(exception.getStatusCode())
@@ -52,7 +52,7 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity
                 .status(HttpStatus.SERVICE_UNAVAILABLE)
-                .body(new MessageResponse("La base de données est inaccessible."));
+                .body(new MessageResponse("The database is unavailable."));
     }
 
     @ExceptionHandler(DataIntegrityViolationException.class)
@@ -62,12 +62,12 @@ public class GlobalExceptionHandler {
         if (isUniqueConstraintViolation(exception)) {
             return ResponseEntity
                     .status(HttpStatus.CONFLICT)
-                    .body(new MessageResponse("Cette adresse email est déjà utilisée."));
+                    .body(new MessageResponse("This email address is already in use."));
         }
 
         return ResponseEntity
                 .badRequest()
-                .body(new MessageResponse("Les données envoyées ne respectent pas les contraintes attendues."));
+                .body(new MessageResponse("The submitted data does not meet the expected constraints."));
     }
 
     @ExceptionHandler(DataAccessException.class)
@@ -76,7 +76,7 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(new MessageResponse("Une erreur est survenue lors de l'accès aux données."));
+                .body(new MessageResponse("An error occurred while accessing data."));
     }
 
     private boolean isUniqueConstraintViolation(Throwable exception) {
