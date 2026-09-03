@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.teachandcorrect.backend.dto.error.ApiErrorResponse;
+import com.teachandcorrect.backend.dto.message.MessageResponse;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -22,7 +22,7 @@ public class GlobalExceptionHandler {
     private static final String POSTGRES_UNIQUE_VIOLATION_SQL_STATE = "23505";
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ApiErrorResponse> handleValidationException(MethodArgumentNotValidException exception) {
+    public ResponseEntity<MessageResponse> handleValidationException(MethodArgumentNotValidException exception) {
         String message = exception.getBindingResult()
                 .getFieldErrors()
                 .stream()
@@ -32,51 +32,51 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity
                 .badRequest()
-                .body(new ApiErrorResponse(message));
+                .body(new MessageResponse(message));
     }
 
     @ExceptionHandler(ResponseStatusException.class)
-    public ResponseEntity<ApiErrorResponse> handleResponseStatusException(ResponseStatusException exception) {
+    public ResponseEntity<MessageResponse> handleResponseStatusException(ResponseStatusException exception) {
         String message = exception.getReason() != null
                 ? exception.getReason()
                 : "Une erreur est survenue.";
 
         return ResponseEntity
                 .status(exception.getStatusCode())
-                .body(new ApiErrorResponse(message));
+                .body(new MessageResponse(message));
     }
 
     @ExceptionHandler(CannotGetJdbcConnectionException.class)
-    public ResponseEntity<ApiErrorResponse> handleCannotGetJdbcConnectionException(CannotGetJdbcConnectionException exception) {
+    public ResponseEntity<MessageResponse> handleCannotGetJdbcConnectionException(CannotGetJdbcConnectionException exception) {
         LOGGER.error("Database connection unavailable", exception);
 
         return ResponseEntity
                 .status(HttpStatus.SERVICE_UNAVAILABLE)
-                .body(new ApiErrorResponse("La base de données est inaccessible."));
+                .body(new MessageResponse("La base de données est inaccessible."));
     }
 
     @ExceptionHandler(DataIntegrityViolationException.class)
-    public ResponseEntity<ApiErrorResponse> handleDataIntegrityViolationException(DataIntegrityViolationException exception) {
+    public ResponseEntity<MessageResponse> handleDataIntegrityViolationException(DataIntegrityViolationException exception) {
         LOGGER.warn("Database integrity violation", exception);
 
         if (isUniqueConstraintViolation(exception)) {
             return ResponseEntity
                     .status(HttpStatus.CONFLICT)
-                    .body(new ApiErrorResponse("Cette adresse email est déjà utilisée."));
+                    .body(new MessageResponse("Cette adresse email est déjà utilisée."));
         }
 
         return ResponseEntity
                 .badRequest()
-                .body(new ApiErrorResponse("Les données envoyées ne respectent pas les contraintes attendues."));
+                .body(new MessageResponse("Les données envoyées ne respectent pas les contraintes attendues."));
     }
 
     @ExceptionHandler(DataAccessException.class)
-    public ResponseEntity<ApiErrorResponse> handleDataAccessException(DataAccessException exception) {
+    public ResponseEntity<MessageResponse> handleDataAccessException(DataAccessException exception) {
         LOGGER.error("Unexpected database error", exception);
 
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(new ApiErrorResponse("Une erreur est survenue lors de l'accès aux données."));
+                .body(new MessageResponse("Une erreur est survenue lors de l'accès aux données."));
     }
 
     private boolean isUniqueConstraintViolation(Throwable exception) {
