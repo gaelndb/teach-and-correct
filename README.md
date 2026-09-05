@@ -4,7 +4,9 @@ TeachAndCorrect est une application web de correction assistée par intelligence
 
 L’objectif est de permettre à un professeur de transmettre une copie d’élève, d’obtenir une proposition de correction et de note, puis de vérifier et valider le résultat avant de le restituer à l’élève.
 
-<!-- ## Aperçu -->
+## Aperçu
+
+![Page d'accueil TeachAndCorrect](docs/screenshots/landing_page.png)
 
 ## Structure du projet
 
