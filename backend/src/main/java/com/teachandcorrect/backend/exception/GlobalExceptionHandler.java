@@ -7,13 +7,14 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.teachandcorrect.backend.dto.error.ApiErrorResponse;
+import com.teachandcorrect.backend.dto.message.MessageResponse;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -22,61 +23,68 @@ public class GlobalExceptionHandler {
     private static final String POSTGRES_UNIQUE_VIOLATION_SQL_STATE = "23505";
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ApiErrorResponse> handleValidationException(MethodArgumentNotValidException exception) {
+    public ResponseEntity<MessageResponse> handleValidationException(MethodArgumentNotValidException exception) {
         String message = exception.getBindingResult()
                 .getFieldErrors()
                 .stream()
                 .findFirst()
                 .map(FieldError::getDefaultMessage)
-                .orElse("Le formulaire contient des erreurs.");
+                .orElse("The form contains errors.");
 
         return ResponseEntity
                 .badRequest()
-                .body(new ApiErrorResponse(message));
+                .body(new MessageResponse(message));
     }
 
     @ExceptionHandler(ResponseStatusException.class)
-    public ResponseEntity<ApiErrorResponse> handleResponseStatusException(ResponseStatusException exception) {
+    public ResponseEntity<MessageResponse> handleResponseStatusException(ResponseStatusException exception) {
         String message = exception.getReason() != null
                 ? exception.getReason()
-                : "Une erreur est survenue.";
+                : "An error occurred.";
 
         return ResponseEntity
                 .status(exception.getStatusCode())
-                .body(new ApiErrorResponse(message));
+                .body(new MessageResponse(message));
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<MessageResponse> handleHttpMessageNotReadableException(HttpMessageNotReadableException exception) {
+        return ResponseEntity
+                .badRequest()
+                .body(new MessageResponse("Invalid request body. Please check the submitted values."));
     }
 
     @ExceptionHandler(CannotGetJdbcConnectionException.class)
-    public ResponseEntity<ApiErrorResponse> handleCannotGetJdbcConnectionException(CannotGetJdbcConnectionException exception) {
+    public ResponseEntity<MessageResponse> handleCannotGetJdbcConnectionException(CannotGetJdbcConnectionException exception) {
         LOGGER.error("Database connection unavailable", exception);
 
         return ResponseEntity
                 .status(HttpStatus.SERVICE_UNAVAILABLE)
-                .body(new ApiErrorResponse("La base de données est inaccessible."));
+                .body(new MessageResponse("The database is unavailable."));
     }
 
     @ExceptionHandler(DataIntegrityViolationException.class)
-    public ResponseEntity<ApiErrorResponse> handleDataIntegrityViolationException(DataIntegrityViolationException exception) {
+    public ResponseEntity<MessageResponse> handleDataIntegrityViolationException(DataIntegrityViolationException exception) {
         LOGGER.warn("Database integrity violation", exception);
 
         if (isUniqueConstraintViolation(exception)) {
             return ResponseEntity
                     .status(HttpStatus.CONFLICT)
-                    .body(new ApiErrorResponse("Cette adresse email est déjà utilisée."));
+                    .body(new MessageResponse("This email address is already in use."));
         }
 
         return ResponseEntity
                 .badRequest()
-                .body(new ApiErrorResponse("Les données envoyées ne respectent pas les contraintes attendues."));
+                .body(new MessageResponse("The submitted data does not meet the expected constraints."));
     }
 
     @ExceptionHandler(DataAccessException.class)
-    public ResponseEntity<ApiErrorResponse> handleDataAccessException(DataAccessException exception) {
+    public ResponseEntity<MessageResponse> handleDataAccessException(DataAccessException exception) {
         LOGGER.error("Unexpected database error", exception);
 
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(new ApiErrorResponse("Une erreur est survenue lors de l'accès aux données."));
+                .body(new MessageResponse("An error occurred while accessing data."));
     }
 
     private boolean isUniqueConstraintViolation(Throwable exception) {

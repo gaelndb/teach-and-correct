@@ -2,12 +2,8 @@ package com.teachandcorrect.backend.entity;
 
 import java.time.LocalDateTime;
 
-import com.teachandcorrect.backend.entity.enums.UserRole;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -16,8 +12,8 @@ import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "users")
-public class User {
+@Table(name = "students")
+public class Student {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,15 +25,8 @@ public class User {
     @Column(name = "last_name", nullable = false, length = 100)
     private String lastName;
 
-    @Column(nullable = false, unique = true, length = 253)
-    private String email;
-
-    @Column(name = "password_hash", nullable = false, length = 255)
-    private String passwordHash;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private UserRole role = UserRole.TEACHER;
+    @Column(name = "class_name", nullable = false, length = 20)
+    private String className;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
@@ -45,14 +34,13 @@ public class User {
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
-    protected User() {
+    protected Student() {
     }
 
-    public User(String firstName, String lastName, String email, String passwordHash) {
+    public Student(String firstName, String lastName, String className) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.email = email;
-        this.passwordHash = passwordHash;
+        this.className = className;
     }
 
     @PrePersist
@@ -87,28 +75,12 @@ public class User {
         this.lastName = lastName;
     }
 
-    public String getEmail() {
-        return email;
+    public String getClassName() {
+        return className;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPasswordHash() {
-        return passwordHash;
-    }
-
-    public void setPasswordHash(String passwordHash) {
-        this.passwordHash = passwordHash;
-    }
-
-    public UserRole getRole() {
-        return role;
-    }
-
-    public void setRole(UserRole role) {
-        this.role = role;
+    public void setClassName(String className) {
+        this.className = className;
     }
 
     public LocalDateTime getCreatedAt() {
