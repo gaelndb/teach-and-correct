@@ -16,6 +16,7 @@ import com.teachandcorrect.backend.entity.User;
 import com.teachandcorrect.backend.entity.enums.CopyStatus;
 import com.teachandcorrect.backend.repository.CopyRepository;
 import com.teachandcorrect.backend.repository.StudentRepository;
+import com.teachandcorrect.backend.repository.StudentUserRepository;
 import com.teachandcorrect.backend.repository.UserRepository;
 
 @Service
@@ -28,11 +29,18 @@ public class CopyService {
 
     private final CopyRepository copyRepository;
     private final StudentRepository studentRepository;
+    private final StudentUserRepository studentUserRepository;
     private final UserRepository userRepository;
 
-    public CopyService(CopyRepository copyRepository, StudentRepository studentRepository, UserRepository userRepository) {
+    public CopyService(
+            CopyRepository copyRepository,
+            StudentRepository studentRepository,
+            StudentUserRepository studentUserRepository,
+            UserRepository userRepository
+    ) {
         this.copyRepository = copyRepository;
         this.studentRepository = studentRepository;
+        this.studentUserRepository = studentUserRepository;
         this.userRepository = userRepository;
     }
 
@@ -40,7 +48,7 @@ public class CopyService {
     public List<CopyResponse> getCopiesByUser(Long userId) {
         ensureUserExists(userId);
 
-        return copyRepository.findByUserIdOrderByImportedAtDesc(userId)
+        return copyRepository.findByUserIdAndActiveTrueOrderByImportedAtDesc(userId)
                 .stream()
                 .map(this::toCopyResponse)
                 .toList();
@@ -67,7 +75,7 @@ public class CopyService {
 
     @Transactional
     public CopyResponse updateUserCopy(Long userId, Long copyId, CopyUpdateRequest request) {
-        Copy copy = copyRepository.findByIdAndUserId(copyId, userId)
+        Copy copy = copyRepository.findByIdAndUserIdAndActiveTrue(copyId, userId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, COPY_NOT_FOUND_MESSAGE));
 
         if (request.grade() != null) {
@@ -87,10 +95,11 @@ public class CopyService {
 
     @Transactional
     public void removeUserCopy(Long userId, Long copyId) {
-        Copy copy = copyRepository.findByIdAndUserId(copyId, userId)
+        Copy copy = copyRepository.findByIdAndUserIdAndActiveTrue(copyId, userId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, COPY_REMOVAL_NOT_FOUND_MESSAGE));
 
-        copyRepository.delete(copy);
+        copy.setActive(false);
+        copyRepository.save(copy);
     }
 
     private void ensureUserExists(Long userId) {
@@ -105,7 +114,7 @@ public class CopyService {
     }
 
     private Student findUserStudentOrThrow(Long userId, Long studentId) {
-        if (!studentRepository.existsByIdAndTeachersId(studentId, userId)) {
+        if (!studentUserRepository.existsByUserIdAndStudentIdAndActiveTrue(userId, studentId)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, STUDENT_NOT_FOUND_MESSAGE);
         }
 

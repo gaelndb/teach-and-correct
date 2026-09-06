@@ -9,7 +9,7 @@ import com.teachandcorrect.backend.entity.Copy;
 
 public interface CopyRepository extends JpaRepository<Copy, Long> {
 
-    List<Copy> findByUserIdOrderByImportedAtDesc(Long userId);
+    List<Copy> findByUserIdAndActiveTrueOrderByImportedAtDesc(Long userId);
 
-    Optional<Copy> findByIdAndUserId(Long id, Long userId);
+    Optional<Copy> findByIdAndUserIdAndActiveTrue(Long id, Long userId);
 }

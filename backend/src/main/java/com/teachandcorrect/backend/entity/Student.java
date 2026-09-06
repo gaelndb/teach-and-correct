@@ -1,15 +1,12 @@
 package com.teachandcorrect.backend.entity;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
@@ -36,9 +33,6 @@ public class Student {
 
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
-
-    @ManyToMany(mappedBy = "students")
-    private Set<User> teachers = new HashSet<>();
 
     protected Student() {
     }
@@ -97,11 +91,4 @@ public class Student {
         return updatedAt;
     }
 
-    public Set<User> getTeachers() {
-        return teachers;
-    }
-
-    public void setTeachers(Set<User> teachers) {
-        this.teachers = teachers;
-    }
 }

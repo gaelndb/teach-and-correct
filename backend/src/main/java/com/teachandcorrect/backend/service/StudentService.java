@@ -10,8 +10,10 @@ import org.springframework.web.server.ResponseStatusException;
 import com.teachandcorrect.backend.dto.student.StudentRequest;
 import com.teachandcorrect.backend.dto.student.StudentResponse;
 import com.teachandcorrect.backend.entity.Student;
+import com.teachandcorrect.backend.entity.StudentUser;
 import com.teachandcorrect.backend.entity.User;
 import com.teachandcorrect.backend.repository.StudentRepository;
+import com.teachandcorrect.backend.repository.StudentUserRepository;
 import com.teachandcorrect.backend.repository.UserRepository;
 
 @Service
@@ -20,10 +22,16 @@ public class StudentService {
     private static final String STUDENT_REMOVAL_NOT_FOUND_MESSAGE = "Student not found. Removal unsuccessful.";
 
     private final StudentRepository studentRepository;
+    private final StudentUserRepository studentUserRepository;
     private final UserRepository userRepository;
 
-    public StudentService(StudentRepository studentRepository, UserRepository userRepository) {
+    public StudentService(
+            StudentRepository studentRepository,
+            StudentUserRepository studentUserRepository,
+            UserRepository userRepository
+    ) {
         this.studentRepository = studentRepository;
+        this.studentUserRepository = studentUserRepository;
         this.userRepository = userRepository;
     }
 
@@ -31,8 +39,9 @@ public class StudentService {
     public List<StudentResponse> getStudentsByUser(Long userId) {
         ensureUserExists(userId);
 
-        return studentRepository.findByTeachersIdOrderByLastNameAscFirstNameAsc(userId)
+        return studentUserRepository.findByUserIdAndActiveTrueOrderByStudentLastNameAscStudentFirstNameAsc(userId)
                 .stream()
+                .map(StudentUser::getStudent)
                 .map(this::toStudentResponse)
                 .toList();
     }
@@ -47,25 +56,19 @@ public class StudentService {
         );
 
         Student savedStudent = studentRepository.save(student);
-        user.getStudents().add(savedStudent);
-        userRepository.save(user);
+        StudentUser studentUser = new StudentUser(user, savedStudent);
+        studentUserRepository.save(studentUser);
 
         return toStudentResponse(savedStudent);
     }
 
     @Transactional
     public void removeStudentFromUser(Long userId, Long studentId) {
-        User user = findUserOrThrow(userId);
-        Student student = studentRepository.findById(studentId)
+        StudentUser studentUser = studentUserRepository.findByUserIdAndStudentIdAndActiveTrue(userId, studentId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, STUDENT_REMOVAL_NOT_FOUND_MESSAGE));
 
-        boolean isRemoved = user.getStudents().remove(student);
-
-        if (!isRemoved) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, STUDENT_REMOVAL_NOT_FOUND_MESSAGE);
-        }
-
-        userRepository.save(user);
+        studentUser.setActive(false);
+        studentUserRepository.save(studentUser);
     }
 
     private void ensureUserExists(Long userId) {

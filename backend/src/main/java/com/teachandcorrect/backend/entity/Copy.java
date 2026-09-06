@@ -46,6 +46,9 @@ public class Copy {
     @Column(columnDefinition = "TEXT")
     private String comment;
 
+    @Column(nullable = false, columnDefinition = "boolean default true")
+    private boolean active = true;
+
     @Column(name = "imported_at", nullable = false, updatable = false)
     private LocalDateTime importedAt;
 
@@ -129,6 +132,14 @@ public class Copy {
 
     public String getComment() {
         return comment;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public void setComment(String comment) {
