@@ -4,6 +4,7 @@ import { useMemo, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { students } from '@/mocks/dashboard/students'
 import type { Student } from '@/types/student'
+import { AddStudentModal } from './add-student-modal'
 import { StudentCopiesModal } from './student-copies-modal'
 import { StudentDetailsPanel } from './student-details-panel'
 import { StudentStats } from './student-stats'
@@ -18,6 +19,7 @@ const statusStyles: Record<Student['status'], string> = {
 
 export function StudentScreen() {
   const [selectedStudent, setSelectedStudent] = useState<Student>(students[0])
+  const [isAddStudentModalOpen, setIsAddStudentModalOpen] = useState(false)
   const [isCopiesModalOpen, setIsCopiesModalOpen] = useState(false)
   const [search, setSearch] = useState('')
   const [selectedClassFilter, setSelectedClassFilter] = useState('Toutes')
@@ -50,7 +52,11 @@ export function StudentScreen() {
                 <h2 className="text-lg font-black text-[#385f49]">Mes élèves</h2>
                 <p className="mt-1 text-sm font-semibold text-[#7d987f]">Cliquez sur un élève pour consulter ses notes et ses copies.</p>
               </div>
-              <Button className="h-10 rounded-lg bg-[#d3634d] px-5 text-sm font-black text-white shadow-none hover:bg-[#c95540]">
+              <Button
+                type="button"
+                onClick={() => setIsAddStudentModalOpen(true)}
+                className="h-10 rounded-lg bg-[#C8614A] px-5 text-sm font-black text-white shadow-none hover:bg-[#b95541]"
+              >
                 + Ajouter un élève
               </Button>
             </div>
@@ -153,6 +159,11 @@ export function StudentScreen() {
         student={selectedStudent}
         isOpen={isCopiesModalOpen}
         onClose={() => setIsCopiesModalOpen(false)}
+      />
+
+      <AddStudentModal
+        isOpen={isAddStudentModalOpen}
+        onClose={() => setIsAddStudentModalOpen(false)}
       />
     </div>
   )
