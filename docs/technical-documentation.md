@@ -502,6 +502,23 @@ Le frontend transmet uniquement les données nécessaires au backend ; par exemp
 
 Certaines vues du dashboard utilisent encore des données de démonstration stockées dans `src/mocks/`. Elles servent à construire et valider l’interface pendant le développement des fonctionnalités backend correspondantes.
 
+### Continuous Integration
+
+Frontend pull requests are validated with GitHub Actions.
+
+The CI workflow runs:
+
+- `npm ci`
+- `npm run test:run`
+- `npm run lint`
+- `npm run build`
+
+The workflow is defined in:
+
+```text
+.github/workflows/frontend-ci.yml
+```
+
 ---
 
 ## 14. Choix techniques
