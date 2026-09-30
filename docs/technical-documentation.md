@@ -561,8 +561,7 @@ Cette documentation est versionnée avec le code et doit évoluer en même temps
 
 Elle sera enrichie au fur et à mesure de l’ajout :
 
-- des entités classes, élèves et copies ;
-- des nouveaux endpoints REST ;
+- des nouvelles fonctionnalités métier ;
 - des fonctionnalités de correction de copies ;
 - des tests automatisés associés aux fonctionnalités métier ;
 - des mécanismes de sécurité supplémentaires lorsque ceux-ci seront introduits.
