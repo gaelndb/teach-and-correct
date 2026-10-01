@@ -4,11 +4,7 @@ import { ChangeEvent, useRef, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { copiesStatsCards, detectedCopyInformation } from '@/mocks/dashboard/cards'
 
-type ImportCopiesScreenProps = {
-  onStartImport: () => void
-}
-
-export function ImportCopiesScreen({ onStartImport }: ImportCopiesScreenProps) {
+export function ImportCopiesScreen() {
   const [importedFileName, setImportedFileName] = useState<string | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
@@ -24,7 +20,6 @@ export function ImportCopiesScreen({ onStartImport }: ImportCopiesScreenProps) {
     }
 
     setImportedFileName(file.name)
-    onStartImport()
   }
 
   function clearImportedFile() {

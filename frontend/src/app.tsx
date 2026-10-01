@@ -1,15 +1,10 @@
 import axios from 'axios'
 import { useState } from 'react'
+import { BrowserRouter, useNavigate } from 'react-router-dom'
 
 import { loginUser, registerUser } from '@/api/auth-api'
-import { ContactPage } from '@/pages/contact-page'
-import { DashboardPage } from '@/pages/dashboard-page'
-import { LandingPage } from '@/pages/landing-page'
-import { LoginPage } from '@/pages/login-page'
-import { SignupPage } from '@/pages/signup-page'
+import { AppRoutes } from '@/router'
 import type { AuthResponse, LoginFormValues, SignupFormValues } from '@/types/auth'
-
-type CurrentPage = 'landing' | 'login' | 'signup' | 'contact' | 'dashboard'
 
 type RegisteredTeacher = Pick<AuthResponse, 'firstName' | 'lastName'>
 
@@ -21,8 +16,8 @@ function getAuthErrorMessage(error: unknown) {
   return 'Une erreur est survenue.'
 }
 
-function App() {
-  const [currentPage, setCurrentPage] = useState<CurrentPage>('landing')
+function AppContent() {
+  const navigate = useNavigate()
   const [registeredTeacher, setRegisteredTeacher] = useState<RegisteredTeacher | null>(null)
   const [authError, setAuthError] = useState<string | null>(null)
   const [isAuthLoading, setIsAuthLoading] = useState(false)
@@ -38,7 +33,7 @@ function App() {
         firstName: user.firstName,
         lastName: user.lastName,
       })
-      setCurrentPage('dashboard')
+      navigate('/dashboard/students')
 
       return true
     } catch (error) {
@@ -50,20 +45,8 @@ function App() {
     }
   }
 
-  function scrollToTop() {
-    requestAnimationFrame(() => {
-      window.scrollTo({ top: 0, behavior: 'smooth' })
-    })
-  }
-
-  function openContactPage() {
-    setAuthError(null)
-    setCurrentPage('contact')
-    scrollToTop()
-  }
-
   function openLandingDemo() {
-    setCurrentPage('landing')
+    navigate('/')
 
     requestAnimationFrame(() => {
       document.querySelector('#demo')?.scrollIntoView({ behavior: 'smooth' })
@@ -81,7 +64,7 @@ function App() {
         firstName: user.firstName,
         lastName: user.lastName,
       })
-      setCurrentPage('dashboard')
+      navigate('/dashboard/students')
 
       return true
     } catch (error) {
@@ -93,80 +76,31 @@ function App() {
     }
   }
 
-  if (currentPage === 'dashboard') {
-    return (
-      <DashboardPage
-        teacher={registeredTeacher}
-        onLogout={() => {
-          setRegisteredTeacher(null)
-          setAuthError(null)
-          setCurrentPage('login')
-        }}
-      />
-    )
-  }
-
-  if (currentPage === 'contact') {
-    return (
-      <ContactPage
-        onOpenContact={openContactPage}
-        onOpenDemo={openLandingDemo}
-        onOpenLanding={() => setCurrentPage('landing')}
-        onOpenLogin={() => {
-          setAuthError(null)
-          setCurrentPage('login')
-        }}
-        onOpenSignup={() => {
-          setAuthError(null)
-          setCurrentPage('signup')
-        }}
-      />
-    )
-  }
-
-  if (currentPage === 'login') {
-    return (
-      <LoginPage
-        authError={authError}
-        isAuthLoading={isAuthLoading}
-        onBackToLanding={() => {
-          setAuthError(null)
-          setCurrentPage('landing')
-        }}
-        onOpenSignup={() => {
-          setAuthError(null)
-          setCurrentPage('signup')
-        }}
-        onLogin={handleLogin}
-      />
-    )
-  }
-
-  if (currentPage === 'signup') {
-    return (
-      <SignupPage
-        authError={authError}
-        isAuthLoading={isAuthLoading}
-        onBackToLanding={() => {
-          setAuthError(null)
-          setCurrentPage('landing')
-        }}
-        onOpenLogin={() => {
-          setAuthError(null)
-          setCurrentPage('login')
-        }}
-        onSignup={handleSignup}
-      />
-    )
+  function handleLogout() {
+    setRegisteredTeacher(null)
+    setAuthError(null)
+    navigate('/login')
   }
 
   return (
-    <LandingPage
+    <AppRoutes
+      authError={authError}
+      isAuthLoading={isAuthLoading}
+      teacher={registeredTeacher}
       onClearAuthError={() => setAuthError(null)}
-      onOpenContactPage={openContactPage}
-      onOpenLoginPage={() => setCurrentPage('login')}
-      onOpenSignupPage={() => setCurrentPage('signup')}
+      onLogin={handleLogin}
+      onLogout={handleLogout}
+      onSignup={handleSignup}
+      onOpenDemo={openLandingDemo}
     />
+  )
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <AppContent />
+    </BrowserRouter>
   )
 }
 

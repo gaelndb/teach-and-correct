@@ -97,6 +97,7 @@ Le code frontend est notamment organisé en :
 
 ```text
 src/
+├── __tests__/
 ├── api/
 ├── components/
 ├── lib/
@@ -499,6 +500,68 @@ http://localhost:8080/api
 Les opérations d’inscription et de connexion sont regroupées dans `auth-api.ts`.
 
 Le frontend transmet uniquement les données nécessaires au backend ; par exemple, le champ de confirmation du mot de passe est validé côté client mais n’est pas envoyé dans la requête d’inscription.
+
+### Navigation et routage
+
+Chaque écran principal possède une URL dédiée.
+
+Le routage respecte les principes suivants :
+
+- la navigation utilise l’historique du navigateur ;
+- chaque page peut être ouverte directement depuis son URL ;
+- les URL inconnues affichent une page `Not Found` ;
+- la protection des routes n’est pas incluse dans cette fonctionnalité et sera traitée dans le cadre de l’authentification.
+
+Les routes actuellement disponibles sont :
+
+| Route | Page | Rôle |
+| --- | --- | --- |
+| `/` | Landing page | Présenter l’application |
+| `/login` | Login page | Authentifier un enseignant |
+| `/signup` | Signup page | Créer un compte enseignant |
+| `/contact` | Contact page | Afficher le formulaire et les informations de contact |
+| `/dashboard/students` | Students page | Afficher les élèves |
+| `/dashboard/copies` | Copies page | Afficher les copies |
+| `/dashboard/import` | Import page | Importer une copie |
+| `*` | Not-found page | Gérer les URL inconnues |
+
+Le flux de navigation principal est actuellement organisé ainsi :
+
+```text
+Landing page
+├── /login
+├── /signup
+└── /contact
+
+Dashboard
+├── /dashboard/students
+├── /dashboard/copies
+└── /dashboard/import
+```
+
+#### Tests de routage
+
+Le comportement du routage est testé dans :
+
+```text
+frontend/src/__tests__/router.test.tsx
+```
+
+La suite de tests couvre notamment :
+
+- le rendu des routes principales ;
+- le rendu de la page `Not Found` ;
+- la navigation depuis la landing page vers les pages de connexion, d’inscription et de contact ;
+- la navigation entre les pages du dashboard ;
+- l’utilisation des boutons précédent et suivant du navigateur ;
+- la mise à jour de l’URL et le rendu de la page de destination.
+
+Les tests frontend se lancent avec :
+
+```bash
+cd frontend
+npm run test
+```
 
 Certaines vues du dashboard utilisent encore des données de démonstration stockées dans `src/mocks/`. Elles servent à construire et valider l’interface pendant le développement des fonctionnalités backend correspondantes.
 
