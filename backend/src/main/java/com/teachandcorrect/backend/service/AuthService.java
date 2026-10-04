@@ -8,19 +8,26 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.teachandcorrect.backend.dto.auth.AuthResponse;
 import com.teachandcorrect.backend.dto.auth.LoginRequest;
+import com.teachandcorrect.backend.dto.auth.RefreshTokenRequest;
+import com.teachandcorrect.backend.dto.auth.RefreshTokenResponse;
 import com.teachandcorrect.backend.dto.auth.RegisterRequest;
 import com.teachandcorrect.backend.entity.User;
 import com.teachandcorrect.backend.repository.UserRepository;
+import com.teachandcorrect.backend.security.JwtProvider;
+
+import io.jsonwebtoken.JwtException;
 
 @Service
 public class AuthService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtProvider jwtProvider;
 
-    public AuthService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public AuthService(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtProvider jwtProvider) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.jwtProvider = jwtProvider;
     }
 
     @Transactional
@@ -57,8 +64,34 @@ public class AuthService {
         return toAuthResponse(user);
     }
 
+    @Transactional(readOnly = true)
+    public RefreshTokenResponse refresh(RefreshTokenRequest request) {
+        try {
+            String refreshToken = request.refreshToken();
+
+            if (!jwtProvider.isRefreshTokenValid(refreshToken)) {
+                throw invalidRefreshTokenException();
+            }
+
+            String email = jwtProvider.getEmailFromToken(refreshToken);
+            User user = userRepository.findByEmail(email)
+                    .orElseThrow(this::invalidRefreshTokenException);
+
+            return new RefreshTokenResponse(
+                    jwtProvider.generateAccessToken(user),
+                    jwtProvider.getAccessTokenExpirationMs()
+            );
+        } catch (JwtException | IllegalArgumentException exception) {
+            throw invalidRefreshTokenException();
+        }
+    }
+
     private String normalizeEmail(String email) {
         return email.trim().toLowerCase();
+    }
+
+    private ResponseStatusException invalidRefreshTokenException() {
+        return new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Le refresh token est invalide.");
     }
 
     private AuthResponse toAuthResponse(User user) {
@@ -67,7 +100,11 @@ public class AuthService {
                 user.getFirstName(),
                 user.getLastName(),
                 user.getEmail(),
-                user.getRole().name()
+                user.getRole().name(),
+                jwtProvider.generateAccessToken(user),
+                jwtProvider.getAccessTokenExpirationMs(),
+                jwtProvider.generateRefreshToken(user),
+                jwtProvider.getRefreshTokenExpirationMs()
         );
     }
 }
