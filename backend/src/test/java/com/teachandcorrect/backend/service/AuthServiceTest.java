@@ -154,7 +154,7 @@ class AuthServiceTest {
     }
 
     @Test
-    void invalidRefreshTokenWorkflowShouldReturnUnauthorizedTest() {
+    void invalidRefreshTokenWorkflowTest() {
         RefreshTokenRequest request = new RefreshTokenRequest(REFRESH_TOKEN);
         when(jwtProvider.isRefreshTokenValid(REFRESH_TOKEN)).thenReturn(false);
 
@@ -167,7 +167,7 @@ class AuthServiceTest {
     }
 
     @Test
-    void validRefreshTokenWithUnknownUserWorkflowShouldReturnUnauthorizedTest() {
+    void validRefreshTokenWithUnknownUserWorkflowTest() {
         RefreshTokenRequest request = new RefreshTokenRequest(REFRESH_TOKEN);
         when(jwtProvider.isRefreshTokenValid(REFRESH_TOKEN)).thenReturn(true);
         when(jwtProvider.getEmailFromToken(REFRESH_TOKEN)).thenReturn(EMAIL);
