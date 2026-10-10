@@ -2,9 +2,9 @@ import axios from 'axios'
 import { useState } from 'react'
 import { BrowserRouter, useNavigate } from 'react-router-dom'
 
-import { loginUser, registerUser } from '@/api/auth-api'
+import { authService } from '@/api/services/authService'
 import { AppRoutes } from '@/router'
-import type { AuthResponse, LoginFormValues, SignupFormValues } from '@/types/auth'
+import type { AuthResponse, LoginFormValues, RegistrationFormValues } from '@/types/auth'
 
 type RegisteredTeacher = Pick<AuthResponse, 'firstName' | 'lastName'>
 
@@ -22,12 +22,12 @@ function AppContent() {
   const [authError, setAuthError] = useState<string | null>(null)
   const [isAuthLoading, setIsAuthLoading] = useState(false)
 
-  async function handleSignup(values: SignupFormValues) {
+  async function handleSignup(values: RegistrationFormValues) {
     setAuthError(null)
     setIsAuthLoading(true)
 
     try {
-      const user = await registerUser(values)
+      const user = await authService.register(values)
 
       setRegisteredTeacher({
         firstName: user.firstName,
@@ -58,7 +58,7 @@ function AppContent() {
     setIsAuthLoading(true)
 
     try {
-      const user = await loginUser(values)
+      const user = await authService.login(values)
 
       setRegisteredTeacher({
         firstName: user.firstName,
@@ -77,6 +77,7 @@ function AppContent() {
   }
 
   function handleLogout() {
+    authService.logout()
     setRegisteredTeacher(null)
     setAuthError(null)
     navigate('/login')

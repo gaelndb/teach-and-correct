@@ -5,7 +5,7 @@ import {
   validateRequiredField,
   type FormErrors,
 } from '@/lib/form-utils'
-import type { LoginFormValues, SignupFormValues } from '@/types/auth'
+import type { LoginFormValues, RegistrationFormValues } from '@/types/auth'
 
 const MAX_NAME_LENGTH = 100
 const MAX_EMAIL_LENGTH = 253
@@ -102,8 +102,8 @@ export function validateLoginForm(values: LoginFormValues): FormErrors<LoginForm
   return errors
 }
 
-export function validateSignupForm(values: SignupFormValues): FormErrors<SignupFormValues> {
-  const errors: FormErrors<SignupFormValues> = {}
+export function validateSignupForm(values: RegistrationFormValues): FormErrors<RegistrationFormValues> {
+  const errors: FormErrors<RegistrationFormValues> = {}
 
   addFormError(
     errors,

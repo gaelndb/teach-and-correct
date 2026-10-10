@@ -3,9 +3,9 @@ import { authStorage } from '@/api/services/authStorage'
 import type {
   AuthResponse,
   AuthUser,
-  LoginRequest,
+  LoginFormValues,
   RefreshTokenResponse,
-  RegisterRequest,
+  RegistrationFormValues,
 } from '@/types/auth'
 
 function toAuthUser(authResponse: AuthResponse): AuthUser {
@@ -19,15 +19,20 @@ function toAuthUser(authResponse: AuthResponse): AuthUser {
 }
 
 export const authService = {
-  async register(payload: RegisterRequest): Promise<AuthResponse> {
-    const authResponse = await registerRequest(payload)
+  async register(registrationFormValues: RegistrationFormValues): Promise<AuthResponse> {
+    const authResponse = await registerRequest({
+      firstName: registrationFormValues.firstName,
+      lastName: registrationFormValues.lastName,
+      email: registrationFormValues.email,
+      password: registrationFormValues.password,
+    })
     authStorage.saveAuth(authResponse)
 
     return authResponse
   },
 
-  async login(credentials: LoginRequest): Promise<AuthResponse> {
-    const authResponse = await loginRequest(credentials)
+  async login(loginFormValues: LoginFormValues): Promise<AuthResponse> {
+    const authResponse = await loginRequest(loginFormValues)
     authStorage.saveAuth(authResponse)
 
     return authResponse

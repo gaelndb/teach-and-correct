@@ -1,13 +1,13 @@
 import { SignupForm } from '@/components/signup/signup-form'
 import { SignupSidePanel } from '@/components/signup/signup-side-panel'
-import type { SignupFormValues } from '@/types/auth'
+import type { RegistrationFormValues } from '@/types/auth'
 
 type SignupPageProps = {
   authError: string | null
   isAuthLoading: boolean
   onBackToLanding: () => void
   onOpenLogin: () => void
-  onSignup: (values: SignupFormValues) => Promise<boolean>
+  onSignup: (values: RegistrationFormValues) => Promise<boolean>
 }
 
 export function SignupPage({ authError, isAuthLoading, onBackToLanding, onOpenLogin, onSignup }: SignupPageProps) {

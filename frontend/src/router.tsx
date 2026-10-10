@@ -9,7 +9,7 @@ import { LandingPage } from '@/pages/landing-page'
 import { LoginPage } from '@/pages/login-page'
 import { NotFoundPage } from '@/pages/not-found-page'
 import { SignupPage } from '@/pages/signup-page'
-import type { AuthResponse, LoginFormValues, SignupFormValues } from '@/types/auth'
+import type { AuthResponse, LoginFormValues, RegistrationFormValues } from '@/types/auth'
 
 type RegisteredTeacher = Pick<AuthResponse, 'firstName' | 'lastName'>
 
@@ -20,7 +20,7 @@ type AppRoutesProps = {
   onClearAuthError: () => void
   onLogin: (values: LoginFormValues) => Promise<boolean>
   onLogout: () => void
-  onSignup: (values: SignupFormValues) => Promise<boolean>
+  onSignup: (values: RegistrationFormValues) => Promise<boolean>
   onOpenDemo: () => void
 }
 

@@ -1,4 +1,4 @@
-export type SignupFormValues = {
+export type RegistrationFormValues = {
   firstName: string
   lastName: string
   email: string
@@ -25,10 +25,6 @@ export type AuthResponse = AuthUser & {
   refreshToken: string
   refreshTokenExpiresInMs: number
 }
-
-export type RegisterRequest = Omit<SignupFormValues, 'confirmPassword'>
-
-export type LoginRequest = LoginFormValues
 
 export type RefreshTokenRequest = {
   refreshToken: string
