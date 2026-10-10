@@ -1,4 +1,5 @@
 import { loginRequest, refreshTokenRequest, registerRequest } from '@/api/auth-api'
+import { authStorage } from '@/api/services/authStorage'
 import type {
   AuthResponse,
   AuthUser,
@@ -6,8 +7,6 @@ import type {
   RefreshTokenResponse,
   RegisterRequest,
 } from '@/types/auth'
-
-const USER_AUTH_STORAGE_KEY = 'userAuth'
 
 function toAuthUser(authResponse: AuthResponse): AuthUser {
   return {
@@ -19,50 +18,27 @@ function toAuthUser(authResponse: AuthResponse): AuthUser {
   }
 }
 
-function saveAuth(authResponse: AuthResponse) {
-  localStorage.setItem(USER_AUTH_STORAGE_KEY, JSON.stringify(authResponse))
-}
-
-function getStoredAuth(): AuthResponse | null {
-  const storedAuth = localStorage.getItem(USER_AUTH_STORAGE_KEY)
-
-  if (!storedAuth) {
-    return null
-  }
-
-  try {
-    return JSON.parse(storedAuth) as AuthResponse
-  } catch {
-    clearAuth()
-    return null
-  }
-}
-
-function clearAuth() {
-  localStorage.removeItem(USER_AUTH_STORAGE_KEY)
-}
-
 export const authService = {
   async register(payload: RegisterRequest): Promise<AuthResponse> {
     const authResponse = await registerRequest(payload)
-    saveAuth(authResponse)
+    authStorage.saveAuth(authResponse)
 
     return authResponse
   },
 
   async login(credentials: LoginRequest): Promise<AuthResponse> {
     const authResponse = await loginRequest(credentials)
-    saveAuth(authResponse)
+    authStorage.saveAuth(authResponse)
 
     return authResponse
   },
 
   async refreshToken(refreshToken: string): Promise<RefreshTokenResponse> {
     const refreshResponse = await refreshTokenRequest({ refreshToken })
-    const storedAuth = getStoredAuth()
+    const storedAuth = authStorage.getStoredAuth()
 
     if (storedAuth) {
-      saveAuth({
+      authStorage.saveAuth({
         ...storedAuth,
         accessToken: refreshResponse.accessToken,
         accessTokenExpiresInMs: refreshResponse.accessTokenExpiresInMs,
@@ -73,19 +49,13 @@ export const authService = {
   },
 
   logout(): void {
-    clearAuth()
+    authStorage.clearAuth()
   },
 
-  getStoredAuth,
-  saveAuth,
-  clearAuth,
   toAuthUser,
-
-  getAccessToken(): string | null {
-    return getStoredAuth()?.accessToken ?? null
-  },
-
-  getRefreshToken(): string | null {
-    return getStoredAuth()?.refreshToken ?? null
-  },
+  getStoredAuth: authStorage.getStoredAuth,
+  saveAuth: authStorage.saveAuth,
+  clearAuth: authStorage.clearAuth,
+  getAccessToken: authStorage.getAccessToken,
+  getRefreshToken: authStorage.getRefreshToken,
 }
