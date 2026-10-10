@@ -11,10 +11,30 @@ export type LoginFormValues = {
   password: string
 }
 
-export type AuthResponse = {
+export type AuthUser = {
   id: number
   firstName: string
   lastName: string
   email: string
   role: string
+}
+
+export type AuthResponse = AuthUser & {
+  accessToken: string
+  accessTokenExpiresInMs: number
+  refreshToken: string
+  refreshTokenExpiresInMs: number
+}
+
+export type RegisterRequest = Omit<SignupFormValues, 'confirmPassword'>
+
+export type LoginRequest = LoginFormValues
+
+export type RefreshTokenRequest = {
+  refreshToken: string
+}
+
+export type RefreshTokenResponse = {
+  accessToken: string
+  accessTokenExpiresInMs: number
 }

@@ -1,23 +1,37 @@
-import { apiClient } from '@/api/api-client'
-import type { AuthResponse, LoginFormValues, SignupFormValues } from '@/types/auth'
+import { api } from '@/api/api-client'
+import type {
+  AuthResponse,
+  LoginFormValues,
+  LoginRequest,
+  RefreshTokenRequest,
+  RefreshTokenResponse,
+  RegisterRequest,
+  SignupFormValues,
+} from '@/types/auth'
 
-type RegisterPayload = Omit<SignupFormValues, 'confirmPassword'>
+export function registerRequest(payload: RegisterRequest): Promise<AuthResponse> {
+  return api.post<AuthResponse, RegisterRequest>('/auth/register', payload)
+}
 
-export async function registerUser(values: SignupFormValues) {
-  const payload: RegisterPayload = {
+export function loginRequest(credentials: LoginRequest): Promise<AuthResponse> {
+  return api.post<AuthResponse, LoginRequest>('/auth/login', credentials)
+}
+
+export function refreshTokenRequest(payload: RefreshTokenRequest): Promise<RefreshTokenResponse> {
+  return api.post<RefreshTokenResponse, RefreshTokenRequest>('/auth/refresh', payload)
+}
+
+export function registerUser(values: SignupFormValues): Promise<AuthResponse> {
+  const payload: RegisterRequest = {
     firstName: values.firstName,
     lastName: values.lastName,
     email: values.email,
     password: values.password,
   }
 
-  const response = await apiClient.post<AuthResponse>('/auth/register', payload)
-
-  return response.data
+  return registerRequest(payload)
 }
 
-export async function loginUser(values: LoginFormValues) {
-  const response = await apiClient.post<AuthResponse>('/auth/login', values)
-
-  return response.data
+export function loginUser(values: LoginFormValues): Promise<AuthResponse> {
+  return loginRequest(values)
 }
