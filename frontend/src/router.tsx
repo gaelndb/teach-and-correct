@@ -3,56 +3,39 @@ import { Navigate, Route, Routes, useNavigate } from 'react-router-dom'
 import { CopiesScreen } from '@/components/dashboard/copies/copies-screen'
 import { ImportCopiesScreen } from '@/components/dashboard/import/import-copies-screen'
 import { StudentScreen } from '@/components/dashboard/students/student-screen'
+import { useAuth } from '@/contexts/AuthContext'
 import { ContactPage } from '@/pages/contact-page'
 import { DashboardPage } from '@/pages/dashboard-page'
 import { LandingPage } from '@/pages/landing-page'
 import { LoginPage } from '@/pages/login-page'
 import { NotFoundPage } from '@/pages/not-found-page'
 import { SignupPage } from '@/pages/signup-page'
-import type { AuthResponse, LoginFormValues, RegistrationFormValues } from '@/types/auth'
-
-type RegisteredTeacher = Pick<AuthResponse, 'firstName' | 'lastName'>
 
 type AppRoutesProps = {
-  authError: string | null
-  isAuthLoading: boolean
-  teacher: RegisteredTeacher | null
-  onClearAuthError: () => void
-  onLogin: (values: LoginFormValues) => Promise<boolean>
-  onLogout: () => void
-  onSignup: (values: RegistrationFormValues) => Promise<boolean>
   onOpenDemo: () => void
 }
 
-export function AppRoutes({
-  authError,
-  isAuthLoading,
-  teacher,
-  onClearAuthError,
-  onLogin,
-  onLogout,
-  onSignup,
-  onOpenDemo,
-}: AppRoutesProps) {
+export function AppRoutes({ onOpenDemo }: AppRoutesProps) {
   const navigate = useNavigate()
+  const { clearAuthError } = useAuth()
 
   function openLanding() {
-    onClearAuthError()
+    clearAuthError()
     navigate('/')
   }
 
   function openLogin() {
-    onClearAuthError()
+    clearAuthError()
     navigate('/login')
   }
 
   function openSignup() {
-    onClearAuthError()
+    clearAuthError()
     navigate('/signup')
   }
 
   function openContact() {
-    onClearAuthError()
+    clearAuthError()
     navigate('/contact')
   }
 
@@ -62,7 +45,7 @@ export function AppRoutes({
         path="/"
         element={(
           <LandingPage
-            onClearAuthError={onClearAuthError}
+            onClearAuthError={clearAuthError}
             onOpenContactPage={openContact}
             onOpenLoginPage={openLogin}
             onOpenSignupPage={openSignup}
@@ -85,11 +68,8 @@ export function AppRoutes({
         path="/login"
         element={(
           <LoginPage
-            authError={authError}
-            isAuthLoading={isAuthLoading}
             onBackToLanding={openLanding}
             onOpenSignup={openSignup}
-            onLogin={onLogin}
           />
         )}
       />
@@ -97,15 +77,12 @@ export function AppRoutes({
         path="/signup"
         element={(
           <SignupPage
-            authError={authError}
-            isAuthLoading={isAuthLoading}
             onBackToLanding={openLanding}
             onOpenLogin={openLogin}
-            onSignup={onSignup}
           />
         )}
       />
-      <Route path="/dashboard" element={<DashboardPage teacher={teacher} onLogout={onLogout} />}>
+      <Route path="/dashboard" element={<DashboardPage />}>
         <Route index element={<Navigate to="students" replace />} />
         <Route path="students" element={<StudentScreen />} />
         <Route path="copies" element={<CopiesScreen onOpenImport={() => navigate('/dashboard/import')} />} />
@@ -115,4 +92,3 @@ export function AppRoutes({
     </Routes>
   )
 }
-
