@@ -35,8 +35,6 @@ class AuthServiceTest {
     private static final String PASSWORD_HASH = "hashed-password";
     private static final String ACCESS_TOKEN = "access-token";
     private static final String REFRESH_TOKEN = "refresh-token";
-    private static final long ACCESS_TOKEN_EXPIRATION_MS = 123_456L;
-    private static final long REFRESH_TOKEN_EXPIRATION_MS = 987_654L;
 
     @Mock
     private UserRepository userRepository;
@@ -68,11 +66,9 @@ class AuthServiceTest {
         LoginRequest request = new LoginRequest(EMAIL, PASSWORD);
         when(userRepository.findByEmail(EMAIL)).thenReturn(Optional.of(user));
         when(passwordEncoder.matches(PASSWORD, PASSWORD_HASH)).thenReturn(true);
-        
+
         when(jwtProvider.generateAccessToken(user)).thenReturn(ACCESS_TOKEN);
-        when(jwtProvider.getAccessTokenExpirationMs()).thenReturn(ACCESS_TOKEN_EXPIRATION_MS);
         when(jwtProvider.generateRefreshToken(user)).thenReturn(REFRESH_TOKEN);
-        when(jwtProvider.getRefreshTokenExpirationMs()).thenReturn(REFRESH_TOKEN_EXPIRATION_MS);
 
         AuthResponse response = authService.login(request);
 
@@ -82,16 +78,12 @@ class AuthServiceTest {
         assertThat(response.email()).isEqualTo(user.getEmail());
         assertThat(response.role()).isEqualTo(user.getRole().name());
         assertThat(response.accessToken()).isEqualTo(ACCESS_TOKEN);
-        assertThat(response.accessTokenExpiresInMs()).isEqualTo(ACCESS_TOKEN_EXPIRATION_MS);
         assertThat(response.refreshToken()).isEqualTo(REFRESH_TOKEN);
-        assertThat(response.refreshTokenExpiresInMs()).isEqualTo(REFRESH_TOKEN_EXPIRATION_MS);
 
         verify(userRepository).findByEmail(EMAIL);
         verify(passwordEncoder).matches(PASSWORD, PASSWORD_HASH);
         verify(jwtProvider).generateAccessToken(user);
-        verify(jwtProvider).getAccessTokenExpirationMs();
         verify(jwtProvider).generateRefreshToken(user);
-        verify(jwtProvider).getRefreshTokenExpirationMs();
     }
 
     @Test
@@ -107,9 +99,7 @@ class AuthServiceTest {
         when(userRepository.save(any(User.class))).thenReturn(user);
 
         when(jwtProvider.generateAccessToken(user)).thenReturn(ACCESS_TOKEN);
-        when(jwtProvider.getAccessTokenExpirationMs()).thenReturn(ACCESS_TOKEN_EXPIRATION_MS);
         when(jwtProvider.generateRefreshToken(user)).thenReturn(REFRESH_TOKEN);
-        when(jwtProvider.getRefreshTokenExpirationMs()).thenReturn(REFRESH_TOKEN_EXPIRATION_MS);
 
         AuthResponse response = authService.register(request);
 
@@ -119,17 +109,13 @@ class AuthServiceTest {
         assertThat(response.email()).isEqualTo(user.getEmail());
         assertThat(response.role()).isEqualTo(user.getRole().name());
         assertThat(response.accessToken()).isEqualTo(ACCESS_TOKEN);
-        assertThat(response.accessTokenExpiresInMs()).isEqualTo(ACCESS_TOKEN_EXPIRATION_MS);
         assertThat(response.refreshToken()).isEqualTo(REFRESH_TOKEN);
-        assertThat(response.refreshTokenExpiresInMs()).isEqualTo(REFRESH_TOKEN_EXPIRATION_MS);
 
         verify(userRepository).existsByEmail(EMAIL);
         verify(passwordEncoder).encode(PASSWORD);
         verify(userRepository).save(any(User.class));
         verify(jwtProvider).generateAccessToken(user);
-        verify(jwtProvider).getAccessTokenExpirationMs();
         verify(jwtProvider).generateRefreshToken(user);
-        verify(jwtProvider).getRefreshTokenExpirationMs();
     }
 
     @Test
@@ -139,18 +125,15 @@ class AuthServiceTest {
         when(jwtProvider.getEmailFromToken(REFRESH_TOKEN)).thenReturn(EMAIL);
         when(userRepository.findByEmail(EMAIL)).thenReturn(Optional.of(user));
         when(jwtProvider.generateAccessToken(user)).thenReturn(ACCESS_TOKEN);
-        when(jwtProvider.getAccessTokenExpirationMs()).thenReturn(ACCESS_TOKEN_EXPIRATION_MS);
 
         RefreshTokenResponse response = authService.refresh(request);
 
         assertThat(response.accessToken()).isEqualTo(ACCESS_TOKEN);
-        assertThat(response.accessTokenExpiresInMs()).isEqualTo(ACCESS_TOKEN_EXPIRATION_MS);
 
         verify(jwtProvider).isRefreshTokenValid(REFRESH_TOKEN);
         verify(jwtProvider).getEmailFromToken(REFRESH_TOKEN);
         verify(userRepository).findByEmail(EMAIL);
         verify(jwtProvider).generateAccessToken(user);
-        verify(jwtProvider).getAccessTokenExpirationMs();
     }
 
     @Test

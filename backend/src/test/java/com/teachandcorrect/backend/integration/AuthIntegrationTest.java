@@ -103,9 +103,9 @@ class AuthIntegrationTest {
                 .andExpect(jsonPath("$.email").value(email))
                 .andExpect(jsonPath("$.role").value("TEACHER"))
                 .andExpect(jsonPath("$.accessToken").isNotEmpty())
-                .andExpect(jsonPath("$.accessTokenExpiresInMs").value(ACCESS_TOKEN_EXPIRATION_MS))
+                .andExpect(jsonPath("$.accessTokenExpiresInMs").doesNotExist())
                 .andExpect(jsonPath("$.refreshToken").isNotEmpty())
-                .andExpect(jsonPath("$.refreshTokenExpiresInMs").value(REFRESH_TOKEN_EXPIRATION_MS));
+                .andExpect(jsonPath("$.refreshTokenExpiresInMs").doesNotExist());
 
         assertThat(userRepository.existsByEmail(email)).isTrue();
     }
@@ -124,9 +124,9 @@ class AuthIntegrationTest {
                 .andExpect(jsonPath("$.email").value(email))
                 .andExpect(jsonPath("$.role").value("TEACHER"))
                 .andExpect(jsonPath("$.accessToken").isNotEmpty())
-                .andExpect(jsonPath("$.accessTokenExpiresInMs").value(ACCESS_TOKEN_EXPIRATION_MS))
+                .andExpect(jsonPath("$.accessTokenExpiresInMs").doesNotExist())
                 .andExpect(jsonPath("$.refreshToken").isNotEmpty())
-                .andExpect(jsonPath("$.refreshTokenExpiresInMs").value(REFRESH_TOKEN_EXPIRATION_MS));
+                .andExpect(jsonPath("$.refreshTokenExpiresInMs").doesNotExist());
     }
 
     @Test

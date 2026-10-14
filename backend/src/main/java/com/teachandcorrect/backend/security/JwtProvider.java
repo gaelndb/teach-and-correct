@@ -43,14 +43,6 @@ public class JwtProvider {
         return generateToken(user, REFRESH_TOKEN_TYPE, refreshTokenExpirationMs);
     }
 
-    public long getAccessTokenExpirationMs() {
-        return accessTokenExpirationMs;
-    }
-
-    public long getRefreshTokenExpirationMs() {
-        return refreshTokenExpirationMs;
-    }
-
     public String getEmailFromToken(String token) {
         return getClaims(token).getSubject();
     }

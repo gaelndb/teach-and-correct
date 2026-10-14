@@ -77,10 +77,7 @@ public class AuthService {
             User user = userRepository.findByEmail(email)
                     .orElseThrow(this::invalidRefreshTokenException);
 
-            return new RefreshTokenResponse(
-                    jwtProvider.generateAccessToken(user),
-                    jwtProvider.getAccessTokenExpirationMs()
-            );
+            return new RefreshTokenResponse(jwtProvider.generateAccessToken(user));
         } catch (JwtException | IllegalArgumentException exception) {
             throw invalidRefreshTokenException();
         }
@@ -102,9 +99,7 @@ public class AuthService {
                 user.getEmail(),
                 user.getRole().name(),
                 jwtProvider.generateAccessToken(user),
-                jwtProvider.getAccessTokenExpirationMs(),
-                jwtProvider.generateRefreshToken(user),
-                jwtProvider.getRefreshTokenExpirationMs()
+                jwtProvider.generateRefreshToken(user)
         );
     }
 }
