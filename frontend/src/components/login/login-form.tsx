@@ -1,4 +1,4 @@
-import { ArrowLeft, Eye, EyeOff } from 'lucide-react'
+import { ArrowLeft, Eye, EyeOff, Loader2 } from 'lucide-react'
 import { FormEvent, useMemo, useState } from 'react'
 
 import { Button } from '@/components/ui/button'
@@ -141,7 +141,12 @@ export function LoginForm({ errorMessage, isLoading, onBack, onOpenSignup, onSub
             disabled={!isFormValid || isLoading}
             className="h-16 w-full rounded-lg bg-[#d3634d] text-base text-white shadow-none hover:bg-[#c95540]"
           >
-            {isLoading ? 'Connexion...' : 'Me connecter'}
+            {isLoading ? (
+              <>
+                <Loader2 className="h-5 w-5 animate-spin" />
+                Connexion...
+              </>
+            ) : 'Me connecter'}
           </Button>
         </form>
 

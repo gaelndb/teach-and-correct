@@ -1,4 +1,4 @@
-import { ArrowLeft, CheckCircle2, Circle, Eye, EyeOff } from 'lucide-react'
+import { ArrowLeft, CheckCircle2, Circle, Eye, EyeOff, Loader2 } from 'lucide-react'
 import { FormEvent, useMemo, useState } from 'react'
 
 import { Button } from '@/components/ui/button'
@@ -260,7 +260,12 @@ export function SignupForm({ errorMessage, isLoading, onBack, onOpenLogin, onSub
             disabled={!isFormValid || !hasAcceptedTerms || isLoading}
             className="h-14 w-full rounded-lg bg-[#d3634d] text-base text-white shadow-none hover:bg-[#c95540] lg:h-[clamp(2.75rem,6vh,4rem)]"
           >
-            {isLoading ? 'Création du compte...' : "M'inscrire gratuitement"}
+            {isLoading ? (
+              <>
+                <Loader2 className="h-5 w-5 animate-spin" />
+                Création du compte...
+              </>
+            ) : "M'inscrire gratuitement"}
           </Button>
         </form>
 
