@@ -12,9 +12,7 @@ function authenticateTestUser() {
     email: 'gaelle.lefils@gmail.com',
     role: 'TEACHER',
     accessToken: 'access-token',
-    accessTokenExpiresInMs: 123456,
     refreshToken: 'refresh-token',
-    refreshTokenExpiresInMs: 987654,
   }))
 }
 

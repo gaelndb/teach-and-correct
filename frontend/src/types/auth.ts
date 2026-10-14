@@ -21,9 +21,7 @@ export type AuthUser = {
 
 export type AuthResponse = AuthUser & {
   accessToken: string
-  accessTokenExpiresInMs: number
   refreshToken: string
-  refreshTokenExpiresInMs: number
 }
 
 export type RefreshTokenRequest = {
@@ -32,5 +30,4 @@ export type RefreshTokenRequest = {
 
 export type RefreshTokenResponse = {
   accessToken: string
-  accessTokenExpiresInMs: number
 }

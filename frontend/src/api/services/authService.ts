@@ -46,7 +46,6 @@ export const authService = {
       authStorage.saveAuth({
         ...storedAuth,
         accessToken: refreshResponse.accessToken,
-        accessTokenExpiresInMs: refreshResponse.accessTokenExpiresInMs,
       })
     }
 
