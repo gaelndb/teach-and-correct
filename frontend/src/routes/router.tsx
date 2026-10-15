@@ -4,6 +4,7 @@ import { CopiesScreen } from '@/components/dashboard/copies/copies-screen'
 import { ImportCopiesScreen } from '@/components/dashboard/import/import-copies-screen'
 import { StudentScreen } from '@/components/dashboard/students/student-screen'
 import { useAuth } from '@/contexts/AuthContext'
+import { ProtectedRoute } from '@/routes/ProtectedRoute'
 import { ContactPage } from '@/pages/contact-page'
 import { DashboardPage } from '@/pages/dashboard-page'
 import { LandingPage } from '@/pages/landing-page'
@@ -67,22 +68,33 @@ export function AppRoutes({ onOpenDemo }: AppRoutesProps) {
       <Route
         path="/login"
         element={(
-          <LoginPage
-            onBackToLanding={openLanding}
-            onOpenSignup={openSignup}
-          />
+          <ProtectedRoute type="public">
+            <LoginPage
+              onBackToLanding={openLanding}
+              onOpenSignup={openSignup}
+            />
+          </ProtectedRoute>
         )}
       />
       <Route
         path="/signup"
         element={(
-          <SignupPage
-            onBackToLanding={openLanding}
-            onOpenLogin={openLogin}
-          />
+          <ProtectedRoute type="public">
+            <SignupPage
+              onBackToLanding={openLanding}
+              onOpenLogin={openLogin}
+            />
+          </ProtectedRoute>
         )}
       />
-      <Route path="/dashboard" element={<DashboardPage />}>
+      <Route
+        path="/dashboard"
+        element={(
+          <ProtectedRoute type="private">
+            <DashboardPage />
+          </ProtectedRoute>
+        )}
+      >
         <Route index element={<Navigate to="students" replace />} />
         <Route path="students" element={<StudentScreen />} />
         <Route path="copies" element={<CopiesScreen onOpenImport={() => navigate('/dashboard/import')} />} />

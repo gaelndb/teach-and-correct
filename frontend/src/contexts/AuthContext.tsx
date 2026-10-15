@@ -33,14 +33,20 @@ function getAuthErrorMessage(error: unknown) {
 export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<AuthUser | null>(null)
   const [authError, setAuthError] = useState<string | null>(null)
-  const [isAuthLoading, setIsAuthLoading] = useState(false)
+  const [isAuthLoading, setIsAuthLoading] = useState(true)
 
   useEffect(() => {
-    const storedAuth = authService.getStoredAuth()
+    async function restoreAuth() {
+      const storedAuth = authService.getStoredAuth()
 
-    if (storedAuth) {
-      setUser(authService.toAuthUser(storedAuth))
+      if (storedAuth) {
+        setUser(authService.toAuthUser(storedAuth))
+      }
+
+      setIsAuthLoading(false)
     }
+
+    restoreAuth()
   }, [])
 
   async function register(values: RegistrationFormValues) {

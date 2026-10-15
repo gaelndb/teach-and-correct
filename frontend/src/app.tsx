@@ -1,7 +1,7 @@
 import { BrowserRouter, useNavigate } from 'react-router-dom'
 
 import { AuthProvider } from '@/contexts/AuthContext'
-import { AppRoutes } from '@/router'
+import { AppRoutes } from '@/routes/router'
 
 function AppContent() {
   const navigate = useNavigate()
