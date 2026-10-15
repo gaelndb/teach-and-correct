@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.teachandcorrect.backend.dto.auth.AuthResponse;
 import com.teachandcorrect.backend.dto.auth.LoginRequest;
+import com.teachandcorrect.backend.dto.auth.RefreshTokenRequest;
+import com.teachandcorrect.backend.dto.auth.RefreshTokenResponse;
 import com.teachandcorrect.backend.dto.auth.RegisterRequest;
 import com.teachandcorrect.backend.service.AuthService;
 
@@ -34,5 +36,10 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest request) {
         return ResponseEntity.ok(authService.login(request));
+    }
+
+    @PostMapping("/refresh")
+    public ResponseEntity<RefreshTokenResponse> refresh(@Valid @RequestBody RefreshTokenRequest request) {
+        return ResponseEntity.ok(authService.refresh(request));
     }
 }

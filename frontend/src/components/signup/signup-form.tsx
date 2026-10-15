@@ -1,19 +1,19 @@
-import { ArrowLeft, CheckCircle2, Circle, Eye, EyeOff } from 'lucide-react'
+import { ArrowLeft, CheckCircle2, Circle, Eye, EyeOff, Loader2 } from 'lucide-react'
 import { FormEvent, useMemo, useState } from 'react'
 
 import { Button } from '@/components/ui/button'
 import { strongPasswordRules, validateSignupForm } from '@/lib/auth-form-validation-utils'
-import type { SignupFormValues } from '@/types/auth'
+import type { RegistrationFormValues } from '@/types/auth'
 
 type SignupFormProps = {
   errorMessage: string | null
   isLoading: boolean
   onBack: () => void
   onOpenLogin: () => void
-  onSubmit: (values: SignupFormValues) => Promise<boolean>
+  onSubmit: (values: RegistrationFormValues) => Promise<boolean>
 }
 
-const initialFormValues: SignupFormValues = {
+const initialFormValues: RegistrationFormValues = {
   firstName: '',
   lastName: '',
   email: '',
@@ -22,8 +22,8 @@ const initialFormValues: SignupFormValues = {
 }
 
 export function SignupForm({ errorMessage, isLoading, onBack, onOpenLogin, onSubmit }: SignupFormProps) {
-  const [formValues, setFormValues] = useState<SignupFormValues>(initialFormValues)
-  const [touchedFields, setTouchedFields] = useState<Partial<Record<keyof SignupFormValues, boolean>>>({})
+  const [formValues, setFormValues] = useState<RegistrationFormValues>(initialFormValues)
+  const [touchedFields, setTouchedFields] = useState<Partial<Record<keyof RegistrationFormValues, boolean>>>({})
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false)
   const [hasAcceptedTerms, setHasAcceptedTerms] = useState(false)
@@ -32,21 +32,21 @@ export function SignupForm({ errorMessage, isLoading, onBack, onOpenLogin, onSub
   const errors = useMemo(() => validateSignupForm(formValues), [formValues])
   const isFormValid = Object.keys(errors).length === 0
 
-  function updateField(field: keyof SignupFormValues, value: string) {
+  function updateField(field: keyof RegistrationFormValues, value: string) {
     setFormValues((currentValues) => ({
       ...currentValues,
       [field]: value,
     }))
   }
 
-  function markFieldAsTouched(field: keyof SignupFormValues) {
+  function markFieldAsTouched(field: keyof RegistrationFormValues) {
     setTouchedFields((currentTouchedFields) => ({
       ...currentTouchedFields,
       [field]: true,
     }))
   }
 
-  function getErrorMessage(field: keyof SignupFormValues) {
+  function getErrorMessage(field: keyof RegistrationFormValues) {
     if (!touchedFields[field]) {
       return null
     }
@@ -54,7 +54,7 @@ export function SignupForm({ errorMessage, isLoading, onBack, onOpenLogin, onSub
     return errors[field]
   }
 
-  function getLengthErrorMessage(field: keyof SignupFormValues) {
+  function getLengthErrorMessage(field: keyof RegistrationFormValues) {
     const errorMessage = errors[field]
 
     if (!errorMessage?.includes('trop long')) {
@@ -260,7 +260,12 @@ export function SignupForm({ errorMessage, isLoading, onBack, onOpenLogin, onSub
             disabled={!isFormValid || !hasAcceptedTerms || isLoading}
             className="h-14 w-full rounded-lg bg-[#d3634d] text-base text-white shadow-none hover:bg-[#c95540] lg:h-[clamp(2.75rem,6vh,4rem)]"
           >
-            {isLoading ? 'Création du compte...' : "M'inscrire gratuitement"}
+            {isLoading ? (
+              <>
+                <Loader2 className="h-5 w-5 animate-spin" />
+                Création du compte...
+              </>
+            ) : "M'inscrire gratuitement"}
           </Button>
         </form>
 

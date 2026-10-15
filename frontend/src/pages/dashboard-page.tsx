@@ -3,17 +3,16 @@ import { NavLink, Outlet, useNavigate } from 'react-router-dom'
 
 import { ScanButton } from '@/components/dashboard/shared/scan-button'
 import { Button } from '@/components/ui/button'
+import { useAuth } from '@/contexts/AuthContext'
 
-type DashboardPageProps = {
-  teacher: {
-    firstName: string
-    lastName: string
-  } | null
-  onLogout: () => void
-}
-
-export function DashboardPage({ teacher, onLogout }: DashboardPageProps) {
+export function DashboardPage() {
   const navigate = useNavigate()
+  const { logout, user } = useAuth()
+
+  function handleLogout() {
+    logout()
+    navigate('/login')
+  }
 
   return (
     <main className="min-h-screen bg-[#fbfaf6] text-[#385f49]">
@@ -41,13 +40,13 @@ export function DashboardPage({ teacher, onLogout }: DashboardPageProps) {
               <HelpCircle className="h-4 w-4" />
               Aide
             </Button>
-            <Button onClick={onLogout} className="hidden h-10 rounded-lg border border-white/15 bg-white/10 px-4 text-sm font-black text-white shadow-none hover:bg-white/15 lg:inline-flex">
+            <Button onClick={handleLogout} className="hidden h-10 rounded-lg border border-white/15 bg-white/10 px-4 text-sm font-black text-white shadow-none hover:bg-white/15 lg:inline-flex">
               <LogOut className="h-4 w-4" />
               Déconnexion
             </Button>
             <Button className="hidden h-10 rounded-lg border border-white/15 bg-white/10 px-4 text-sm font-black text-white shadow-none hover:bg-white/15 xl:inline-flex">
               <Settings className="h-4 w-4" />
-              {teacher ? `${teacher.firstName} ${teacher.lastName}` : 'Professeur'}
+              {user ? `${user.firstName} ${user.lastName}` : 'Professeur'}
             </Button>
           </div>
         </div>

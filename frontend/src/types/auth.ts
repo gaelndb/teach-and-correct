@@ -1,4 +1,4 @@
-export type SignupFormValues = {
+export type RegistrationFormValues = {
   firstName: string
   lastName: string
   email: string
@@ -11,10 +11,23 @@ export type LoginFormValues = {
   password: string
 }
 
-export type AuthResponse = {
+export type AuthUser = {
   id: number
   firstName: string
   lastName: string
   email: string
   role: string
+}
+
+export type AuthResponse = AuthUser & {
+  accessToken: string
+  refreshToken: string
+}
+
+export type RefreshTokenRequest = {
+  refreshToken: string
+}
+
+export type RefreshTokenResponse = {
+  accessToken: string
 }

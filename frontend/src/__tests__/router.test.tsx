@@ -1,8 +1,24 @@
 import { render, screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 
 import App from '@/app'
+
+function authenticateTestUser() {
+  localStorage.setItem('userAuth', JSON.stringify({
+    id: 1,
+    firstName: 'Gaelle',
+    lastName: 'Lefils',
+    email: 'gaelle.lefils@gmail.com',
+    role: 'TEACHER',
+    accessToken: 'access-token',
+    refreshToken: 'refresh-token',
+  }))
+}
+
+beforeEach(() => {
+  localStorage.clear()
+})
 
 describe('Route rendering', () => {
   it('renders the not-found page', () => {
@@ -57,6 +73,7 @@ describe('Route rendering', () => {
 
   it('renders the dashboard students page', () => {
     window.history.replaceState({}, '', '/dashboard/students')
+    authenticateTestUser()
 
     render(<App />)
 
@@ -67,6 +84,7 @@ describe('Route rendering', () => {
 
   it('renders the dashboard copies page', () => {
     window.history.replaceState({}, '', '/dashboard/copies')
+    authenticateTestUser()
 
     render(<App />)
 
@@ -77,11 +95,39 @@ describe('Route rendering', () => {
 
   it('renders the dashboard import page', () => {
     window.history.replaceState({}, '', '/dashboard/import')
+    authenticateTestUser()
 
     render(<App />)
 
     expect(
       screen.getByRole('heading', { level: 1, name: /^Importer des copies$/i }),
+    ).toBeInTheDocument()
+  })
+
+  it('redirects unauthenticated users from dashboard to login page', async () => {
+    window.history.replaceState({}, '', '/dashboard/students')
+
+    render(<App />)
+
+    await waitFor(() => {
+      expect(window.location.pathname).toBe('/login')
+    })
+    expect(
+      screen.getByRole('heading', { name: /Bienvenue/i }),
+    ).toBeInTheDocument()
+  })
+
+  it('redirects authenticated users from login to dashboard', async () => {
+    window.history.replaceState({}, '', '/login')
+    authenticateTestUser()
+
+    render(<App />)
+
+    await waitFor(() => {
+      expect(window.location.pathname).toBe('/dashboard/students')
+    })
+    expect(
+      screen.getByRole('heading', { level: 1, name: /^Mes élèves$/i }),
     ).toBeInTheDocument()
   })
 })
@@ -194,6 +240,7 @@ describe('Public navigation', () => {
 describe('Dashboard navigation', () => {
   it('navigates from students to copies and import pages', async () => {
     window.history.replaceState({}, '', '/dashboard/students')
+    authenticateTestUser()
 
     const user = userEvent.setup()
 
