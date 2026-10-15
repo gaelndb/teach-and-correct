@@ -1,5 +1,5 @@
 import { loginRequest, registerRequest } from '@/api/auth-api'
-import { authStorage } from '@/api/services/authStorage'
+import { authStorage } from '@/api/storage/authStorage'
 import type {
   AuthResponse,
   AuthUser,

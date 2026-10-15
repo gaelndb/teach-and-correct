@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 import { setupTokenRefreshInterceptor } from '@/api/interceptors/token-refresh-interceptor'
-import { authStorage } from '@/api/services/authStorage'
+import { authStorage } from '@/api/storage/authStorage'
 
 const axiosClient = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8080/api',

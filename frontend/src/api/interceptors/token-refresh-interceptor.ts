@@ -1,6 +1,6 @@
 import type { AxiosError, AxiosInstance, InternalAxiosRequestConfig } from 'axios'
 
-import { authStorage } from '@/api/services/authStorage'
+import { authStorage } from '@/api/storage/authStorage'
 import type { RefreshTokenRequest, RefreshTokenResponse } from '@/types/auth'
 
 type RetryableRequestConfig = InternalAxiosRequestConfig & {
