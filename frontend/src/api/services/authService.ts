@@ -1,10 +1,9 @@
-import { loginRequest, refreshTokenRequest, registerRequest } from '@/api/auth-api'
+import { loginRequest, registerRequest } from '@/api/auth-api'
 import { authStorage } from '@/api/services/authStorage'
 import type {
   AuthResponse,
   AuthUser,
   LoginFormValues,
-  RefreshTokenResponse,
   RegistrationFormValues,
 } from '@/types/auth'
 
@@ -38,28 +37,10 @@ export const authService = {
     return authResponse
   },
 
-  async refreshToken(refreshToken: string): Promise<RefreshTokenResponse> {
-    const refreshResponse = await refreshTokenRequest({ refreshToken })
-    const storedAuth = authStorage.getStoredAuth()
-
-    if (storedAuth) {
-      authStorage.saveAuth({
-        ...storedAuth,
-        accessToken: refreshResponse.accessToken,
-      })
-    }
-
-    return refreshResponse
-  },
-
   logout(): void {
     authStorage.clearAuth()
   },
 
   toAuthUser,
   getStoredAuth: authStorage.getStoredAuth,
-  saveAuth: authStorage.saveAuth,
-  clearAuth: authStorage.clearAuth,
-  getAccessToken: authStorage.getAccessToken,
-  getRefreshToken: authStorage.getRefreshToken,
 }

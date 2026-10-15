@@ -12,7 +12,6 @@ type AuthContextValue = {
   login: (values: LoginFormValues) => Promise<boolean>
   register: (values: RegistrationFormValues) => Promise<boolean>
   logout: () => void
-  refreshAuth: () => Promise<boolean>
   clearAuthError: () => void
 }
 
@@ -91,25 +90,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
     setAuthError(null)
   }
 
-  async function refreshAuth() {
-    const refreshToken = authService.getRefreshToken()
-
-    if (!refreshToken) {
-      logout()
-      return false
-    }
-
-    try {
-      await authService.refreshToken(refreshToken)
-
-      return true
-    } catch {
-      logout()
-
-      return false
-    }
-  }
-
   function clearAuthError() {
     setAuthError(null)
   }
@@ -122,7 +102,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
     login,
     register,
     logout,
-    refreshAuth,
     clearAuthError,
   }), [authError, isAuthLoading, user])
 

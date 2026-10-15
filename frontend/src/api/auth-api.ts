@@ -2,8 +2,6 @@ import { api } from '@/api/api-client'
 import type {
   AuthResponse,
   LoginFormValues,
-  RefreshTokenRequest,
-  RefreshTokenResponse,
   RegistrationFormValues,
 } from '@/types/auth'
 
@@ -15,8 +13,4 @@ export function registerRequest(payload: RegistrationPayload): Promise<AuthRespo
 
 export function loginRequest(credentials: LoginFormValues): Promise<AuthResponse> {
   return api.post<AuthResponse, LoginFormValues>('/auth/login', credentials)
-}
-
-export function refreshTokenRequest(payload: RefreshTokenRequest): Promise<RefreshTokenResponse> {
-  return api.post<RefreshTokenResponse, RefreshTokenRequest>('/auth/refresh', payload)
 }
