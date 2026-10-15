@@ -1,5 +1,6 @@
 import axios from 'axios'
 
+import { setupTokenRefreshInterceptor } from '@/api/interceptors/token-refresh-interceptor'
 import { authStorage } from '@/api/services/authStorage'
 
 const axiosClient = axios.create({
@@ -18,6 +19,8 @@ axiosClient.interceptors.request.use((config) => {
 
   return config
 })
+
+setupTokenRefreshInterceptor(axiosClient)
 
 async function post<TResponse, TPayload = undefined>(url: string, payload?: TPayload): Promise<TResponse> {
   const response = await axiosClient.post<TResponse>(url, payload)
