@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">TeachAndCorrect - copie corrigée</title>
+  <desc id="desc">Icône blanche de document avec coche sur fond vert TeachAndCorrect.</desc>
+
+  <!-- Fond plein, sans bordure ni marge -->
+  <rect x="0" y="0" width="512" height="512" fill="#385F49"/>
+
+  <g transform="translate(0 4) rotate(-11 256 256)">
+    <path
+      d="M136 165
+         C136 150 148 138 163 138
+         H183
+         V362
+         H163
+         C148 362 136 350 136 335
+         Z"
+      fill="#FFFFFF"/>
+
+    <rect x="170" y="122" width="220" height="270" rx="24" fill="#FFFFFF"/>
+
+    <rect x="205" y="175" width="142" height="18" rx="9" fill="#385F49"/>
+    <rect x="205" y="215" width="150" height="18" rx="9" fill="#385F49"/>
+    <rect x="205" y="255" width="112" height="18" rx="9" fill="#385F49"/>
+
+    <path
+      d="M262 321
+         L293 352
+         L349 292"
+      fill="none"
+      stroke="#385F49"
+      stroke-width="24"
+      stroke-linecap="round"
+      stroke-linejoin="round"/>
+  </g>
+</svg>
