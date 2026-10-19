@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://teach-and-correct.vercel.app/sitemap.xml
+Sitemap: https://www.teachandcorrect.fr/sitemap.xml
