@@ -8,12 +8,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="TeachAndCorrect aide les enseignants à corriger leurs copies avec l'assistance de l'intelligence artificielle."
+      content="TeachAndCorrect permet aux enseignants d'obtenir une copie d'élève corrigée, prête à être restituée, à partir d'une photo ou d'un fichier importé depuis un ordinateur."
     />
-    <title>TeachAndCorrect</title>
+    <meta property="og:site_name" content="TeachAndCorrect" />
+    <meta
+      property="og:title"
+      content="TeachAndCorrect - Correction automatique de copies d'élèves"
+    />
+    <meta
+      property="og:description"
+      content="Prenez en photo ou importez une copie d'élève et obtenez automatiquement une copie corrigée prête à être restituée."
+    />
+    <title>TeachAndCorrect - Correction automatique de copies d'élèves</title>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "TeachAndCorrect",
+        "alternateName": [
+          "teach and correct",
+          "teachandcorrect",
+          "teachandcorrect.fr"
+        ],
+        "url": "https://www.teachandcorrect.fr/"
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "TeachAndCorrect",
+        "url": "https://www.teachandcorrect.fr/",
+        "logo": "https://www.teachandcorrect.fr/teachandcorrect-logo-no-border.svg",
+        "description": "Plateforme de correction automatique de copies d'élèves destinée aux enseignants.",
+        "sameAs": [
+          "https://www.linkedin.com/company/teachandcorrect/"
+        ]
+      }
+    </script>
   </body>
 </html>
