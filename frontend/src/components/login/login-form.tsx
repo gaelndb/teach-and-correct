@@ -81,10 +81,7 @@ export function LoginForm({ errorMessage, isLoading, onBack, onOpenSignup, onSub
         </button>
 
         <div>
-          <div className="inline-flex rounded-full border border-[#c7ded4] bg-[#edf5f1] px-4 py-2 text-xs font-black tracking-[0.12em] text-[#5f9674]">
-            Connexion à votre espace
-          </div>
-          <h1 className="mt-6 text-4xl font-black tracking-[-0.045em] text-[#385f49]">Bienvenue !</h1>
+          <h1 className="text-4xl font-black tracking-[-0.045em] text-[#385f49]">Bienvenue !</h1>
           <p className="mt-4 text-lg text-[#7d987f]">Connectez-vous pour accéder à vos copies et vos classes.</p>
         </div>
 
@@ -153,7 +150,7 @@ export function LoginForm({ errorMessage, isLoading, onBack, onOpenSignup, onSub
         <p className="mt-7 text-center text-base font-medium text-[#7d987f]">
           Vous n'avez pas encore de compte ?{' '}
           <button type="button" onClick={onOpenSignup} className="font-black text-[#385f49] transition hover:text-[#d3634d]">
-            Créer mon compte gratuitement
+            Créer mon compte maintenant
           </button>
         </p>
       </div>
