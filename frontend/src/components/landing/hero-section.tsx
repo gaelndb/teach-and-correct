@@ -1,3 +1,4 @@
+import { HeroAnimation } from '@/components/animations/hero-animation'
 import { Button } from '@/components/ui/button'
 
 type HeroSectionProps = {
@@ -24,6 +25,7 @@ export function HeroSection({ onOpenSignup }: HeroSectionProps) {
           Essayer maintenant
         </Button>
 
+        <HeroAnimation />
       </div>
     </section>
   )

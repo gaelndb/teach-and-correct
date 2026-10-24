@@ -1,5 +1,7 @@
 import { BarChart3, BookOpen, UsersRound } from 'lucide-react'
 
+import { StudentTrackingCarousel } from '@/components/animations/student-tracking-carousel'
+
 const trackingItems = [
   { label: 'Historique des copies et des notes par élève', icon: BookOpen },
   { label: 'Repérage rapide des élèves en difficulté', icon: UsersRound },
@@ -34,9 +36,7 @@ export function StudentTrackingSection() {
           </ul>
         </div>
 
-        <div className="overflow-hidden rounded-3xl shadow-[0_24px_70px_rgba(56,95,73,0.10)]">
-          <img src="/students_grades_tracking.png" alt="Tableau de suivi des notes et des copies" className="w-full object-cover" />
-        </div>
+        <StudentTrackingCarousel />
       </div>
     </section>
   )
