@@ -26,7 +26,7 @@ export function ContactInfoCard() {
         Vous avez des questions sur TeachAndCorrect ?
       </h2>
       <p className="mt-6 text-base leading-7 text-white/62">
-        Que vous souhaitiez tester l'outil, comprendre comment il s'intègre dans votre pratique ou connaître les options pour votre établissement — on est là.
+        Que vous souhaitiez tester l'outil ou comprendre comment il s'intègre dans votre pratique — on est là.
       </p>
 
       <div className="mt-9 space-y-5">

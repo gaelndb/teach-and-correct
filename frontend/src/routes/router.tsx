@@ -12,11 +12,7 @@ import { LoginPage } from '@/pages/login-page'
 import { NotFoundPage } from '@/pages/not-found-page'
 import { SignupPage } from '@/pages/signup-page'
 
-type AppRoutesProps = {
-  onOpenDemo: () => void
-}
-
-export function AppRoutes({ onOpenDemo }: AppRoutesProps) {
+export function AppRoutes() {
   const navigate = useNavigate()
   const { clearAuthError } = useAuth()
 
@@ -58,7 +54,6 @@ export function AppRoutes({ onOpenDemo }: AppRoutesProps) {
         element={(
           <ContactPage
             onOpenContact={openContact}
-            onOpenDemo={onOpenDemo}
             onOpenLanding={openLanding}
             onOpenLogin={openLogin}
             onOpenSignup={openSignup}
