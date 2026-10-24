@@ -27,17 +27,13 @@ export function SignupSidePanel({ onOpenLanding }: SignupSidePanelProps) {
       </button>
 
       <div className="max-w-md">
-        <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold text-white/85">
-          <span className="h-2 w-2 rounded-full bg-[#d3634d]" />
-          100 % gratuit pour commencer
-        </div>
-
-        <h1 className="mt-8 text-4xl font-black leading-[1.05] tracking-[-0.06em] xl:text-5xl">
-          Rendez vos soirées à <span className="text-[#d3634d]">vous-même.</span>
+        <h1 className="text-4xl font-black leading-[1.05] tracking-[-0.06em] xl:text-5xl">
+          Une plateforme conçue pour la{' '}
+          <span className="text-[#d3634d]">correction de copies.</span>
         </h1>
 
         <p className="mt-8 text-lg leading-8 text-white/65 xl:text-xl xl:leading-9">
-          Importez une copie. L'IA propose une correction détaillée. Vous gardez le dernier mot — toujours.
+          Importez une copie. La plateforme vous donne une correction détaillée.
         </p>
 
         <div className="mt-8 space-y-3 xl:mt-9 xl:space-y-4">

@@ -102,11 +102,8 @@ export function SignupForm({ errorMessage, isLoading, onBack, onOpenLogin, onSub
         </button>
 
         <div>
-          <div className="inline-flex rounded-full border border-[#c7ded4] bg-[#edf5f1] px-4 py-2 text-xs font-black tracking-[0.12em] text-[#5f9674]">
-            Inscription gratuite · Sans carte bancaire
-          </div>
-          <h1 className="mt-8 text-3xl font-black tracking-[-0.045em] text-[#385f49] lg:text-[clamp(1.75rem,4vh,2.25rem)]">Créez votre compte</h1>
-          <p className="mt-3 text-base text-[#7d987f] lg:text-[clamp(0.95rem,2vh,1.125rem)]">Rejoignez les enseignants qui récupèrent du temps chaque semaine.</p>
+          <h1 className="text-3xl font-black tracking-[-0.045em] text-[#385f49] lg:text-[clamp(1.75rem,4vh,2.25rem)]">Créez votre compte</h1>
+          <p className="mt-3 text-base text-[#7d987f] lg:text-[clamp(0.95rem,2vh,1.125rem)]">Rejoignez les autres enseignants.</p>
         </div>
 
         <form className="mt-6 space-y-4 lg:mt-[clamp(1rem,3vh,2.5rem)] lg:space-y-[clamp(0.65rem,1.3vh,1.5rem)]" onSubmit={handleSubmit} noValidate>
