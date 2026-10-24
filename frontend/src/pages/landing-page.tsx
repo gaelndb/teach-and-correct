@@ -12,6 +12,7 @@ type LandingPageProps = {
   onOpenContactPage: () => void
   onOpenLoginPage: () => void
   onOpenSignupPage: () => void
+  onOpenLandingSection: (sectionId: string) => void
 }
 
 export function LandingPage({
@@ -19,6 +20,7 @@ export function LandingPage({
   onOpenContactPage,
   onOpenLoginPage,
   onOpenSignupPage,
+  onOpenLandingSection,
 }: LandingPageProps) {
   function openLoginPage() {
     onClearAuthError()
@@ -39,6 +41,7 @@ export function LandingPage({
     <main className="min-h-screen bg-[#fbfaf6]">
       <LandingHeader
         onOpenContact={openContactPage}
+        onOpenSection={onOpenLandingSection}
         onOpenSignup={openSignupPage}
         onOpenLogin={openLoginPage}
       />
@@ -48,7 +51,7 @@ export function LandingPage({
       <BenefitsSection />
       <StudentTrackingSection />
       <FaqSection />
-      <LandingFooter onOpenContact={openContactPage} />
+      <LandingFooter onOpenContact={openContactPage} onOpenSection={onOpenLandingSection} />
     </main>
   )
 }

@@ -34,6 +34,23 @@ export function AppRoutes() {
   function openContact() {
     clearAuthError()
     navigate('/contact')
+
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+      })
+    })
+  }
+
+  function openLandingSection(sectionId: string) {
+    clearAuthError()
+    navigate('/')
+
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => {
+        document.querySelector(sectionId)?.scrollIntoView({ behavior: 'smooth' })
+      })
+    })
   }
 
   return (
@@ -46,6 +63,7 @@ export function AppRoutes() {
             onOpenContactPage={openContact}
             onOpenLoginPage={openLogin}
             onOpenSignupPage={openSignup}
+            onOpenLandingSection={openLandingSection}
           />
         )}
       />
@@ -55,6 +73,7 @@ export function AppRoutes() {
           <ContactPage
             onOpenContact={openContact}
             onOpenLanding={openLanding}
+            onOpenLandingSection={openLandingSection}
             onOpenLogin={openLogin}
             onOpenSignup={openSignup}
           />

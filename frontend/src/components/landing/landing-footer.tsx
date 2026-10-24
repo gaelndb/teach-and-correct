@@ -33,9 +33,10 @@ const footerColumns: Array<{ title: string; links: FooterLink[] }> = [
 
 type LandingFooterProps = {
   onOpenContact: () => void
+  onOpenSection: (sectionId: string) => void
 }
 
-export function LandingFooter({ onOpenContact }: LandingFooterProps) {
+export function LandingFooter({ onOpenContact, onOpenSection }: LandingFooterProps) {
   return (
     <footer className="bg-[#385f49] px-6 py-16 text-white">
       <div className="mx-auto max-w-7xl">
@@ -58,7 +59,13 @@ export function LandingFooter({ onOpenContact }: LandingFooterProps) {
                         {link.label}
                       </button>
                     ) : (
-                      <a href={link.href} className="transition hover:text-white">{link.label}</a>
+                      <button
+                        type="button"
+                        onClick={() => onOpenSection(link.href ?? '#accueil')}
+                        className="transition hover:text-white"
+                      >
+                        {link.label}
+                      </button>
                     )}
                   </li>
                 ))}

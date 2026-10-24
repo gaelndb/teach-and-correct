@@ -7,16 +7,27 @@ import { FaqSection } from '@/components/shared/faq-section'
 type ContactPageProps = {
   onOpenContact: () => void
   onOpenLanding: () => void
+  onOpenLandingSection: (sectionId: string) => void
   onOpenLogin: () => void
   onOpenSignup: () => void
 }
 
-export function ContactPage({ onOpenContact, onOpenLanding, onOpenLogin, onOpenSignup }: ContactPageProps) {
+export function ContactPage({ onOpenContact, onOpenLanding, onOpenLandingSection, onOpenLogin, onOpenSignup }: ContactPageProps) {
+  function openSection(sectionId: string) {
+    if (sectionId === '#faq') {
+      document.querySelector(sectionId)?.scrollIntoView({ behavior: 'smooth' })
+      return
+    }
+
+    onOpenLandingSection(sectionId)
+  }
+
   return (
     <main className="min-h-screen bg-[#fbfaf6]">
       <LandingHeader
         onOpenContact={onOpenContact}
         onOpenLanding={onOpenLanding}
+        onOpenSection={openSection}
         onOpenLogin={onOpenLogin}
         onOpenSignup={onOpenSignup}
       />
@@ -39,7 +50,7 @@ export function ContactPage({ onOpenContact, onOpenLanding, onOpenLogin, onOpenS
       </section>
 
       <FaqSection />
-      <LandingFooter onOpenContact={onOpenContact} />
+      <LandingFooter onOpenContact={onOpenContact} onOpenSection={openSection} />
     </main>
   )
 }
