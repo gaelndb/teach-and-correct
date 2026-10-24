@@ -47,7 +47,7 @@ export function LandingHeader({ onOpenContact, onOpenLanding, onOpenSignup, onOp
             size="sm"
             className="h-12 rounded-lg bg-[#d3634d] px-7 text-base text-white shadow-none hover:bg-[#c95540]"
           >
-            <Link to="/signup" onClick={onOpenSignup}>Essayer gratuitement</Link>
+            <Link to="/signup" onClick={onOpenSignup}>Essayer maintenant</Link>
           </Button>
         </div>
       </div>

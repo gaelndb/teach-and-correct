@@ -2,18 +2,15 @@ import type React from 'react'
 import { BarChart3, Check, Sparkles } from 'lucide-react'
 
 const correctionBenefits = [
-  'Scan, photo ou fichier numérique acceptés',
-  "L'IA annote la copie directement — surlignages, commentaires en marge",
-  "Une zone dédiée pour modifier chaque annotation de l'IA",
-  'Vos modifications se répercutent immédiatement sur la copie',
-  "Note indicative proposée, à valider par l'enseignant",
+  'Photo ou fichier numérique acceptés',
+  'Le professeur peut modifier la correction obtenue',
+  'Consultation des copies avant/après',
 ]
 
 const studentBenefits = [
   'Historique complet des copies par élève',
-  'Moyenne et tendances par matière',
-  'Identification rapide des élèves en difficulté',
-  'Vue globale par classe, tout centralisé',
+  'Note et moyenne par matière',
+  'Vue par élève, par classe et par matière',
 ]
 
 export function FeaturesSection() {
@@ -23,26 +20,26 @@ export function FeaturesSection() {
         <div className="mx-auto max-w-3xl text-center">
           <p className="text-xs font-black uppercase tracking-[0.32em] text-[#5f9674]">Fonctionnalités</p>
           <h2 className="mt-7 text-4xl font-black tracking-[-0.045em] text-[#385f49] sm:text-5xl">
-            Tout ce dont vous avez besoin
+            Ce que vous pouvez faire
           </h2>
           <p className="mx-auto mt-7 max-w-2xl text-lg leading-8 text-[#7d987f]">
-            Une seule plateforme pour corriger vos copies et suivre la progression de vos élèves.
+            Une plateforme pensée pour centraliser la correction des copies et le suivi des résultats.
           </p>
         </div>
 
         <div className="mt-16 grid gap-8 lg:grid-cols-2">
           <FeatureCard
             icon={<Sparkles className="h-6 w-6" />}
-            title="Correction assistée par l'IA"
-            subtitle="L'IA annote directement sur la copie"
+            title="Correction automatique des copies"
+            subtitle="Les annotations sont faites directement sur la copie"
             imageSrc="/tab2.png"
             imageAlt="Aperçu d'une copie annotée par l'IA"
             benefits={correctionBenefits}
           />
           <FeatureCard
             icon={<BarChart3 className="h-6 w-6" />}
-            title="Suivi des élèves"
-            subtitle="Historique, tendances, alertes"
+            title="Suivi des notes et des copies"
+            subtitle="Historique"
             imageSrc="/tab.png"
             imageAlt="Tableau de suivi des élèves"
             benefits={studentBenefits}

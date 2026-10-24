@@ -1,10 +1,9 @@
-import { BarChart3, BookOpen, TrendingUp, UsersRound } from 'lucide-react'
+import { BarChart3, BookOpen, UsersRound } from 'lucide-react'
 
 const trackingItems = [
-  { label: 'Historique complet des copies pour chaque élève', icon: BookOpen },
-  { label: "Tendances visibles : l'élève progresse-t-il ?", icon: TrendingUp },
-  { label: 'Identification immédiate des élèves en difficulté', icon: UsersRound },
-  { label: 'Vue par classe ou par matière, tout centralisé', icon: BarChart3 },
+  { label: 'Historique des copies et des notes par élève', icon: BookOpen },
+  { label: 'Repérage rapide des élèves en difficulté', icon: UsersRound },
+  { label: 'Vue centralisée par nom ou classe', icon: BarChart3 },
 ]
 
 export function StudentTrackingSection() {
@@ -14,10 +13,10 @@ export function StudentTrackingSection() {
         <div>
           <p className="text-xs font-black uppercase tracking-[0.32em] text-[#5f9674]">Suivi des élèves</p>
           <h2 className="mt-7 max-w-2xl text-4xl font-black leading-tight tracking-[-0.055em] text-[#385f49] sm:text-5xl">
-            Gardez un œil sur <span className="text-[#5f9674]">chaque élève</span>, sans effort supplémentaire
+            Suivez les copies et <span className="text-[#5f9674]">les notes</span> de chaque élève sur une seule plateforme.
           </h2>
           <p className="mt-8 max-w-2xl text-lg leading-8 text-[#7d987f]">
-            TeachAndCorrect centralise l'historique des copies et des notes de toute votre classe. En un coup d'œil, identifiez qui progresse et qui mérite davantage d'attention.
+            TeachAndCorrect centralise les copies et les notes de vos élèves. En un coup d'œil, repérez les progrès, observez les tendances et identifiez les élèves qui ont besoin de davantage d'attention.
           </p>
 
           <ul className="mt-10 space-y-4">

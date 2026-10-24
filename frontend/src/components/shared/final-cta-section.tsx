@@ -57,7 +57,7 @@ export function FinalCtaSection({ onOpenDemo, onOpenSignup }: FinalCtaSectionPro
 
           <div className="mt-9 flex flex-col gap-4 sm:flex-row">
             <Button onClick={onOpenSignup} className="h-14 rounded-xl bg-[#d3634d] px-8 text-base text-white shadow-none hover:bg-[#c95540]">
-              Essayer gratuitement
+              Essayer maintenant
             </Button>
             <Button variant="outline" onClick={onOpenDemo} className="h-14 rounded-xl border-[#dfe7df] bg-white px-8 text-base text-[#385f49] shadow-none hover:bg-white">
               Voir une démo

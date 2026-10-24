@@ -3,29 +3,29 @@ import { useState } from 'react'
 
 const questions = [
   {
-    question: "L'IA attribue-t-elle automatiquement la note ?",
+    question: 'Les copies manuscrites sont-elles prises en charge ?',
     answer:
-      "Non. L'IA propose une correction et une note indicative, mais c'est toujours l'enseignant qui valide ou modifie le résultat avant de le restituer à l'élève. Vous gardez le contrôle total.",
+      "Oui, la plateforme est pensée pour traiter aussi bien des copies manuscrites que des fichiers numériques, à partir d'une photo ou d'un document importé.",
   },
   {
-    question: 'Quels types de copies peuvent être importés ?',
+    question: 'Puis-je modifier la correction proposée ?',
     answer:
-      "Vous pouvez importer des copies scannées (PDF, JPG, PNG) ou des fichiers numériques (Word, PDF). L'outil prend en charge les copies manuscrites grâce à la reconnaissance d'écriture.",
+      'Oui. Les annotations, commentaires et éléments de correction peuvent être ajustés avant la validation de la correction.',
   },
   {
-    question: 'Les données des élèves sont-elles conservées ?',
+    question: 'Dois-je installer un logiciel ?',
     answer:
-      'Les données sont chiffrées et hébergées en Europe (RGPD). Elles ne sont jamais revendues ni utilisées pour entraîner des modèles tiers. Vous pouvez supprimer vos données à tout moment.',
+      'Non. TeachAndCorrect est accessible depuis un navigateur, sur ordinateur ou téléphone.',
   },
   {
-    question: "Puis-je modifier la correction proposée ?",
+    question: 'Puis-je utiliser TeachAndCorrect avec une classe entière ?',
     answer:
-      "Absolument. Chaque annotation, commentaire et note proposée est modifiable avant restitution. L'IA est un assistant, pas un décideur.",
+      "Oui. La plateforme est conçue pour centraliser plusieurs élèves, copies et résultats, afin de faciliter le suivi d'une classe dans le temps.",
   },
   {
-    question: "TeachAndCorrect remplace-t-il la correction de l'enseignant ?",
+    question: 'Quelles données sur les élèves sont utilisées ?',
     answer:
-      "Non. L'outil amplifie votre jugement pédagogique — il accélère le travail répétitif pour vous laisser plus de temps pour le retour qualitatif. La décision finale reste toujours la vôtre.",
+      'TeachAndCorrect utilise uniquement les informations nécessaires au suivi des élèves et de leurs copies, notamment leur nom, leur prénom, leur classe et les notes associées.',
   },
 ]
 

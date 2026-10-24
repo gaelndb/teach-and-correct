@@ -43,7 +43,7 @@ export function LandingFooter({ onOpenContact }: LandingFooterProps) {
           <div>
             <BrandLogo />
             <p className="mt-5 max-w-xs text-base leading-8 text-white/45">
-              Correction de copies assistée par IA pour les enseignants.
+              Plateforme de correction de copies d'élèves pour les enseignants.
             </p>
           </div>
 

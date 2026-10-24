@@ -2,27 +2,27 @@ import { PenLine, Send, Sparkles, Upload } from 'lucide-react'
 
 const steps = [
   {
-    title: 'Importez',
-    description: 'Déposez un scan, une photo ou un fichier numérique. Tous les formats courants sont acceptés.',
-    badge: 'PDF · JPG · PNG · Word',
+    title: 'Importez la copie',
+    description: 'Prenez une photo avec votre téléphone ou importez un fichier depuis votre ordinateur.',
+    badge: 'JPG · PNG · WEBP · PDF',
     icon: Upload,
   },
   {
-    title: "L'IA analyse",
-    description: 'La copie est lue, annotée et une note indicative est proposée en quelques secondes.',
+    title: 'La copie est analysée',
+    description: 'TeachAndCorrect lit le contenu, identifie les réponses et prépare automatiquement la correction.',
     badge: 'Manuscrit & numérique',
     icon: Sparkles,
   },
   {
-    title: 'Vous validez',
-    description: 'Relisez chaque annotation, ajustez librement selon votre jugement pédagogique.',
-    badge: 'Contrôle total',
+    title: 'La correction est générée',
+    description: 'Les annotations, remarques et éléments de correction sont générés à partir de la copie.',
+    badge: 'Correction automatique',
     icon: PenLine,
   },
   {
-    title: 'Restituez',
-    description: "L'élève reçoit un retour clair et structuré, prêt à être transmis.",
-    badge: 'Retour personnalisé',
+    title: 'Récupérez la copie corrigée',
+    description: "Vous obtenez une copie corrigée, prête à être consultée ou restituée à l'élève.",
+    badge: 'Prête à être restituée',
     icon: Send,
   },
 ]
@@ -33,9 +33,11 @@ export function ProcessSection() {
       <div className="mx-auto max-w-7xl text-center">
         <p className="text-xs font-black uppercase tracking-[0.32em] text-[#5f9674]">Fonctionnement</p>
         <h2 className="mt-7 text-4xl font-black tracking-[-0.045em] text-[#385f49] sm:text-5xl">
-          Une copie corrigée en <span className="text-[#d3634d]">4 étapes</span>
+          Comment fonctionne TeachAndCorrect ?
         </h2>
-        <p className="mt-7 text-lg text-[#7d987f]">De l'import à la restitution, le processus est simple et rapide.</p>
+        <p className="mt-7 text-lg text-[#7d987f]">
+          Importez une copie, laissez la plateforme l'analyser et récupérez une copie corrigée, prête à être restituée.
+        </p>
 
         <div className="relative mt-20 grid gap-12 md:grid-cols-4">
           <div className="absolute left-[12%] right-[12%] top-11 hidden h-px bg-[#d8e5dc] md:block" />
