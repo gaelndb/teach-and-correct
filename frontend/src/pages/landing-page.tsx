@@ -5,7 +5,6 @@ import { LandingFooter } from '@/components/landing/landing-footer'
 import { LandingHeader } from '@/components/landing/landing-header'
 import { ProcessSection } from '@/components/landing/process-section'
 import { StudentTrackingSection } from '@/components/landing/student-tracking-section'
-import { VideoPlayerSection } from '@/components/landing/video-player-section'
 import { FaqSection } from '@/components/shared/faq-section'
 
 type LandingPageProps = {
@@ -48,7 +47,6 @@ export function LandingPage({
       <ProcessSection />
       <BenefitsSection />
       <StudentTrackingSection />
-      <VideoPlayerSection />
       <FaqSection />
       <LandingFooter onOpenContact={openContactPage} />
     </main>

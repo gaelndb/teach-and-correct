@@ -10,7 +10,7 @@ function AppContent() {
     navigate('/')
 
     requestAnimationFrame(() => {
-      document.querySelector('#demo')?.scrollIntoView({ behavior: 'smooth' })
+      document.querySelector('#fonctionnement')?.scrollIntoView({ behavior: 'smooth' })
     })
   }
 
