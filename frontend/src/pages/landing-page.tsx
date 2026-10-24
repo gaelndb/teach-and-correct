@@ -7,7 +7,6 @@ import { ProcessSection } from '@/components/landing/process-section'
 import { StudentTrackingSection } from '@/components/landing/student-tracking-section'
 import { VideoPlayerSection } from '@/components/landing/video-player-section'
 import { FaqSection } from '@/components/shared/faq-section'
-import { FinalCtaSection } from '@/components/shared/final-cta-section'
 
 type LandingPageProps = {
   onClearAuthError: () => void
@@ -37,10 +36,6 @@ export function LandingPage({
     onOpenContactPage()
   }
 
-  function openDemoSection() {
-    document.querySelector('#demo')?.scrollIntoView({ behavior: 'smooth' })
-  }
-
   return (
     <main className="min-h-screen bg-[#fbfaf6]">
       <LandingHeader
@@ -55,7 +50,6 @@ export function LandingPage({
       <StudentTrackingSection />
       <VideoPlayerSection />
       <FaqSection />
-      <FinalCtaSection onOpenDemo={openDemoSection} onOpenSignup={openSignupPage} />
       <LandingFooter onOpenContact={openContactPage} />
     </main>
   )
