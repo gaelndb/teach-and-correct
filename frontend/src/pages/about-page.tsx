@@ -2,6 +2,7 @@ import type React from 'react'
 
 import { LandingFooter } from '@/components/landing/landing-footer'
 import { LandingHeader } from '@/components/landing/landing-header'
+import { Seo } from '@/components/shared/seo'
 
 type AboutPageProps = {
   onOpenContact: () => void
@@ -19,7 +20,16 @@ export function AboutPage({
   onOpenSignup,
 }: AboutPageProps) {
   return (
-    <main className="min-h-screen bg-[#fbfaf6]">
+    <>
+      <Seo
+        title="À propos de TeachAndCorrect | Correction automatique de copies d'élèves"
+        description="Découvrez TeachAndCorrect, une plateforme de correction automatique de copies d'élèves pour aider les enseignants à corriger plus rapidement."
+        canonical="https://www.teachandcorrect.fr/a-propos"
+        ogTitle="À propos de TeachAndCorrect"
+        ogDescription="Découvrez TeachAndCorrect, une plateforme de correction automatique de copies d'élèves pensée pour les enseignants."
+        ogUrl="https://www.teachandcorrect.fr/a-propos"
+      />
+      <main className="min-h-screen bg-[#fbfaf6]">
       <LandingHeader
         onOpenContact={onOpenContact}
         onOpenLanding={onOpenLanding}
@@ -87,8 +97,9 @@ export function AboutPage({
         </AboutSection>
       </div>
 
-      <LandingFooter onOpenContact={onOpenContact} onOpenSection={onOpenLandingSection} />
-    </main>
+        <LandingFooter onOpenContact={onOpenContact} onOpenSection={onOpenLandingSection} />
+      </main>
+    </>
   )
 }
 
