@@ -27,13 +27,8 @@ export function LoginSidePanel({ onOpenLanding }: LoginSidePanelProps) {
       </button>
 
       <div className="max-w-md">
-        <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold text-white/85">
-          <span className="h-2 w-2 rounded-full bg-[#d3634d]" />
-          Content de vous revoir
-        </div>
-
-        <h1 className="mt-8 text-4xl font-black leading-[1.05] tracking-[-0.06em] xl:text-5xl">
-          Vos copies vous <span className="text-[#d3634d]">attendent.</span>
+        <h1 className="text-4xl font-black leading-[1.05] tracking-[-0.06em] xl:text-5xl">
+          Consultez vos <span className="text-[#d3634d]">copies.</span>
         </h1>
 
         <p className="mt-8 text-lg leading-8 text-white/65 xl:text-xl xl:leading-9">

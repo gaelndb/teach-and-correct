@@ -37,7 +37,7 @@ describe('Route rendering', () => {
     render(<App />)
 
     expect(
-      screen.getByRole('heading', { name: /Corrigez vos copies/i }),
+      screen.getByRole('heading', { name: /Corrigez les copies d'élèves/i }),
     ).toBeInTheDocument()
   })
 
@@ -141,7 +141,7 @@ describe('Public navigation', () => {
     render(<App />)
 
     expect(
-      screen.getByRole('heading', { name: /Corrigez vos copies/i }),
+      screen.getByRole('heading', { name: /Corrigez les copies d'élèves/i }),
     ).toBeInTheDocument()
 
     await user.click(
@@ -162,11 +162,11 @@ describe('Public navigation', () => {
     render(<App />)
 
     expect(
-      screen.getByRole('heading', { name: /Corrigez vos copies/i }),
+      screen.getByRole('heading', { name: /Corrigez les copies d'élèves/i }),
     ).toBeInTheDocument()
 
     await user.click(
-      screen.getByRole('link', { name: /^Essayer gratuitement$/i }),
+      screen.getByRole('link', { name: /^Essayer maintenant$/i }),
     )
 
     expect(window.location.pathname).toBe('/signup')
@@ -183,7 +183,7 @@ describe('Public navigation', () => {
     render(<App />)
 
     expect(
-      screen.getByRole('heading', { name: /Corrigez vos copies/i }),
+      screen.getByRole('heading', { name: /Corrigez les copies d'élèves/i }),
     ).toBeInTheDocument()
 
     const navigation = screen.getByRole('navigation')
@@ -206,7 +206,7 @@ describe('Public navigation', () => {
     render(<App />)
 
     expect(
-      screen.getByRole('heading', { name: /Corrigez vos copies/i }),
+      screen.getByRole('heading', { name: /Corrigez les copies d'élèves/i }),
     ).toBeInTheDocument()
 
     const navigation = screen.getByRole('navigation')
@@ -222,7 +222,7 @@ describe('Public navigation', () => {
     await waitFor(() => {
       expect(window.location.pathname).toBe('/')
       expect(
-        screen.getByRole('heading', { name: /Corrigez vos copies/i }),
+        screen.getByRole('heading', { name: /Corrigez les copies d'élèves/i }),
       ).toBeInTheDocument()
     })
 

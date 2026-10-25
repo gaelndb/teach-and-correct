@@ -3,22 +3,31 @@ import { ContactInfoCard } from '@/components/contact/contact-info-card'
 import { LandingFooter } from '@/components/landing/landing-footer'
 import { LandingHeader } from '@/components/landing/landing-header'
 import { FaqSection } from '@/components/shared/faq-section'
-import { FinalCtaSection } from '@/components/shared/final-cta-section'
 
 type ContactPageProps = {
   onOpenContact: () => void
-  onOpenDemo: () => void
   onOpenLanding: () => void
+  onOpenLandingSection: (sectionId: string) => void
   onOpenLogin: () => void
   onOpenSignup: () => void
 }
 
-export function ContactPage({ onOpenContact, onOpenDemo, onOpenLanding, onOpenLogin, onOpenSignup }: ContactPageProps) {
+export function ContactPage({ onOpenContact, onOpenLanding, onOpenLandingSection, onOpenLogin, onOpenSignup }: ContactPageProps) {
+  function openSection(sectionId: string) {
+    if (sectionId === '#faq') {
+      document.querySelector(sectionId)?.scrollIntoView({ behavior: 'smooth' })
+      return
+    }
+
+    onOpenLandingSection(sectionId)
+  }
+
   return (
     <main className="min-h-screen bg-[#fbfaf6]">
       <LandingHeader
         onOpenContact={onOpenContact}
         onOpenLanding={onOpenLanding}
+        onOpenSection={openSection}
         onOpenLogin={onOpenLogin}
         onOpenSignup={onOpenSignup}
       />
@@ -30,7 +39,7 @@ export function ContactPage({ onOpenContact, onOpenDemo, onOpenLanding, onOpenLo
             Une question ? Écrivons-nous.
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-[#7d987f]">
-            Notre équipe répond à toutes vos questions sur l'outil, les tarifs ou la mise en place dans votre établissement.
+            Nous répondons à toutes vos questions.
           </p>
         </div>
 
@@ -41,8 +50,7 @@ export function ContactPage({ onOpenContact, onOpenDemo, onOpenLanding, onOpenLo
       </section>
 
       <FaqSection />
-      <FinalCtaSection onOpenDemo={onOpenDemo} onOpenSignup={onOpenSignup} />
-      <LandingFooter onOpenContact={onOpenContact} />
+      <LandingFooter onOpenContact={onOpenContact} onOpenSection={openSection} />
     </main>
   )
 }

@@ -1,5 +1,3 @@
-import { Link } from 'react-router-dom'
-
 import { Button } from '@/components/ui/button'
 import { BrandLogo } from '@/components/landing/brand-logo'
 
@@ -11,11 +9,12 @@ const navigationItems = [
 type LandingHeaderProps = {
   onOpenContact: () => void
   onOpenLanding?: () => void
+  onOpenSection: (sectionId: string) => void
   onOpenSignup: () => void
   onOpenLogin: () => void
 }
 
-export function LandingHeader({ onOpenContact, onOpenLanding, onOpenSignup, onOpenLogin }: LandingHeaderProps) {
+export function LandingHeader({ onOpenContact, onOpenLanding, onOpenSection, onOpenSignup, onOpenLogin }: LandingHeaderProps) {
   return (
     <header className="fixed inset-x-0 top-0 z-50 bg-[#385f49]">
       <div className="mx-auto flex h-24 w-full max-w-7xl items-center justify-between px-6 lg:px-8">
@@ -25,9 +24,14 @@ export function LandingHeader({ onOpenContact, onOpenLanding, onOpenSignup, onOp
 
         <nav className="hidden items-center gap-12 text-lg font-semibold text-white/65 md:flex">
           {navigationItems.map((item) => (
-            <a key={item.href} href={item.href} className="transition-colors hover:text-white">
+            <button
+              key={item.href}
+              type="button"
+              onClick={() => onOpenSection(item.href)}
+              className="transition-colors hover:text-white"
+            >
               {item.label}
-            </a>
+            </button>
           ))}
           <button type="button" onClick={onOpenContact} className="transition-colors hover:text-white">
             Contact
@@ -36,18 +40,18 @@ export function LandingHeader({ onOpenContact, onOpenLanding, onOpenSignup, onOp
 
         <div className="hidden items-center gap-3 sm:flex">
           <Button
-            asChild
             size="sm"
+            onClick={onOpenLogin}
             className="h-12 rounded-lg bg-[#5f9674] px-7 text-base text-white shadow-none hover:bg-[#6aa680]"
           >
-            <Link to="/login" onClick={onOpenLogin}>Connexion</Link>
+            Connexion
           </Button>
           <Button
-            asChild
             size="sm"
+            onClick={onOpenSignup}
             className="h-12 rounded-lg bg-[#d3634d] px-7 text-base text-white shadow-none hover:bg-[#c95540]"
           >
-            <Link to="/signup" onClick={onOpenSignup}>Essayer gratuitement</Link>
+            Essayer maintenant
           </Button>
         </div>
       </div>

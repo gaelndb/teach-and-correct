@@ -1,8 +1,11 @@
+import { Link } from 'react-router-dom'
+
 import { BrandLogo } from '@/components/landing/brand-logo'
 
 type FooterLink = {
   label: string
   href?: string
+  to?: string
   action?: 'contact'
 }
 
@@ -18,7 +21,7 @@ const footerColumns: Array<{ title: string; links: FooterLink[] }> = [
   {
     title: 'À propos',
     links: [
-      { label: 'À propos du projet', href: '#accueil' },
+      { label: 'À propos du projet', to: '/a-propos' },
       { label: 'Contact', action: 'contact' },
     ],
   },
@@ -33,9 +36,10 @@ const footerColumns: Array<{ title: string; links: FooterLink[] }> = [
 
 type LandingFooterProps = {
   onOpenContact: () => void
+  onOpenSection: (sectionId: string) => void
 }
 
-export function LandingFooter({ onOpenContact }: LandingFooterProps) {
+export function LandingFooter({ onOpenContact, onOpenSection }: LandingFooterProps) {
   return (
     <footer className="bg-[#385f49] px-6 py-16 text-white">
       <div className="mx-auto max-w-7xl">
@@ -43,7 +47,7 @@ export function LandingFooter({ onOpenContact }: LandingFooterProps) {
           <div>
             <BrandLogo />
             <p className="mt-5 max-w-xs text-base leading-8 text-white/45">
-              Correction de copies assistée par IA pour les enseignants.
+              Plateforme de correction de copies d'élèves pour les enseignants.
             </p>
           </div>
 
@@ -53,12 +57,32 @@ export function LandingFooter({ onOpenContact }: LandingFooterProps) {
               <ul className="mt-6 space-y-4 text-white/45">
                 {column.links.map((link) => (
                   <li key={link.label}>
-                    {link.action === 'contact' ? (
+                    {link.to ? (
+                      <Link
+                        to={link.to}
+                        onClick={() => {
+                          window.requestAnimationFrame(() => {
+                            window.requestAnimationFrame(() => {
+                              window.scrollTo({ top: 0, behavior: 'smooth' })
+                            })
+                          })
+                        }}
+                        className="transition hover:text-white"
+                      >
+                        {link.label}
+                      </Link>
+                    ) : link.action === 'contact' ? (
                       <button type="button" onClick={onOpenContact} className="transition hover:text-white">
                         {link.label}
                       </button>
                     ) : (
-                      <a href={link.href} className="transition hover:text-white">{link.label}</a>
+                      <button
+                        type="button"
+                        onClick={() => onOpenSection(link.href ?? '#accueil')}
+                        className="transition hover:text-white"
+                      >
+                        {link.label}
+                      </button>
                     )}
                   </li>
                 ))}
