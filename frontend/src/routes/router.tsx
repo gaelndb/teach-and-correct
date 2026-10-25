@@ -5,6 +5,7 @@ import { ImportCopiesScreen } from '@/components/dashboard/import/import-copies-
 import { StudentScreen } from '@/components/dashboard/students/student-screen'
 import { useAuth } from '@/contexts/AuthContext'
 import { ProtectedRoute } from '@/routes/ProtectedRoute'
+import { AboutPage } from '@/pages/about-page'
 import { ContactPage } from '@/pages/contact-page'
 import { DashboardPage } from '@/pages/dashboard-page'
 import { LandingPage } from '@/pages/landing-page'
@@ -76,6 +77,18 @@ export function AppRoutes() {
             onOpenLandingSection={openLandingSection}
             onOpenLogin={openLogin}
             onOpenSignup={openSignup}
+      <Route
+        path="/a-propos"
+        element={(
+          <AboutPage
+            onOpenContact={openContact}
+            onOpenLanding={openLanding}
+            onOpenLandingSection={openLandingSection}
+            onOpenLogin={openLogin}
+            onOpenSignup={openSignup}
+          />
+        )}
+      />
           />
         )}
       />

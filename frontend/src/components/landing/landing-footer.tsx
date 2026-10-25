@@ -1,8 +1,11 @@
+import { Link } from 'react-router-dom'
+
 import { BrandLogo } from '@/components/landing/brand-logo'
 
 type FooterLink = {
   label: string
   href?: string
+  to?: string
   action?: 'contact'
 }
 
@@ -18,7 +21,7 @@ const footerColumns: Array<{ title: string; links: FooterLink[] }> = [
   {
     title: 'À propos',
     links: [
-      { label: 'À propos du projet', href: '#accueil' },
+      { label: 'À propos du projet', to: '/a-propos' },
       { label: 'Contact', action: 'contact' },
     ],
   },
@@ -54,7 +57,21 @@ export function LandingFooter({ onOpenContact, onOpenSection }: LandingFooterPro
               <ul className="mt-6 space-y-4 text-white/45">
                 {column.links.map((link) => (
                   <li key={link.label}>
-                    {link.action === 'contact' ? (
+                    {link.to ? (
+                      <Link
+                        to={link.to}
+                        onClick={() => {
+                          window.requestAnimationFrame(() => {
+                            window.requestAnimationFrame(() => {
+                              window.scrollTo({ top: 0, behavior: 'smooth' })
+                            })
+                          })
+                        }}
+                        className="transition hover:text-white"
+                      >
+                        {link.label}
+                      </Link>
+                    ) : link.action === 'contact' ? (
                       <button type="button" onClick={onOpenContact} className="transition hover:text-white">
                         {link.label}
                       </button>
