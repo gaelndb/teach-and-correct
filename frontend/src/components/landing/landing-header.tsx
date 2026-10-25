@@ -1,5 +1,3 @@
-import { Link } from 'react-router-dom'
-
 import { Button } from '@/components/ui/button'
 import { BrandLogo } from '@/components/landing/brand-logo'
 
@@ -42,18 +40,18 @@ export function LandingHeader({ onOpenContact, onOpenLanding, onOpenSection, onO
 
         <div className="hidden items-center gap-3 sm:flex">
           <Button
-            asChild
             size="sm"
+            onClick={onOpenLogin}
             className="h-12 rounded-lg bg-[#5f9674] px-7 text-base text-white shadow-none hover:bg-[#6aa680]"
           >
-            <Link to="/login" onClick={onOpenLogin}>Connexion</Link>
+            Connexion
           </Button>
           <Button
-            asChild
             size="sm"
+            onClick={onOpenSignup}
             className="h-12 rounded-lg bg-[#d3634d] px-7 text-base text-white shadow-none hover:bg-[#c95540]"
           >
-            <Link to="/signup" onClick={onOpenSignup}>Essayer maintenant</Link>
+            Essayer maintenant
           </Button>
         </div>
       </div>

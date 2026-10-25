@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes, useNavigate } from 'react-router-dom'
+import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 
 import { CopiesScreen } from '@/components/dashboard/copies/copies-screen'
 import { ImportCopiesScreen } from '@/components/dashboard/import/import-copies-screen'
@@ -14,6 +14,7 @@ import { NotFoundPage } from '@/pages/not-found-page'
 import { SignupPage } from '@/pages/signup-page'
 
 export function AppRoutes() {
+  const location = useLocation()
   const navigate = useNavigate()
   const { clearAuthError } = useAuth()
 
@@ -24,12 +25,20 @@ export function AppRoutes() {
 
   function openLogin() {
     clearAuthError()
-    navigate('/login')
+    navigate('/login', { state: { from: `${location.pathname}${location.search}${location.hash}` } })
   }
 
   function openSignup() {
     clearAuthError()
-    navigate('/signup')
+    navigate('/signup', { state: { from: `${location.pathname}${location.search}${location.hash}` } })
+  }
+
+  function returnFromAuth() {
+    clearAuthError()
+
+    const navigationState = location.state as { from?: unknown } | null
+    const previousPath = typeof navigationState?.from === 'string' ? navigationState.from : '/'
+    navigate(previousPath)
   }
 
   function openContact() {
@@ -69,15 +78,6 @@ export function AppRoutes() {
         )}
       />
       <Route
-        path="/contact"
-        element={(
-          <ContactPage
-            onOpenContact={openContact}
-            onOpenLanding={openLanding}
-            onOpenLandingSection={openLandingSection}
-            onOpenLogin={openLogin}
-            onOpenSignup={openSignup}
-      <Route
         path="/a-propos"
         element={(
           <AboutPage
@@ -89,6 +89,15 @@ export function AppRoutes() {
           />
         )}
       />
+      <Route
+        path="/contact"
+        element={(
+          <ContactPage
+            onOpenContact={openContact}
+            onOpenLanding={openLanding}
+            onOpenLandingSection={openLandingSection}
+            onOpenLogin={openLogin}
+            onOpenSignup={openSignup}
           />
         )}
       />
@@ -97,7 +106,7 @@ export function AppRoutes() {
         element={(
           <ProtectedRoute type="public">
             <LoginPage
-              onBackToLanding={openLanding}
+              onBackToLanding={returnFromAuth}
               onOpenSignup={openSignup}
             />
           </ProtectedRoute>
@@ -108,7 +117,7 @@ export function AppRoutes() {
         element={(
           <ProtectedRoute type="public">
             <SignupPage
-              onBackToLanding={openLanding}
+              onBackToLanding={returnFromAuth}
               onOpenLogin={openLogin}
             />
           </ProtectedRoute>
